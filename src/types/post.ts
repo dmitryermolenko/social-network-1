@@ -1,4 +1,4 @@
-import ITag from './tag';
+import ITag, { ICreateTag } from './tag';
 import IMedia from './media';
 import IComment from './comment';
 
@@ -28,7 +28,6 @@ export interface ICreatePost {
     commentAmount: number,
     likeAmount: number,
     shareAmount: number,
-    persistDate: string,
     title: string,
     text: string,
     tags?: ITag[],

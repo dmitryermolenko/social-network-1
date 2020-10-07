@@ -16,7 +16,7 @@ export async function getAllCommentsByPost(id:number): Promise<AxiosResponse<ICo
 }
 
 export async function createNewPost(data: ICreatePost): Promise<AxiosResponse<string>> {
-  return axios.post('/create', data);
+  return axios.post('/add', data);
 }
 
 export async function deletePost(id: number) {

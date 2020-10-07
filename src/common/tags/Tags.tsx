@@ -1,16 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import React, { useState, useCallback } from 'react';
+import { TagsContainer, Input } from './style';
+import Tag from './Tag';
 
 interface ITags {
+    deleteTag: (index: number) => void;
     setTags: (tags: string[]) => void;
     tags: string[];
 }
 
-const Tags: React.FC<ITags> = ({ setTags, tags }) => {
+const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
   const [value, setValue] = useState('');
-  const renderTags = useCallback(() => tags.map((tagText) => <div>{tagText}</div>), [tags]);
+  const renderTags = useCallback(() => tags.map((tagText, index) => (
+    <Tag
+      key={tagText}
+      deleteTag={() => deleteTag(index)}
+    >
+      {tagText}
+    </Tag>
+  )), [deleteTag, tags]);
   const onSubmit = useCallback((event: React.FormEvent) => {
     event.preventDefault();
     setTags([...tags, value]);
+    setValue('');
   }, [setTags, value, tags]);
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const innerValue = event.target.value !== undefined
@@ -19,10 +31,12 @@ const Tags: React.FC<ITags> = ({ setTags, tags }) => {
     setValue(innerValue);
   }, [setValue]);
   return (
-    <form onSubmit={onSubmit}>
-      {renderTags()}
-      <input type="text" value={value} onChange={onChange} />
-    </form>
+    <label htmlFor="input">
+      <TagsContainer onSubmit={onSubmit} onBlur={onSubmit}>
+        {renderTags()}
+        <Input id="input" type="text" value={value} onChange={onChange} />
+      </TagsContainer>
+    </label>
   );
 };
 
