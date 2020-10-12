@@ -182,6 +182,7 @@
   display: flex;
   flex-direction: row;
   padding-right: 35px;
+  position: relative;
 
   img {
     object-fit: cover;
@@ -189,5 +190,18 @@
     width: 60px;
     height: 60px;
     cursor: pointer;
-  }
+  }  
+}
+
+.nameUser {
+  position: absolute;
+    top: 57px;
+    left: 10px;
+    color: black;
+}
+.nameUserMy {
+  position: absolute;
+    top: 57px;
+    left: 130px;
+    color: black;
 }

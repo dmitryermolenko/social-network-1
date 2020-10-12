@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
-import { Ichat } from '../../types/chat';
+import io from 'socket.io-client';
+import { uniqueId } from 'lodash';
+import { Ichat, IsingleChat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../img/icons/chat-more-options.svg';
 import massagesClass from './Messages.module.scss';
@@ -21,6 +23,9 @@ import { onFilterChats, renderchatList, renderMessages } from './helpers';
 // } from '../../services/chat-controller';
 
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
+const socket = io.connect('https://evening-retreat-56550.herokuapp.com/');
+
+// const userRandom = Math.random();
 
 const mapStateToProps = (state:RootState) => {
   const { chats, currentChat } = state.chat;
@@ -46,6 +51,23 @@ const Messages: React.FC<Props> = ({
   user,
 }) => {
   const [filterChats, setFilterChats] = useState<Ichat[]>([]);
+  const [currentChatT, setCurrentChatT] = useState<IsingleChat[]>([]);
+  const [userName, setUserName] = useState<string | null>('');
+  socket.on('message', (message: any) => {
+    setCurrentChatT(message);
+  });
+
+  useEffect(() => {
+    if (sessionStorage.getItem('userName') === null) {
+      const username = prompt('Введите ваш ник для чата') || `user-${uniqueId()}`;
+      sessionStorage.setItem('userName', username);
+      setUserName(username);
+      socket.emit('update', '');
+    } else {
+      setUserName(sessionStorage.getItem('userName'));
+      socket.emit('update', '');
+    }
+  }, []);
 
   useEffect(() => {
     setFilterChats(chats.data);
@@ -93,12 +115,20 @@ const Messages: React.FC<Props> = ({
 
             <div className={massagesClass.messagesWrapper}>
               <ScrollBar scrollTop={9999} style={scrollBarStyles}>
-                {renderMessages(currentChat)}
+                {renderMessages(currentChatT, userName)}
               </ScrollBar>
             </div>
 
             <div>
-              <SubmitMessage onSubmitMessage={(mess) => console.log(mess)} />
+              <SubmitMessage onSubmitMessage={(mess) => socket.emit('message',
+                {
+                  persistDate: Date.now(),
+                  idMassage: Date.now(),
+                  message: mess,
+                  userSenderImage: 'https://img2.freepng.ru/20180331/tfe/kisspng-sticker-smiley-emoticon-stationery-smiley-5abf3186b00ad1.4357598215224794947211.jpg',
+                  username: userName,
+                })}
+              />
             </div>
           </div>
         </div>

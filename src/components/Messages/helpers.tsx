@@ -4,6 +4,7 @@ import MessagesChat from '../../common/chat/messages';
 import massagesClass from './Messages.module.scss';
 import LoadingBLock from '../../common/loadingBlock/LoadingBlock';
 import { Ichat, IsingleChat } from '../../types/chat';
+import Author from '../../common/modal-chat/message-author';
 
 type Chats = {
   data: Ichat[];
@@ -40,26 +41,23 @@ const renderchatList = (
   ));
 };
 
-const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] => {
-  if (currentChat.loading) return <LoadingBLock />;
-  if (currentChat.error) return <ErrorBlock />;
-  return currentChat.data.map((el) => {
-    if (el.username === 'bogdan13') {
+const renderMessages = (currentChat: IsingleChat[], username: string | null): any => (
+  currentChat.map((el) => {
+    if (el.username === username) {
       return (
         <div className={massagesClass.messageWrapper} key={el.idMassage}>
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
-          <img alt="avatar" src={el.userSenderImage} />
+          <Author img={el.userSenderImage} name={el.username} />
         </div>
       );
     }
     return (
       <div className={massagesClass.messageWrapper} key={el.idMassage}>
-        <img alt="avatar" src={el.userSenderImage} />
+        <Author img={el.userSenderImage} name={el.username} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>
     );
-  });
-};
+  }));
 
 const onFilterChats = (param: string, data: Ichat[]): Ichat[] => {
   if (param === '') return data;
