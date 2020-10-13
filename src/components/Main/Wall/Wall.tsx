@@ -20,6 +20,7 @@ import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
 import BlockNotes from '../Articles/blockNotes/BlockNotes';
 import UserAbout from '../UserAbout';
+import { ModalInput } from '../../../stories/modalInputLink.stories';
 
 const mapStateToProps = (state: RootState) => ({
   user: state.user.data,

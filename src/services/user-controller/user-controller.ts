@@ -1,5 +1,5 @@
 import axiosLib, { AxiosResponse } from 'axios';
-import { IUser, IUserFriend } from '../../types/user';
+import { IUser, IUserFriend, IUserStatusUpdate } from '../../types/user';
 import baseUrl from '../config';
 
 const axios = axiosLib.create();
@@ -28,4 +28,8 @@ export async function getFriendsByUserId(id: number) {
 
 export async function updateUser(data: IUser): Promise<AxiosResponse<IUser>> {
   return axios.put('/update', data);
+}
+
+export async function updateUserStatus(data: IUserStatusUpdate): Promise<AxiosResponse<IUser>> {
+  return axios.patch('/update/status', data);
 }

@@ -19,11 +19,17 @@ const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
       {tagText}
     </Tag>
   )), [deleteTag, tags]);
-  const onSubmit = useCallback((event: React.FormEvent) => {
+  const onBlur = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
     event.preventDefault();
+    event.stopPropagation();
     setTags([...tags, value]);
     setValue('');
   }, [setTags, value, tags]);
+  const onEnterKeyPress = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      onBlur(event as unknown as React.FocusEvent<HTMLDivElement>);
+    }
+  }, [onBlur]);
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const innerValue = event.target.value !== undefined
                     || event.target.value !== null
@@ -32,7 +38,7 @@ const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
   }, [setValue]);
   return (
     <label htmlFor="input">
-      <TagsContainer onSubmit={onSubmit} onBlur={onSubmit}>
+      <TagsContainer onBlur={onBlur} onKeyPress={onEnterKeyPress}>
         {renderTags()}
         <Input id="input" type="text" value={value} onChange={onChange} />
       </TagsContainer>

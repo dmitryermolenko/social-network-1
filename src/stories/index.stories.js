@@ -9,6 +9,7 @@ import Wall from '../components/Main/Wall';
 import WallCreateArticle from '../components/Main/WallCreateArticle';
 import MessagesPage from '../components/Messages/Messages';
 import { TagsComponent } from './tags.stories';
+import { ModalInput } from './modalInputLink.stories';
 
 storiesOf('Social network', module)
   .add('Страница авторизации', () => <Login />)
@@ -18,4 +19,5 @@ storiesOf('Social network', module)
   .add('Аватар', () => <UserInfoHeader />)
   .add('Стена', () => <Wall />)
   .add('Создание записи на стене', () => <WallCreateArticle />)
-  .add('Теги', () => <TagsComponent />);
+  .add('Теги', () => <TagsComponent />)
+  .add('Модалка для ввода ссылок', () => <ModalInput />);

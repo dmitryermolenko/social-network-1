@@ -34,7 +34,6 @@ interface IWallCreateArticle {
 
 const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
   const [isOpen, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const changeOpen = useCallback(
     () => setOpen(false),
@@ -69,10 +68,7 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
       </WallCreateArticleHeaderBlock>
       <ArticleForm
         isOpen={isOpen}
-        loading={loading}
         changeOpen={changeOpen}
-        setLoading={setLoading}
-        user={user}
       />
     </WallCreateArticleContainer>
   );

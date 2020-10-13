@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import * as React from 'react';
+import React, { useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../redux-toolkit/store';
@@ -9,22 +9,14 @@ import {
   UserInfoAvatar,
   UserInfoNameBlock,
   Avatar,
+  AddPhotoBlock,
   AddPhotoIcon,
   UserName,
   UserProfession,
   UserOnlineStatus,
   UserOnlineIcon,
 } from '../../../common/styledComponents';
-
-// export interface IUserInfoHeader {
-//   user: {
-//     firstName: string,
-//     lastName: string,
-//   //  profession: string,
-//   //  lastStatus: Date | string,
-//     avatar: string
-//   }
-// }
+import ModalLinkInput from '../../../common/modalLinkInput';
 
 const mapStateToProps = (state: RootState) => ({
   firstName: state.user.data?.firstName,
@@ -39,13 +31,22 @@ type Props = PropsFromRedux;
 
 /* TODO с onlineStatus и lastStatus */
 const UserInfoHeader : React.FC<Props> = ({ firstName = '', lastName = '', avatar = '' }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const onLinkSend = useCallback((link: string) => { alert(link); }, []);
   const profession = 'Программист на HTML';
   const lastStatus = 'online';
   return (
     <UserInfoHeaderContainer>
       <UserInfoAvatar>
         <Avatar img={avatar} />
-        <AddPhotoIcon img={addPhotoIcon} />
+        <AddPhotoBlock onClick={() => setIsOpen(true)}>
+          <AddPhotoIcon src={addPhotoIcon} alt="Изменить аватар" />
+        </AddPhotoBlock>
+        <ModalLinkInput
+          onLinkSend={onLinkSend}
+          visible={isOpen}
+          setUnvisible={() => setIsOpen(false)}
+        />
         { lastStatus === 'online' && <UserOnlineIcon />}
       </UserInfoAvatar>
       <UserInfoNameBlock>

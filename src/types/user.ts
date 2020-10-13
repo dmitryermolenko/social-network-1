@@ -21,3 +21,8 @@ export interface IUserFriend {
   id: number;
   userId: number;
 }
+
+export interface IUserStatusUpdate {
+  userId: number;
+  status: string;
+}

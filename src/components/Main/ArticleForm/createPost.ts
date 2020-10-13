@@ -34,7 +34,7 @@ export default async function createPost({
     title,
     text,
     tags: mappedTags || [],
-    media: [],
+    media: [{ userId: user.userId, mediaType: 'IMAGE', url: 'url' }],
   };
-  return createNewPost(post);
+  await createNewPost(post);
 }

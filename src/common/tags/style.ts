@@ -7,7 +7,7 @@ import {
 } from '../../colors.module';
 import add from './add.svg';
 
-export const TagsContainer = styled.form`
+export const TagsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     padding: 5px 10px;

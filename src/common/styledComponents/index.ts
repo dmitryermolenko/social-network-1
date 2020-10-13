@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mainColor } from '../../colors.module';
 import Iimg from '../../types/Iimg';
 
 export const bgColorBlack = '#111111';
@@ -122,16 +123,24 @@ box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
 }
 `;
 
-export const AddPhotoIcon = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+export const AddPhotoBlock = styled.button`
+display: flex;
 position: absolute;
-left: 230px;
-bottom: -28px;
-max-width: 110px;
-height: 110px;
-border-radius: 55px;
-&:hover {
-  cursor: pointer;
-}
+bottom: 0;
+right: 50%;
+display: flex;
+justify-content: center;
+padding-top: 5%;
+width:70px;
+height: 70px;
+border-radius: 50%;
+border: none;
+background-color: ${mainColor};
+box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+overflow: hidden;
+`;
+
+export const AddPhotoIcon = styled.img<{ src: string }>`
 `;
 
 export const UserName = styled.div`
