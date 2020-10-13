@@ -130,6 +130,11 @@ const TxtLink = styled.a`
   text-decoration: none;
 `;
 
+const InputError = styled.p`
+  color: red;
+  margin-left: 32px;
+`;
+
 const Login: React.FC = (): JSX.Element => {
   const [value, setValue] = useState(true);
   const [border, setBorder] = useState({
@@ -240,7 +245,7 @@ const Login: React.FC = (): JSX.Element => {
                 onChange={regForm.handleChange}
               />
               {regForm.errors.firstName && regForm.touched.firstName && (
-                <p style={{ color: 'red' }}>{regForm.errors.firstName}</p>
+                <InputError>{regForm.errors.firstName}</InputError>
               )}
               <SearchInpit
                 id="lastName"
@@ -250,7 +255,7 @@ const Login: React.FC = (): JSX.Element => {
                 onChange={regForm.handleChange}
               />
               {regForm.errors.lastName && regForm.touched.lastName && (
-                <p style={{ color: 'red' }}>{regForm.errors.lastName}</p>
+                <InputError>{regForm.errors.lastName}</InputError>
               )}
               <SearchInpit
                 id="email"
@@ -260,7 +265,7 @@ const Login: React.FC = (): JSX.Element => {
                 onChange={regForm.handleChange}
               />
               {regForm.errors.email && regForm.touched.email && (
-                <p style={{ color: 'red' }}>{regForm.errors.email}</p>
+                <InputError>{regForm.errors.email}</InputError>
               )}
               <SearchInpit
                 type="password"
@@ -271,7 +276,7 @@ const Login: React.FC = (): JSX.Element => {
                 onChange={regForm.handleChange}
               />
               {regForm.errors.password && regForm.touched.password && (
-                <p style={{ color: 'red' }}>{regForm.errors.password}</p>
+                <InputError>{regForm.errors.password}</InputError>
               )}
               <SearchInpit
                 type="password"
@@ -282,7 +287,7 @@ const Login: React.FC = (): JSX.Element => {
                 onChange={regForm.handleChange}
               />
               {regForm.errors.confirmPassword && regForm.touched.confirmPassword && (
-                <p style={{ color: 'red' }}>{regForm.errors.confirmPassword}</p>
+                <InputError>{regForm.errors.confirmPassword}</InputError>
               )}
             </InputsArea>
             <SubmitArea>
