@@ -109,7 +109,7 @@ const SubmitArea = styled.div`
     width: 100%;
     height: 60px;
     border-radius: 4px;
-    p {
+    span {
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -212,7 +212,7 @@ const Login: React.FC = (): JSX.Element => {
             </InputsArea>
             <SubmitArea>
               <button type="button">
-                <p>ВОЙТИ</p>
+                <span>ВОЙТИ</span>
               </button>
             </SubmitArea>
             <ForgetPasswordArea>
@@ -287,7 +287,7 @@ const Login: React.FC = (): JSX.Element => {
             </InputsArea>
             <SubmitArea>
               <button type="submit">
-                <p>ЗАРЕГИСТРИРОВАТЬСЯ</p>
+                <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
               </button>
             </SubmitArea>
           </FormArea>
