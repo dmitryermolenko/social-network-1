@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import Author from '../message-author';
 import Messages from '../../chat/messages';
-import SubmitMessage from '../../chat/submit-message';
+import SubmitMessage from '../../chat/Submitmessage/SubmitMessage';
 import { dataMassages1 } from '../../../services/chat-controller/testFetch';
 
 import {
@@ -48,7 +48,7 @@ const ModalChat: React.FC = () => {
           <ScrollBar style={scrollBarStyles}>{renderMessages()}</ScrollBar>
         </Content>
         <SubmitMessageWrap>
-          <SubmitMessage />
+          <SubmitMessage onSubmitMessage={(mess) => console.log(mess)} />
         </SubmitMessageWrap>
       </ContentWrapper>
       <ModalChatOpen onClick={switchModalStatus} isOpen={isOpen} />
