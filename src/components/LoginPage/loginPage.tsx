@@ -133,7 +133,14 @@ const TxtLink = styled.a`
 const InputError = styled.p`
   color: red;
   margin-left: 32px;
+  margin-bottom: 0;
+  transition: all 0.5s ease;
 `;
+
+const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties => ({
+  opacity: (isVisible ? 1 : 0),
+  height: (isVisible ? '1em' : 0),
+});
 
 const Login: React.FC = (): JSX.Element => {
   const [value, setValue] = useState(true);
@@ -244,9 +251,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.firstName}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.firstName && regForm.touched.firstName && (
-                <InputError>{regForm.errors.firstName}</InputError>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.firstName && regForm.touched.firstName) as boolean,
+                )}
+              >
+                {regForm.errors.firstName}
+              </InputError>
               <SearchInpit
                 id="lastName"
                 name="lastName"
@@ -254,9 +265,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.lastName}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.lastName && regForm.touched.lastName && (
-                <InputError>{regForm.errors.lastName}</InputError>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.lastName && regForm.touched.lastName) as boolean,
+                )}
+              >
+                {regForm.errors.lastName}
+              </InputError>
               <SearchInpit
                 id="email"
                 name="email"
@@ -264,9 +279,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.email}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.email && regForm.touched.email && (
-                <InputError>{regForm.errors.email}</InputError>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.email && regForm.touched.email) as boolean,
+                )}
+              >
+                {regForm.errors.email}
+              </InputError>
               <SearchInpit
                 type="password"
                 id="password"
@@ -275,9 +294,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.password}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.password && regForm.touched.password && (
-                <InputError>{regForm.errors.password}</InputError>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.password && regForm.touched.password) as boolean,
+                )}
+              >
+                {regForm.errors.password}
+              </InputError>
               <SearchInpit
                 type="password"
                 id="confirmPassword"
@@ -286,9 +309,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.confirmPassword}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.confirmPassword && regForm.touched.confirmPassword && (
-                <InputError>{regForm.errors.confirmPassword}</InputError>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.confirmPassword && regForm.touched.confirmPassword) as boolean,
+                )}
+              >
+                {regForm.errors.confirmPassword}
+              </InputError>
             </InputsArea>
             <SubmitArea>
               <button type="submit">
