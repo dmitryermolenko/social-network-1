@@ -4,11 +4,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input } from 'antd';
 import styled from 'styled-components';
+import Checkbox from '../../common/checkbox';
 import jm from '../../common/JM.svg';
 import sn from '../../common/SN.svg';
 import logo from '../../common/logo.svg';
 import { createNewUser } from '../../services/user-controller/user-controller';
-import { IUser } from '../../types/user';
+import { IUser, IUserWithTerms } from '../../types/user';
 
 const Wrapper = styled.div`
   display: flex;
@@ -130,6 +131,22 @@ const TxtLink = styled.a`
   text-decoration: none;
 `;
 
+const CheckboxWrapper = styled.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 24px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+
+  span {
+    cursor: pointer;
+    color: #959595;
+    font-size: 14px;
+    margin-left: 16px;
+  }
+`;
+
 const InputError = styled.p`
   color: red;
   margin-left: 32px;
@@ -151,7 +168,7 @@ const Login: React.FC = (): JSX.Element => {
 
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
-  const initialValues: IUser = {
+  const initialValues: IUserWithTerms = {
     firstName: '',
     lastName: '',
     email: '',
@@ -159,6 +176,7 @@ const Login: React.FC = (): JSX.Element => {
     activeName: 'Active',
     confirmPassword: '',
     avatar: '',
+    terms: true,
   };
 
   const regForm = useFormik({
@@ -180,6 +198,8 @@ const Login: React.FC = (): JSX.Element => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Пароли не совпадают')
         .required('Заполните поле!'),
+      terms: Yup.boolean()
+        .oneOf([true], 'Требуется согласие на обработку данных'),
     }),
     onSubmit: (values: IUser) => {
       const result = JSON.stringify(values);
@@ -315,6 +335,22 @@ const Login: React.FC = (): JSX.Element => {
                 )}
               >
                 {regForm.errors.confirmPassword}
+              </InputError>
+              <CheckboxWrapper>
+                <Checkbox
+                  id="terms"
+                  name="terms"
+                  checked={regForm.values.terms}
+                  onChange={regForm.handleChange}
+                />
+                <span>Я даю согласие на обработку своих данных</span>
+              </CheckboxWrapper>
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.terms && regForm.touched.terms) as boolean,
+                )}
+              >
+                {regForm.errors.terms}
               </InputError>
             </InputsArea>
             <SubmitArea>
