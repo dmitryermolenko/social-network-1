@@ -1,18 +1,14 @@
-/* eslint-disable react/prop-types */
-
 import React from 'react';
 import styled from 'styled-components';
+import { CommentData } from '../../types/group';
 import CommentsList from './CommentsList';
 
-export default function Comments(props) {
-  const { data } = props;
-  return (
-    <Container>
-      <Heading>Комментарии</Heading>
-      <CommentsList data={data} />
-    </Container>
-  );
-}
+const Comments: React.FC<CommentData> = ({ data }) => (
+  <Container>
+    <Heading>Комментарии</Heading>
+    <CommentsList data={data} />
+  </Container>
+);
 
 const Container = styled.div`
   max-height: 400px;
@@ -22,7 +18,6 @@ const Container = styled.div`
 `;
 
 const Heading = styled.div`
-  
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -31,3 +26,4 @@ const Heading = styled.div`
   line-height: 125px;
   text-align: left;
 `;
+export default Comments;

@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     store.replaceReducer(newRootReducer);
   });
 }
+
 export type TypeDispatch = typeof store.dispatch;
 /*
 Вне папки redux-toolkit использовать ИСКЛЮЧИТЕЛЬНО RootState для типизации стора

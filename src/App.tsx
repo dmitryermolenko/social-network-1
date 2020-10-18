@@ -13,6 +13,7 @@ import routes from './routes';
 import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo/Photo';
 import Group from './components/Group';
+import Groups from './components/Groups';
 import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
 import './App.css';
@@ -40,7 +41,12 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser }) => {
       <Route path={routes.messages} component={Messages} />
       <Route path={routes.bookmarks} component={Bookmarks} />
       <Route path={routes.photo} component={Photo} />
-      <Route path={routes.group} component={Group} />
+      <Route path={routes.groups} component={Groups} />
+      <Route
+        path={routes.group}
+        exact
+        component={Group}
+      />
     </Switch>
   );
 };

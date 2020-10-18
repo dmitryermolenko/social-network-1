@@ -1,14 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { CommentsListProps } from '../../types/group';
 import avatar from '../../img/icons/mock-avatar.svg';
 
-export default function CommentsList(props) {
-  const {
-    data: { author, date, text },
-  } = props;
-
-  return (
+const CommentsList: React.FC<CommentsListProps> = ({ data:
+  { author, date, text } }) => (
     <Container>
       <AvatarContainer>
         <AvatarImg src={avatar} alt="Aватар" />
@@ -19,8 +15,7 @@ export default function CommentsList(props) {
         <Text>{text}</Text>
       </Content>
     </Container>
-  );
-}
+);
 
 const Container = styled.div`
   display: flex;
@@ -50,7 +45,7 @@ const Content = styled.div`
 
 const Author = styled.div`
   margin-bottom: 5px;
-  
+
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -60,7 +55,7 @@ const Author = styled.div`
 
 const Date = styled.div`
   margin-bottom: 20px;
-  
+
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -71,10 +66,12 @@ const Date = styled.div`
 
 const Text = styled.div`
   text-align: left;
-  
+
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 165%;
   color: #000000;
 `;
+
+export default CommentsList;

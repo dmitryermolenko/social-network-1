@@ -31,7 +31,7 @@ const Sidebar = () => (
       <ItemLink to={routes.messages}>Сообщения</ItemLink>
       <ItemLink to={routes.news}>Новости</ItemLink>
       <ItemLink to={routes.bookmarks}>Закладки</ItemLink>
-      <ItemLink to="#">Группы</ItemLink>
+      <ItemLink to={routes.groups}>Группы</ItemLink>
       <ItemLink to={routes.photo}>Фотографии</ItemLink>
       <ItemLink to={routes.video}>Видеозаписи</ItemLink>
       <ItemLink to={routes.audio}>Аудиозаписи</ItemLink>

@@ -6,7 +6,7 @@ const routes = {
   photo: '/photo',
   news: '/news',
   groups: '/groups',
-  group: '/group',
+  group: '/group/:slug',
   bookmarks: '/bookmarks',
   video: '/video',
   audio: '/audio',

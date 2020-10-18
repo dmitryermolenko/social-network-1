@@ -1,28 +1,29 @@
-/* eslint-disable react/prop-types */
-
 import React from 'react';
+import { format } from 'date-fns';
 import styled from 'styled-components';
+import { GroupHeaderData } from '../../types/group';
 
-const Navbar = (props) => {
-  const {
-    data: {
-      date, description, link, owner,
-    },
-  } = props;
+const GroupHeader: React.FC<GroupHeaderData> = ({
+  data: {
+    description,
+    linkSite,
+    ownerFio,
+    persistDate,
+  },
+}) => {
+  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   return (
     <NavbarWrapper>
-      <Date>{date.toLocaleString()}</Date>
-      <Description>{description}</Description>
-      <Link href={link}>{link}</Link>
-      <Owner>{owner}</Owner>
+      <OriginDate>{originDate}</OriginDate>
+      <GroupDescription>{description}</GroupDescription>
+      <Link href={linkSite}>{linkSite}</Link>
+      <Owner>{ownerFio}</Owner>
     </NavbarWrapper>
   );
 };
-
-export default Navbar;
+export default GroupHeader;
 
 const NavbarWrapper = styled.nav`
-  
   font-style: normal;
   font-weight: normal;
   min-height: 150px;
@@ -35,8 +36,7 @@ const NavbarWrapper = styled.nav`
   align-items: flex-start;
 `;
 
-const Date = styled.div`
-  
+const OriginDate = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -45,8 +45,7 @@ const Date = styled.div`
   margin-bottom: 15px;
 `;
 
-const Description = styled.div`
-  
+const GroupDescription = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -57,7 +56,6 @@ const Description = styled.div`
 `;
 
 const Link = styled.a`
-  
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -68,7 +66,6 @@ const Link = styled.a`
 `;
 
 const Owner = styled.div`
-  
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

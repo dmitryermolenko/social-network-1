@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import SearchIcon from '../../img/icons/search.svg';
+
+import SearchIcon from '../../../img/icons/search.svg';
 
 const SearchBlock = styled.div`
   display: flex;
@@ -48,7 +49,6 @@ const PageSearchInput = ({ action, placeholder, defaultValue }) => (
   </SearchBlock>
 );
 
-// PageSearchInput
 PageSearchInput.defaultProps = {
   defaultValue: '',
   placeholder: '',

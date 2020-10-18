@@ -149,12 +149,14 @@
   padding: 60px;
   flex-grow: 1;
   text-align: right;
+}
 
-  button {
+.menu {  
     width: fit-content;
     align-self: flex-end;
     outline: none;
     border: 0;
+    background-color: inherit;
     img {
       display: flex;
       width: 40px;
@@ -164,7 +166,6 @@
         opacity: 0.7;
       }
     }
-  }
 }
 
 .messagesWrapper {

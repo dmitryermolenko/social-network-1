@@ -30,10 +30,12 @@
     "@typescript-eslint/no-var-requires": 0,
     "semi": "off",
     "@typescript-eslint/semi": "error",
-    "no-use-before-define": 0,
     "object-curly-newline": ["error", {
       "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
-    }]
+    }],
+    "no-use-before-define" : [0],
+    "@typescript-eslint/no-use-before-define": [1]
+
   },
   "settings": {
     "react": {

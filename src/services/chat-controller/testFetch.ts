@@ -61,6 +61,30 @@ const dataChats: Ichat[] = [
     lastMessage: 'Test init message60',
     active: null,
   },
+  {
+    id: 6,
+    type: 'singleChats',
+    title: 'Brod',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
+  {
+    id: 7,
+    type: 'singleChats',
+    title: 'Leo',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
+  {
+    id: 8,
+    type: 'singleChats',
+    title: 'Lee',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
 ];
 
 export const dataMassages1: IsingleChat[] = [

@@ -1,88 +1,161 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import { format } from 'date-fns';
 import styled from 'styled-components';
-import avatar from '../../img/icons/mock-avatar.svg';
 import favorite from '../../img/icons/favorite.svg';
 import like from '../../img/icons/like.svg';
 import comment from '../../img/icons/comment.svg';
 import repost from '../../img/icons/repost.svg';
 import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
+import { mockMediaImages } from './mockData';
+import 'swiper/swiper-bundle.css';
+import { NewsProps } from '../../types/group';
 
-export default function NewsItem(props) {
-  const { item } = props;
-  const {
-    title,
-    img,
+const NewsItem: React.FC<NewsProps> = ({
+  item: { title,
+    addressImageGroup,
+    groupName,
+    // img,
     text,
     tags,
-    author,
-    time,
-    favoritesCount,
-    likesCount,
-    commentsCount,
-    repostsCount,
-  } = item;
+    // media,
+    // author,
+    persistDate,
+    countBookmarks,
+    countLikes,
+    countComments,
+    countReposts },
 
-  const [isFullContent, setFullContent] = useState(false);
+}) => {
+  const allowedProps = { isSelected: false };
+  const [isOpen, setIsOpen] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+
+  interface KonvaTextEventTarget extends EventTarget {
+    src: string;
+  }
+
+  interface KonvaMouseEvent extends React.MouseEvent<HTMLElement> {
+    src: string;
+  }
+
+  const handleModal = (target?: string | null): void => {
+    if (target) {
+      if (target === imgUrl) {
+        setIsOpen(false);
+        setImgUrl('');
+      } else {
+        setImgUrl(target);
+        setIsOpen(true);
+      }
+    } else {
+      setIsOpen(false);
+    }
+  };
+  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
+  const [isFullContent, setFullContent] = useState(true);
   const height = isFullContent ? '' : '100px';
 
   const listTags = tags.map((tag) => (
-    <LiItem key={tag}>
+    <LiItem key={tag.id}>
       <TagLink href="http://localhost:3000/social-network">
         #
-        {tag}
+        {tag.text}
       </TagLink>
     </LiItem>
   ));
+
+  let keyCount = 0;
+  const testMedia = mockMediaImages;
+  const listMedia = testMedia.map((el) => {
+    keyCount += 1;
+    if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
+      return <NewsImage key={keyCount} src={el.url} alt="" />;
+    }
+
+    switch (el.mediaType) {
+      case 'IMAGE':
+        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt: React.MouseEvent<HTMLElement>): void => handleModal(evt.currentTarget.getAttribute('src'))} {...allowedProps} />;
+      case 'VIDEO':
+        return (
+          <NewsVideo title={el.url} key={keyCount} src={el.url} width="560" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        );
+      case 'AUDIO':
+        return (
+          <ReactPlayer
+            url={el.url}
+            controls
+            light
+            style={{
+              'margin-bottom': '25px',
+              'margin-right': '10px',
+              'margin-left': '10px',
+            }}
+            height="75px"
+          />
+        );
+      default:
+        return null;
+    }
+  });
+
   return (
     <Container>
       <NewsHeader>
         <AvatarContainer>
-          <AvatarImg src={avatar} alt="Aватар" />
+          <AvatarImg src={addressImageGroup} alt="Aватар" />
         </AvatarContainer>
         <AuthorContainer>
-          <Author>{author}</Author>
-          <Time>{time}</Time>
+          <Author>{groupName}</Author>
+          <Time>
+            {originDate}
+          </Time>
         </AuthorContainer>
         <ActionsContainer>
           <ButtonAction>
             <ActionIcon src={favorite} alt="В избранном" />
-            {favoritesCount}
+            {countBookmarks}
           </ButtonAction>
           <ButtonAction>
             <ActionIcon src={like} alt="Лайки" />
-            {likesCount}
+            {countLikes}
           </ButtonAction>
           <ButtonAction>
             <ActionIcon src={comment} alt="Комментарии" />
-            {commentsCount}
+            {countComments}
           </ButtonAction>
           <ButtonAction>
             <ActionIcon src={repost} alt="Репосты" />
-            {repostsCount}
+            {countReposts}
           </ButtonAction>
         </ActionsContainer>
       </NewsHeader>
       <NewsTitle>{title}</NewsTitle>
       <WrapperContent>
         <NewsContentContainer>
-          <NewsImage src={img} alt="" />
+          <MediaContainer>
+            {isOpen && <MaxImg src={imgUrl} alt="no" onClick={(): void => handleModal()} />}
+            {listMedia}
+          </MediaContainer>
           <NewsContent style={{ height }}>{text}</NewsContent>
         </NewsContentContainer>
         <ButtonMore>
           <MoreIcon
             src={isFullContent ? moreUp : more}
-            onClick={() => setFullContent(!isFullContent)}
+            onClick={(): void => setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </WrapperContent>
-
       <NewsTags>{listTags}</NewsTags>
     </Container>
   );
-}
-
+};
+const MaxImg = styled.img`
+ position: absolute;
+ left: 50%;
+    transform: translate(-50%, -50%);
+`;
 const Container = styled.div`
   padding-top: 50px;
   padding-bottom: 50px;
@@ -118,7 +191,7 @@ const AuthorContainer = styled.div`
 
 const Author = styled.span`
   display: block;
-  
+
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -130,7 +203,7 @@ const Author = styled.span`
 
 const Time = styled.span`
   display: block;
-  
+
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -150,7 +223,7 @@ const ActionsContainer = styled.div`
 const ButtonAction = styled.button`
   margin-left: 65px;
   display: flex;
-  
+
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -166,10 +239,12 @@ const ButtonAction = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+  outline: none;
 `;
 
 const ActionIcon = styled.img`
   margin-right: 10px;
+  outline: none;
 `;
 
 const NewsTitle = styled.div`
@@ -181,15 +256,40 @@ const NewsTitle = styled.div`
   font-weight: 600;
   font-size: 20px;
   line-height: 160%;
+  color: #000000;
 `;
-
+const MediaContainer = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
 const NewsImage = styled.img`
   display: block;
-  border-radius: 15px;
+  border-radius: 5px;
   width: 100%;
   object-fit: cover;
-  margin-bottom: 45px;
+  margin-bottom: 25px;
+  box-shadow: 1px 1px 8px 0px #d5d2d2;
+`;
+
+const NewsImageMin = styled.img`
+width: 350px;
+  height: 210px;
+  object-fit: contain;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  margin-left: 10px;
+  box-shadow: 1px 1px 8px 0px #d5d2d2;
+`;
+
+const NewsVideo = styled.iframe`
+  
+  margin-bottom: 25px;
   margin-right: auto;
+  margin-left: auto;
+  box-shadow: 1px 1px 8px 0px #d5d2d2;
 `;
 
 const WrapperContent = styled.div`
@@ -201,6 +301,19 @@ const NewsContentContainer = styled.div`
   display: flex;
   margin-bottom: 30px;
   flex-direction: column;
+  margin: 0 auto;
+   @media (min-width: 2451px) {
+    width: 1480px;
+  }
+  @media (min-width: 1933px) and  (max-width: 2450px){
+    width: 1110px;
+  }
+  @media (min-width: 1525px)  and  (max-width: 1932px){
+    width: 740px;
+  }
+  @media (min-width: 1110px) and  (max-width: 1524px){
+    width: 370px;
+  }
 `;
 
 const NewsContent = styled.span`
@@ -211,6 +324,7 @@ const NewsContent = styled.span`
   line-height: 165%;
   margin-right: 20px;
   text-align: justify;
+  color: #000000
 `;
 
 const ButtonMore = styled.button`
@@ -224,6 +338,7 @@ const ButtonMore = styled.button`
   padding: 0;
   margin-bottom: 30px;
   margin-left: 15px;
+  outline: none;
 `;
 
 const MoreIcon = styled.img`
@@ -231,6 +346,7 @@ const MoreIcon = styled.img`
   &:hover {
     transform: scale(1.05);
   }
+  outline: none;
 `;
 
 const NewsTags = styled.span`
@@ -250,3 +366,5 @@ const LiItem = styled.li`
   list-style-type: none;
   margin-left: 5px;
 `;
+
+export default NewsItem;
