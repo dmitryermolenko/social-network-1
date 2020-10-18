@@ -91,7 +91,7 @@ const ButtonSingInUpTxt: any = styled.button`
 `;
 
 const SubmitArea = styled.div`
-  margin-top: 66px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
 
