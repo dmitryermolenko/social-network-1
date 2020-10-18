@@ -16,6 +16,10 @@ export interface IUser {
   activeName?: string;
 }
 
+export interface IUserWithTerms extends IUser {
+  terms: boolean;
+}
+
 export interface IUserFriend {
   friendId: number;
   id: number;

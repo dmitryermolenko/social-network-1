@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+
+  div {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #ffb11b;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  input {
+    display: hidden;
+    position: absolute;
+    left: -10000px;
+
+    &:checked ~ div {
+      background-position: 4px 5px;
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='9' viewBox='0 0 13 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.13636 7.1194L1.03409 4.29851L0 5.23881L4.13636 9L13 0.940299L11.9659 0L4.13636 7.1194Z' fill='%23FFB11B'/%3E%3C/svg%3E%0A");
+    }
+    &:hover ~ div,
+    &:focus ~ div {
+      box-shadow: 0 0 4px 1px #ffb11b;
+    }
+  }
+}
