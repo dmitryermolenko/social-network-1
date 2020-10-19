@@ -12,13 +12,13 @@ import {
 } from '../../../common/styledComponents';
 
 interface IUserAbout {
-    dateOfBirth?: string,
-    education?: string,
-    profession?: string,
-    linkSite?: string,
-    city?: string,
-    aboutMe?: string,
-    languages?: string[]
+    dateOfBirth?: string;
+    education?: string;
+    profession?: string;
+    linkSite?: string;
+    city?: string;
+    aboutMe?: string;
+    languages?: string[];
 }
 
 const UserAbout: React.FC<IUserAbout> = function UserAbout({

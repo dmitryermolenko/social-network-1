@@ -9,7 +9,7 @@ const funcsRoutes = {
     [hostApi, audios, partAudioOfUser, userId].join('/'),
   urlFriendsAudios: (hostApi: string, user: string, getFriends: string): string =>
     [hostApi, user, getFriends].join('/'),
-  mainWithId: (id: number):string =>
+  mainWithId: (id: number): string =>
     `${id}`,
 };
 

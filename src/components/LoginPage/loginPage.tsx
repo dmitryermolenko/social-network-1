@@ -4,11 +4,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input } from 'antd';
 import styled from 'styled-components';
+import Checkbox from '../../common/checkbox';
 import jm from '../../common/JM.svg';
 import sn from '../../common/SN.svg';
 import logo from '../../common/logo.svg';
 import { createNewUser } from '../../services/user-controller/user-controller';
-import { IUser } from '../../types/user';
+import { IUser, IUserWithTerms } from '../../types/user';
 
 const Wrapper = styled.div`
   display: flex;
@@ -91,7 +92,7 @@ const ButtonSingInUpTxt: any = styled.button`
 `;
 
 const SubmitArea = styled.div`
-  margin-top: 66px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
 
@@ -110,7 +111,7 @@ const SubmitArea = styled.div`
     width: 100%;
     height: 60px;
     border-radius: 4px;
-    p {
+    span {
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -131,6 +132,35 @@ const TxtLink = styled.a`
   text-decoration: none;
 `;
 
+const CheckboxWrapper = styled.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 24px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+
+  span {
+    cursor: pointer;
+    color: #959595;
+    font-size: 14px;
+    margin-left: 16px;
+  }
+`;
+
+const InputError = styled.p`
+  color: red;
+  margin-left: 32px;
+  margin-bottom: 0;
+  transition: all 0.5s ease;
+`;
+
+const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties =>
+  ({
+    opacity: (isVisible ? 1 : 0),
+    height: (isVisible ? '1em' : 0),
+  });
+
 const Login: React.FC = (): JSX.Element => {
   const [value, setValue] = useState(true);
   const [border, setBorder] = useState({
@@ -140,7 +170,7 @@ const Login: React.FC = (): JSX.Element => {
 
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
-  const initialValues: IUser = {
+  const initialValues: IUserWithTerms = {
     firstName: '',
     lastName: '',
     email: '',
@@ -148,6 +178,7 @@ const Login: React.FC = (): JSX.Element => {
     activeName: 'Active',
     confirmPassword: '',
     avatar: '',
+    terms: true,
   };
 
   const regForm = useFormik({
@@ -169,6 +200,8 @@ const Login: React.FC = (): JSX.Element => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Пароли не совпадают')
         .required('Заполните поле!'),
+      terms: Yup.boolean()
+        .oneOf([true], 'Требуется согласие на обработку данных'),
     }),
     onSubmit: (values: IUser) => {
       const result = JSON.stringify(values);
@@ -223,7 +256,7 @@ const Login: React.FC = (): JSX.Element => {
             </InputsArea>
             <SubmitArea>
               <button type="button">
-                <p>ВОЙТИ</p>
+                <span>ВОЙТИ</span>
               </button>
             </SubmitArea>
             <ForgetPasswordArea>
@@ -258,9 +291,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.firstName}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.firstName && regForm.touched.firstName && (
-                <p style={{ color: 'red' }}>{regForm.errors.firstName}</p>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.firstName && regForm.touched.firstName) as boolean,
+                )}
+              >
+                {regForm.errors.firstName}
+              </InputError>
               <SearchInpit
                 id="lastName"
                 name="lastName"
@@ -268,9 +305,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.lastName}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.lastName && regForm.touched.lastName && (
-                <p style={{ color: 'red' }}>{regForm.errors.lastName}</p>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.lastName && regForm.touched.lastName) as boolean,
+                )}
+              >
+                {regForm.errors.lastName}
+              </InputError>
               <SearchInpit
                 id="email"
                 name="email"
@@ -278,9 +319,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.email}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.email && regForm.touched.email && (
-                <p style={{ color: 'red' }}>{regForm.errors.email}</p>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.email && regForm.touched.email) as boolean,
+                )}
+              >
+                {regForm.errors.email}
+              </InputError>
               <SearchInpit
                 type="password"
                 id="password"
@@ -289,9 +334,13 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.password}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.password && regForm.touched.password && (
-                <p style={{ color: 'red' }}>{regForm.errors.password}</p>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.password && regForm.touched.password) as boolean,
+                )}
+              >
+                {regForm.errors.password}
+              </InputError>
               <SearchInpit
                 type="password"
                 id="confirmPassword"
@@ -300,13 +349,33 @@ const Login: React.FC = (): JSX.Element => {
                 value={regForm.values.confirmPassword}
                 onChange={regForm.handleChange}
               />
-              {regForm.errors.confirmPassword && regForm.touched.confirmPassword && (
-                <p style={{ color: 'red' }}>{regForm.errors.confirmPassword}</p>
-              )}
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.confirmPassword && regForm.touched.confirmPassword) as boolean,
+                )}
+              >
+                {regForm.errors.confirmPassword}
+              </InputError>
+              <CheckboxWrapper>
+                <Checkbox
+                  id="terms"
+                  name="terms"
+                  checked={regForm.values.terms}
+                  onChange={regForm.handleChange}
+                />
+                <span>Я даю согласие на обработку своих данных</span>
+              </CheckboxWrapper>
+              <InputError
+                style={getInputErrorVisibilityStyle(
+                  (regForm.errors.terms && regForm.touched.terms) as boolean,
+                )}
+              >
+                {regForm.errors.terms}
+              </InputError>
             </InputsArea>
             <SubmitArea>
               <button type="submit">
-                <p>ЗАРЕГИСТРИРОВАТЬСЯ</p>
+                <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
               </button>
             </SubmitArea>
           </FormArea>

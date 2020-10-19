@@ -3,7 +3,7 @@ import avatarComment from '../../img/userFotoComment1.png';
 import avatarPost from '../../img/main photo.png';
 import { IPost } from '../../types/post';
 
-export const getPostsByUser = (id: number) : IPost[] =>
+export const getPostsByUser = (id: number): IPost[] =>
   ([{
     id: 1,
     userId: 1,

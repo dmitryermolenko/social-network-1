@@ -3,16 +3,16 @@ import { ICreateComment } from '../../../../../types/comment';
 import { IUser } from '../../../../../types/user';
 
 interface IFuncCreateComment {
-    postId: number,
-    text: string,
-    user: IUser
+    postId: number;
+    text: string;
+    user: IUser;
 }
 
 export default async function createPost({
   postId,
   text,
   user,
-} : IFuncCreateComment) {
+}: IFuncCreateComment) {
   if (!user?.userId) {
     throw new Error('unlogged');
   }

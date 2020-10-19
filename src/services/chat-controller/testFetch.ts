@@ -1,14 +1,14 @@
 import { uniqueId } from 'lodash';
 import { IsingleChat, Ichat } from '../../types/chat';
 
-export async function getChats():Promise<Ichat[]> {
+export async function getChats(): Promise<Ichat[]> {
   return new Promise((resolve) => {
     setTimeout(() =>
       resolve(dataChats), 1000);
   });
 }
 
-export async function getSingleChats(id:number):Promise<IsingleChat[]> {
+export async function getSingleChats(id: number): Promise<IsingleChat[]> {
   switch (id) {
     case 1: return new Promise((resolve) => {
       setTimeout(() =>
@@ -60,6 +60,30 @@ const dataChats: Ichat[] = [
     id: 5,
     type: 'singleChats',
     title: 'Leonard',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
+  {
+    id: 6,
+    type: 'singleChats',
+    title: 'Brod',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
+  {
+    id: 7,
+    type: 'singleChats',
+    title: 'Leo',
+    image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
+    lastMessage: 'Test init message60',
+    active: null,
+  },
+  {
+    id: 8,
+    type: 'singleChats',
+    title: 'Lee',
     image: 'http://yastart.ru/uploads/posts/2019-03/1553884944_10.jpg',
     lastMessage: 'Test init message60',
     active: null,

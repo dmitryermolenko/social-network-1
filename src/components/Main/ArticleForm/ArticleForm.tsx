@@ -39,7 +39,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 interface IArticleForm {
   isOpen: boolean;
   changeOpen: () => void;
-  onDeleteMedia: (mediaIndex:number) => void;
+  onDeleteMedia: (mediaIndex: number) => void;
   resetMedia: () => void;
   media?: IMedia[];
 }

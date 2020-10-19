@@ -8,9 +8,9 @@ const loadUser = createAsyncThunk('user/loadUser', async (id: number) => {
 });
 
 interface UserState {
-  data: null | IUser,
-  loading: boolean,
-  error: null | Error,
+  data: null | IUser;
+  loading: boolean;
+  error: null | Error;
 }
 
 const initialState: UserState = {

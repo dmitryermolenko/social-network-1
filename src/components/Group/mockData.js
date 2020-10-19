@@ -107,3 +107,31 @@ export const mockData = {
     },
   ],
 };
+
+export const mockMediaVideo = [
+  { userId: null, mediaType: 'VIDEO', url: 'https://www.youtube.com/embed/nIOatp64J1c' },
+  { userId: null, mediaType: 'VIDEO', url: 'https://www.youtube.com/embed/HOJ7H6gh8Jo' },
+  { userId: null, mediaType: 'VIDEO', url: 'https://www.youtube.com/embed/Gh6y3wUzKGQ' },
+  { userId: null, mediaType: 'VIDEO', url: 'https://www.youtube.com/embed/5zAEAzXGgRE' },
+  { userId: null, mediaType: 'VIDEO', url: 'https://www.youtube.com/embed/KVyGiE5Y2a8' },
+];
+
+export const mockMediaImages = [
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/tXq1gOv.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/bYGkYUe.png' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/MMAt1q7.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/zydDxGJ.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/kMDlPZ3.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/TtGmusI.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/Q2AlR3C.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/IIYjrSZ.jpeg' },
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/IIYjrSZ.jpeg' },
+];
+export const mockMediaSingleImage = [
+  { userId: null, mediaType: 'IMAGE', url: 'https://i.imgur.com/YNPACYR.jpeg' },
+];
+
+export const mockAudio = [
+  { userId: null, mediaType: 'AUDIO', url: 'https://soundcloud.com/recordmakers/11-kavinsky-nightcall-1' },
+  { userId: null, mediaType: 'AUDIO', url: 'https://soundcloud.com/miami-nights-1984/accelerated' },
+];

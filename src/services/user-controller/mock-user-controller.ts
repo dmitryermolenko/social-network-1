@@ -2,7 +2,7 @@ import avatar from '../../img/main photo.png';
 import { IUser } from '../../types/user';
 import { getUserById as originalGetUserById } from './user-controller';
 
-export function getUserById(id: number) :IUser {
+export function getUserById(id: number): IUser {
   return {
     userId: 1,
     firstName: 'Руслан',
@@ -21,7 +21,7 @@ export function getUserById(id: number) :IUser {
   };
 }
 
-export function getCurrentUser() : IUser {
+export function getCurrentUser(): IUser {
   return getUserById(1);
 }
 

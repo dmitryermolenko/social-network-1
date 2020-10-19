@@ -8,25 +8,26 @@ const loadChatsOfUser = createAsyncThunk('chat/loadChatsOfUser', async () => {
   return response;
 });
 
-const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id:number) => {
+const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id: number) => {
+  console.log('chat', id);
   const response = await getSingleChats(id);
   return response;
 });
 
 export interface StateChat {
   chats: {
-    data: Ichat[],
-    loading: boolean,
-    error: null | Error,
-  },
+    data: Ichat[];
+    loading: boolean;
+    error: null | Error;
+  };
   currentChat: {
-    data: IsingleChat[],
-    loading: boolean,
-    error: null | Error,
-  },
+    data: IsingleChat[];
+    loading: boolean;
+    error: null | Error;
+  };
 }
 
-const initialState : StateChat = {
+const initialState: StateChat = {
   chats: {
     data: [],
     loading: false,

@@ -5,8 +5,8 @@ import submit from '../../img/icons/submit.svg';
 import more from '../../img/icons/more.svg';
 // import moreUp from './moreUp.svg';
 
-export default function InputComment() {
-  return (
+const InputComment: React.FC = () =>
+  (
     <Container>
       <AvatarContainer>
         <AvatarImg src={avatar} alt="Aватар" />
@@ -21,7 +21,6 @@ export default function InputComment() {
       </ButtonMore>
     </Container>
   );
-}
 
 const Container = styled.div`
   display: flex;
@@ -59,7 +58,7 @@ const InputField = styled.input`
   background: #ffffff;
   border: 1px solid #515151;
   border-radius: 5px;
-  
+
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -101,3 +100,5 @@ const MoreIcon = styled.img`
     transform: scale(1.05);
   }
 `;
+
+export default InputComment;

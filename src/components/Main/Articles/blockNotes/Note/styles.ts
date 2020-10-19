@@ -112,7 +112,7 @@ color: #000000;
 text-align: start;
 height: auto;
 word-break: break-all;
-max-height: ${({ isOpen }:{ isOpen: boolean}) =>
+max-height: ${({ isOpen }: { isOpen: boolean}) =>
     (isOpen ? '100%' : '100px')};
 //transition: 1s;
 overflow: hidden;
@@ -126,7 +126,7 @@ background-color: #ffb11b;
 background-image: url(${closeNote});
 background-position: center center;
 background-repeat: no-repeat;
-transform: rotate(${({ $isOpen }:{ $isOpen: boolean}) =>
+transform: rotate(${({ $isOpen }: { $isOpen: boolean}) =>
     ($isOpen ? '0' : '180')}deg);
 transition: transform .5s;
 border: none;

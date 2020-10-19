@@ -16,9 +16,9 @@ const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () => {
 });
 
 interface UserState {
-  data: null | IUser, // Пользователь, от имени которого произведен логин
-  loading: boolean,
-  error: null | Error,
+  data: null | IUser; // Пользователь, от имени которого произведен логин
+  loading: boolean;
+  error: null | Error;
 }
 
 const initialState: UserState = {
@@ -67,7 +67,7 @@ const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state:Clone
 );
 */
 
-const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state:CloneRootState }>(
+const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state: CloneRootState }>(
   'shownUser/updateStatus',
   async (status: string, thunkApi) => {
     const userId = thunkApi.getState().currentUser.data?.userId;
@@ -76,7 +76,7 @@ const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state:Clone
   },
 );
 
-const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, {state:CloneRootState }>(
+const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, {state: CloneRootState }>(
   'shownUser/updateAvatar',
   async (avatarUrl: string, thunkApi) => {
     const { currentUser } = thunkApi.getState();

@@ -29,7 +29,7 @@ import {
 } from './styles';
 
 interface INote {
-  dataPost: IDataPost
+  dataPost: IDataPost;
 }
 
 const Note: React.FC<INote> = ({ dataPost }: INote) => {

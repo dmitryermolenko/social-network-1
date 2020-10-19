@@ -63,7 +63,7 @@ const allAudiosSlice = createSlice({
         console.log(state, action, 'plug');
       });
     builder.addCase(allAudiosAction.fulfilled,
-      (state: Draft<{ allAudios: Array<any>, loading: string }>, action: PayloadAction<any>) => {
+      (state: Draft<{ allAudios: Array<any>; loading: string }>, action: PayloadAction<any>) => {
         state.allAudios = action.payload;
         state.loading = action.type;
       });

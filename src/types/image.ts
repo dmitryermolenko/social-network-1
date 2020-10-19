@@ -1,5 +1,5 @@
 export default interface ImageCreateDto {
-    description: string,
-    url: string,
-    userId: number
+    description: string;
+    url: string;
+    userId: number;
 }

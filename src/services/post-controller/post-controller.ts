@@ -12,7 +12,7 @@ export async function getAllPosts(): Promise<AxiosResponse<IPost[]>> {
   return axios.get('/');
 }
 
-export async function getAllCommentsByPost(id:number): Promise<AxiosResponse<IComment[]>> {
+export async function getAllCommentsByPost(id: number): Promise<AxiosResponse<IComment[]>> {
   return axios.get(`/${id}/comments`);
 }
 
@@ -28,6 +28,6 @@ export async function getPostsByUser(id: number): Promise<AxiosResponse<IPost[]>
   return axios.get(`/user/${id}`);
 }
 
-export async function getPostsByTag(tagName : string): Promise<AxiosResponse<IPost[]>> {
+export async function getPostsByTag(tagName: string): Promise<AxiosResponse<IPost[]>> {
   return axios.get(`/${tagName}`);
 }

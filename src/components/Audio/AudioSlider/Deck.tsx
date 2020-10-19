@@ -38,7 +38,7 @@ const Deck = () => {
       !prevState);
   };
 
-  const Slides = tracks.map((track: { image: string, id: number }) =>
+  const Slides = tracks.map((track: { image: string; id: number }) =>
     (
       <SwiperSlide key={track.id}>
         <Card image={track.image} />

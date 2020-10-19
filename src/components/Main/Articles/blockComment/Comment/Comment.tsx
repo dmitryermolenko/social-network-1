@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 interface Props {
-  comment: IComment
+  comment: IComment;
 }
 
 const Comment: React.FC<Props> = ({ comment }) => {
