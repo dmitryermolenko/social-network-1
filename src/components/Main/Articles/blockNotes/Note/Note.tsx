@@ -38,10 +38,14 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
   } = dataPost;
   const [isOpen, setIsOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(Boolean(comments));
-  const revertOpen = useCallback(() => setIsOpen((_isOpen) => !_isOpen),
-    [setIsOpen]);
-  const revertCommentsOpen = useCallback(() => setIsCommentsOpen((_isOpen) => !_isOpen),
-    [setIsCommentsOpen]);
+  const revertOpen = useCallback(() =>
+    setIsOpen((_isOpen) =>
+      !_isOpen),
+  [setIsOpen]);
+  const revertCommentsOpen = useCallback(() =>
+    setIsCommentsOpen((_isOpen) =>
+      !_isOpen),
+  [setIsCommentsOpen]);
   const renderState = useCallback(() => {
     if (loading) {
       return <StyledLoadingBlock><LoadingBlock size={60} /></StyledLoadingBlock>;
@@ -105,9 +109,10 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
           onClick={revertOpen}
         />
         <TagsList>
-          {tags?.map((item) => (
-            <TagItem key={item.id}>{item.text}</TagItem>
-          ))}
+          {tags?.map((item) =>
+            (
+              <TagItem key={item.id}>{item.text}</TagItem>
+            ))}
         </TagsList>
 
         <SmoothCollapse expanded={isCommentsOpen} heightTransition=".5s">

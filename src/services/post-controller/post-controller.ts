@@ -4,7 +4,8 @@ import IComment from '../../types/comment';
 import baseUrl from '../config';
 
 const axios = axiosLib.create();
-axios.interceptors.response.use((response) => response.data);
+axios.interceptors.response.use((response) =>
+  response.data);
 axios.defaults.baseURL = `${baseUrl}posts`;
 
 export async function getAllPosts(): Promise<AxiosResponse<IPost[]>> {

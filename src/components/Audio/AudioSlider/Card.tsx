@@ -2,11 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = ({ image }: { image: string }): JSX.Element => (
-// const { data }: PaletteState = usePalette(image);
-// Ругается на переданный в img пропс data
-  <Img src={image} alt="cover" />
-);
+const Card = ({ image }: { image: string }): JSX.Element =>
+  (
+  // const { data }: PaletteState = usePalette(image);
+  // Ругается на переданный в img пропс data
+    <Img src={image} alt="cover" />
+  );
 export default Card;
 
 const Img = styled.img`

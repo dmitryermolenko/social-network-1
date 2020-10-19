@@ -11,6 +11,7 @@ export interface IUser {
   confirmPassword?: string;
   city?: string;
   linkSite?: string;
+  profession?: string;
   roleName?: string;
   status?: string;
   activeName?: string;

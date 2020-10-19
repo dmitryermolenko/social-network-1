@@ -64,6 +64,7 @@ export const CloseButton = styled.button`
     cursor: pointer;
 `;
 
-export const ClosePicture = styled.img.attrs(() => ({ src: add }))`
+export const ClosePicture = styled.img.attrs(() =>
+  ({ src: add }))`
     transform: rotate(45deg);
 `;

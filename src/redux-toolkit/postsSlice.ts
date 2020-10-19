@@ -44,30 +44,36 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    setData: (state, action) => ({ ...state, data: action.payload, loading: false }),
-    setError: (state, action) => ({ ...state, error: action.payload, loading: false }),
-    setLoading: (state) => ({ ...state, loading: true }),
+    setData: (state, action) =>
+      ({ ...state, data: action.payload, loading: false }),
+    setError: (state, action) =>
+      ({ ...state, error: action.payload, loading: false }),
+    setLoading: (state) =>
+      ({ ...state, loading: true }),
   },
   extraReducers: {
     /* POST */
-    [loadPostsByUser.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadPostsByUser.pending.type]: (state) =>
+      ({ ...state, loading: true }),
     [loadPostsByUser.fulfilled.type]: (state, action) => {
       if (!Array.isArray(action.payload)) {
         return state;
       }
-      const newData = action.payload.map((post: IPost) => ({
-        post,
-        comments: null,
-        loading: false,
-        error: null,
-      }));
+      const newData = action.payload.map((post: IPost) =>
+        ({
+          post,
+          comments: null,
+          loading: false,
+          error: null,
+        }));
       return { ...state, data: newData, loading: false };
     },
-    [loadPostsByUser.rejected.type]: (state, action) => ({
-      ...state,
-      error: action.error,
-      loading: false,
-    }),
+    [loadPostsByUser.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
     /* COMMENTS */
     [loadCommentsByPost.pending.type]: (state, action) => {
       const newPosts = (state.data as (IDataPost[] | null))?.map((dataPost: IDataPost) => {

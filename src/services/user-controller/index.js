@@ -1,4 +1,4 @@
-import { getCurrentUser } from './mock-user-controller';
+import { getCurrentUser, getAsyncCurrentUser } from './mock-user-controller';
 import {
   getUserById,
   getAllUsers,
@@ -6,6 +6,7 @@ import {
   removeUserById,
   getFriendsByUserId,
   updateUser,
+  updateUserStatus,
 } from './user-controller';
 
 export {
@@ -16,4 +17,6 @@ export {
   removeUserById,
   getFriendsByUserId,
   updateUser,
+  updateUserStatus,
+  getAsyncCurrentUser,
 };

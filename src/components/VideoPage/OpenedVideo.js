@@ -6,7 +6,8 @@ const OpenedVideoWrapper = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  top: ${() => window.pageYOffset}px;
+  top: ${() =>
+    window.pageYOffset}px;
   left: 0;
   z-index: 16;
   background: rgba(0, 0, 0, 0.7);
@@ -41,19 +42,20 @@ const CloseButton = styled.button`
   align-self: flex-start;
 `;
 
-const OpenedVideo = ({ id, action }) => (
-  <OpenedVideoWrapper onClick={action}>
-    <VideoFrameWrapper>
-      <VideoFrame
-        src={`https://www.youtube.com/embed/${id}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen="allowfullscreen"
-      />
-      <CloseButton onClick={action}>+</CloseButton>
-    </VideoFrameWrapper>
-  </OpenedVideoWrapper>
-);
+const OpenedVideo = ({ id, action }) =>
+  (
+    <OpenedVideoWrapper onClick={action}>
+      <VideoFrameWrapper>
+        <VideoFrame
+          src={`https://www.youtube.com/embed/${id}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen="allowfullscreen"
+        />
+        <CloseButton onClick={action}>+</CloseButton>
+      </VideoFrameWrapper>
+    </OpenedVideoWrapper>
+  );
 
 OpenedVideo.defaultProps = {
   id: '',

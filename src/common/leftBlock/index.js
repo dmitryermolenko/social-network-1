@@ -5,12 +5,13 @@ import { LeftBlockContainer } from '../styledComponents';
 import Sidebar from '../sidebar/Sidebar';
 import ModalChat from '../modal-chat';
 
-const LeftBlock = ({ messages }) => (
-  <LeftBlockContainer>
-    <Sidebar />
-    {!messages && <ModalChat />}
-  </LeftBlockContainer>
-);
+const LeftBlock = ({ messages }) =>
+  (
+    <LeftBlockContainer>
+      <Sidebar />
+      {!messages && <ModalChat />}
+    </LeftBlockContainer>
+  );
 LeftBlock.defaultProps = {
   messages: false,
 };

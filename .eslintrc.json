@@ -13,6 +13,7 @@
   },
   "rules": {
     "import/prefer-default-export": "warn",
+    "implicit-arrow-linebreak": ["warn", "below"],
     "max-depth": ["warn", 4],
     "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
     "no-lonely-if": ["error"],
@@ -31,9 +32,12 @@
     "semi": "off",
     "@typescript-eslint/semi": "error",
     "no-use-before-define": 0,
-    "object-curly-newline": ["error", {
-      "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
-    }]
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
+      }
+    ]
   },
   "settings": {
     "react": {

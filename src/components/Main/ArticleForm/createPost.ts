@@ -8,7 +8,7 @@ interface IFuncCreatePost {
     text: string,
     user?: IUser | null,
     tags?: Array<string>,
-    media?: IMedia
+    media?: IMedia[]
 }
 
 export default async function createPost({
@@ -21,7 +21,8 @@ export default async function createPost({
   if (!user?.userId) {
     throw new Error('unlogged');
   }
-  const mappedTags = tags?.map((tag) => ({ id: 1, text: tag }));
+  const mappedTags = tags?.map((tag) =>
+    ({ id: 1, text: tag }));
   const post: ICreatePost = {
     userId: user.userId,
     avatar: user.avatar,
@@ -34,7 +35,7 @@ export default async function createPost({
     title,
     text,
     tags: mappedTags || [],
-    media: [{ userId: user.userId, mediaType: 'IMAGE', url: 'url' }],
+    media: media || [{ userId: user.userId, mediaType: 'IMAGE', url: 'url' }],
   };
   await createNewPost(post);
 }

@@ -16,14 +16,17 @@ export const ContentWrapper = styled.div
 // withConfig не позволяет пропу isOpen пройти дальше styled в Form.
 // Иначе Form "видит" неподобающий проп и ругается об этом в чат
   .withConfig({
-    shouldForwardProp: (prop) => !['isOpen'].includes(prop),
+    shouldForwardProp: (prop) =>
+      !['isOpen'].includes(prop),
   })<{ isOpen?: boolean }>`
     height: 100%;
     width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: white;
-    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-870px)')};
-    opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+    transform: ${({ isOpen }) =>
+    (isOpen ? 'translateY(0)' : 'translateY(-870px)')};
+    opacity: ${({ isOpen }) =>
+    (isOpen ? '1' : '0')};
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
     border-radius: 15px;
 `;
@@ -68,7 +71,8 @@ export const ModalChatOpen = styled.button
 // withConfig не позволяет пропу isOpen пройти дальше styled в Form.
 // Иначе Form "видит" неподобающий проп и ругается об этом в чат
   .withConfig({
-    shouldForwardProp: (prop) => !['isOpen'].includes(prop),
+    shouldForwardProp: (prop) =>
+      !['isOpen'].includes(prop),
   })<{ isOpen?: boolean }>`
     position: absolute;
     width: 60px;
@@ -82,6 +86,7 @@ export const ModalChatOpen = styled.button
     bottom: 10px;
     border: none;
     outline: none;
-    transform: ${({ isOpen }) => (isOpen ? 'translateY(0) rotate(0)' : 'translateY(-750px) rotate(-180deg)')};
+    transform: ${({ isOpen }) =>
+    (isOpen ? 'translateY(0) rotate(0)' : 'translateY(-750px) rotate(-180deg)')};
     transition: transform 1s ease-in-out;
 `;

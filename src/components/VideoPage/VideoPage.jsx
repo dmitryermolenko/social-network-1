@@ -63,7 +63,8 @@ const PopularVideoList = styled.div`
   flex-direction: row;
   overflow: hidden;
   transition: all 0.5s;
-  max-height: ${({ show }) => (show ? 'auto' : '412px')};
+  max-height: ${({ show }) =>
+    (show ? 'auto' : '412px')};
 `;
 
 const ShowHideButton = styled.button`
@@ -74,7 +75,8 @@ const ShowHideButton = styled.button`
   border: none;
   height: 25px;
   width: 15px;
-  transform: ${({ show }) => (show ? 'rotate(90deg)' : 'rotate(-90deg)')};
+  transform: ${({ show }) =>
+    (show ? 'rotate(90deg)' : 'rotate(-90deg)')};
   background: #515151;
   mask-image: url(${arrowNotFilled});
   mask-position: center;
@@ -143,31 +145,39 @@ const VideoPage = () => {
               <StyledButton>Добавить</StyledButton>
             </SectionHeader>
             <Slider spaceBetween={52} margin={50} slidesToShow={2} loop="loop">
-              {videoArr.map((obj) => (
-                <VideoItem
-                  key={uniqueId()}
-                  id={obj.id}
-                  name={obj.name}
-                  action={() => showVideo(obj.id)}
-                  isPopular={false}
-                />
-              ))}
+              {videoArr.map((obj) =>
+                (
+                  <VideoItem
+                    key={uniqueId()}
+                    id={obj.id}
+                    name={obj.name}
+                    action={() =>
+                      showVideo(obj.id)}
+                    isPopular={false}
+                  />
+                ))}
             </Slider>
           </MyVideos>
           <PopulerVideos>
             <SectionHeader headline="Популярные" />
             <PopularVideoList show={showPopupar}>
-              <ShowHideButton show={showPopupar} onClick={() => setShowPopupar(!showPopupar)} />
-              {videoArr.map((obj) => (
-                <PopularVideosItemWrapper key={uniqueId()}>
-                  <VideoItem
-                    id={obj.id}
-                    name={obj.name}
-                    isPopular
-                    action={() => showVideo(obj.id)}
-                  />
-                </PopularVideosItemWrapper>
-              ))}
+              <ShowHideButton
+                show={showPopupar}
+                onClick={() =>
+                  setShowPopupar(!showPopupar)}
+              />
+              {videoArr.map((obj) =>
+                (
+                  <PopularVideosItemWrapper key={uniqueId()}>
+                    <VideoItem
+                      id={obj.id}
+                      name={obj.name}
+                      isPopular
+                      action={() =>
+                        showVideo(obj.id)}
+                    />
+                  </PopularVideosItemWrapper>
+                ))}
             </PopularVideoList>
           </PopulerVideos>
         </ComponentWrapper>

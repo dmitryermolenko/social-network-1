@@ -8,9 +8,11 @@ const Container = styled.div`
 `;
 
 const MessagesWrap = styled.div<{type:string}>`
-  background-color: ${({ type }) => (type === 'our' ? '#FFF5E3' : '#EFEFEF')};
+  background-color: ${({ type }) =>
+    (type === 'our' ? '#FFF5E3' : '#EFEFEF')};
   border-radius: 15px;
-  margin: ${({ type }) => (type === 'our' ? '0 30px 0 0' : '0 0 0 30px')};
+  margin: ${({ type }) =>
+    (type === 'our' ? '0 30px 0 0' : '0 0 0 30px')};
   font-size: 16px;
   color: #000000;
   font-weight: 500;
@@ -35,7 +37,8 @@ const MessagesWrap = styled.div<{type:string}>`
 const MessageInfo = styled.div<{type:string}>`
   display: flex;
   flex-direction: row;
-  justify-content: ${({ type }) => (type === 'our' ? 'flex-start' : 'flex-end')};
+  justify-content: ${({ type }) =>
+    (type === 'our' ? 'flex-start' : 'flex-end')};
   margin-top: 10px;
 `;
 
@@ -45,7 +48,8 @@ const MessageDate = styled.span<{type:string}>`
   font-weight: 500;
   font-size: 11px;
   color: #b6b6b6;
-  margin: ${({ type }) => (type === 'our' ? '0 15px 0 0' : '0 0 0 30px')};
+  margin: ${({ type }) =>
+    (type === 'our' ? '0 15px 0 0' : '0 0 0 30px')};
 `;
 
 interface Props {

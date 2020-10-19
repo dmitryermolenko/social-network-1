@@ -12,10 +12,13 @@ const Arrow = styled.div`
   height: 25px;
   background-color: #515151;
   mask-image: url(${arrowIcon});
-  transform: ${(props) => (props.reverseArrow ? '' : 'rotate(180deg)')};
+  transform: ${(props) =>
+    (props.reverseArrow ? '' : 'rotate(180deg)')};
   top: calc(33% - 10px);
-  left: ${(props) => (props.reverseArrow ? '20px' : 'auto')};
-  right: ${(props) => (props.reverseArrow ? 'auto' : '20px')};
+  left: ${(props) =>
+    (props.reverseArrow ? '20px' : 'auto')};
+  right: ${(props) =>
+    (props.reverseArrow ? 'auto' : '20px')};
   z-index: 11;
   &:hover {
     cursor: pointer;
@@ -27,13 +30,15 @@ const myArrow = ({ type, onClick, isEdge }) => {
   return <Arrow reverseArrow={reverseArrow} onClick={onClick} disabled={isEdge} />;
 };
 
-const Slider = ({ children, ...props }) => (
-  <Carousel {...props} renderArrow={myArrow}>
-    {children.map((slide) => (
-      <div key={__.uniqueId()}>{slide}</div>
-    ))}
-  </Carousel>
-);
+const Slider = ({ children, ...props }) =>
+  (
+    <Carousel {...props} renderArrow={myArrow}>
+      {children.map((slide) =>
+        (
+          <div key={__.uniqueId()}>{slide}</div>
+        ))}
+    </Carousel>
+  );
 
 export default Slider;
 

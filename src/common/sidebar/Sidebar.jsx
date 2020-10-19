@@ -23,22 +23,23 @@ const ItemLink = styled(Link)`
   }
 `;
 
-const Sidebar = () => (
-  <Wrapper>
-    <List>
-      <ItemLink to={routes.main}>Моя страница</ItemLink>
-      <ItemLink to={routes.friends}>Друзья</ItemLink>
-      <ItemLink to={routes.messages}>Сообщения</ItemLink>
-      <ItemLink to={routes.news}>Новости</ItemLink>
-      <ItemLink to={routes.bookmarks}>Закладки</ItemLink>
-      <ItemLink to="#">Группы</ItemLink>
-      <ItemLink to={routes.photo}>Фотографии</ItemLink>
-      <ItemLink to={routes.video}>Видеозаписи</ItemLink>
-      <ItemLink to={routes.audio}>Аудиозаписи</ItemLink>
-      <ItemLink to="#">Настройки</ItemLink>
-    </List>
-    <Player />
-  </Wrapper>
-);
+const Sidebar = () =>
+  (
+    <Wrapper>
+      <List>
+        <ItemLink to={routes.main}>Моя страница</ItemLink>
+        <ItemLink to={routes.friends}>Друзья</ItemLink>
+        <ItemLink to={routes.messages}>Сообщения</ItemLink>
+        <ItemLink to={routes.news}>Новости</ItemLink>
+        <ItemLink to={routes.bookmarks}>Закладки</ItemLink>
+        <ItemLink to="#">Группы</ItemLink>
+        <ItemLink to={routes.photo}>Фотографии</ItemLink>
+        <ItemLink to={routes.video}>Видеозаписи</ItemLink>
+        <ItemLink to={routes.audio}>Аудиозаписи</ItemLink>
+        <ItemLink to="#">Настройки</ItemLink>
+      </List>
+      <Player />
+    </Wrapper>
+  );
 
 export default Sidebar;

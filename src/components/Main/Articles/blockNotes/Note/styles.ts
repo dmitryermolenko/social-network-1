@@ -27,6 +27,7 @@ export const Avatar = styled.img`
 width: 70px;
 height: 70px;
 border-radius: 50%;
+object-fit: cover;
 `;
 
 export const TitleWrap = styled.div`
@@ -110,7 +111,9 @@ margin: 0 0 40px 0;
 color: #000000;
 text-align: start;
 height: auto;
-max-height: ${({ isOpen }:{ isOpen: boolean}) => (isOpen ? '100%' : '100px')};
+word-break: break-all;
+max-height: ${({ isOpen }:{ isOpen: boolean}) =>
+    (isOpen ? '100%' : '100px')};
 //transition: 1s;
 overflow: hidden;
 `;
@@ -123,7 +126,8 @@ background-color: #ffb11b;
 background-image: url(${closeNote});
 background-position: center center;
 background-repeat: no-repeat;
-transform: rotate(${({ $isOpen }:{ $isOpen: boolean}) => ($isOpen ? '0' : '180')}deg);
+transform: rotate(${({ $isOpen }:{ $isOpen: boolean}) =>
+    ($isOpen ? '0' : '180')}deg);
 transition: transform .5s;
 border: none;
 position: absolute;

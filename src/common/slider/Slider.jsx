@@ -20,27 +20,33 @@ const Arrow = styled.div`
   height: 25px;
   background-color: #515151;
   mask-image: url(${arrowIcon});
-  transform: ${(props) => (props.reverseArrow ? '' : 'rotate(180deg)')};
+  transform: ${(props) =>
+    (props.reverseArrow ? '' : 'rotate(180deg)')};
   top: 158px;
-  left: ${(props) => (props.reverseArrow ? '-35px' : 'auto')};
-  right: ${(props) => (props.reverseArrow ? 'auto' : '-24px')};
+  left: ${(props) =>
+    (props.reverseArrow ? '-35px' : 'auto')};
+  right: ${(props) =>
+    (props.reverseArrow ? 'auto' : '-24px')};
   &:hover {
     cursor: pointer;
   }
 `;
 
 const Slide = styled.div`
-  margin-left: ${(props) => `${props.spaceBetween / 2}px`};
-  margin-right: ${(props) => `${props.spaceBetween / 2}px`};
+  margin-left: ${(props) =>
+    `${props.spaceBetween / 2}px`};
+  margin-right: ${(props) =>
+    `${props.spaceBetween / 2}px`};
   width: auto !important;
 `;
 
 const SliderComp = ({ children, spaceBetween, ...props }) => {
-  const slides = children.map((slide) => (
-    <Slide spaceBetween={spaceBetween} key={__.uniqueId()}>
-      {slide}
-    </Slide>
-  ));
+  const slides = children.map((slide) =>
+    (
+      <Slide spaceBetween={spaceBetween} key={__.uniqueId()}>
+        {slide}
+      </Slide>
+    ));
 
   const settings = {
     ...props,

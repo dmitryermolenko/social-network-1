@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from './components/LoginPage/loginPage';
 import Messages from './components/Messages/Messages';
 import Main from './components/Main';
@@ -10,28 +10,34 @@ import Friends from './components/Friends';
 import VideoPage from './components/VideoPage';
 import News from './components/News';
 import routes from './routes';
+import funcRoutes from './routes/funcsRoutes';
 import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo/Photo';
 import Group from './components/Group';
 import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
 import './App.css';
+import { RootState } from './redux-toolkit/store';
 
 const mapDispatchToProps = {
   loadCurrentUser,
 };
 
-const connector = connect(null, mapDispatchToProps);
+const mapStateToProps = (state: RootState) =>
+  ({
+    currentUser: state.currentUser?.data,
+  });
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser }) => {
+const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUser }) => {
   useEffect(() => {
     _loadCurrentUser();
   }, [_loadCurrentUser]);
   return (
     <Switch>
-      <Route path={routes.main} component={Main} exact />
       <Route path={routes.login} component={Login} />
       <Route path={routes.audio} component={Audio} />
       <Route path={routes.friends} component={Friends} />
@@ -41,6 +47,31 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser }) => {
       <Route path={routes.bookmarks} component={Bookmarks} />
       <Route path={routes.photo} component={Photo} />
       <Route path={routes.group} component={Group} />
+      <Route
+        path={routes.main}
+        render={() => {
+          /*
+        Если пользователь заходит по главному адресу, его редиректит
+        на его личную страницу "по умолчанию". Если данные юзера ещё не получены
+        или он не авторизирован, то мы не выводим ничего.
+        На будущее: можно сделать, что, если пользователь не авторизирован
+        (например, это будет сообщать сервер), то выкидывать его на страницу с авторизацией
+        */
+          if (currentUser) {
+            return <Redirect to={funcRoutes.mainWithId(currentUser.userId)} />;
+          }
+          return null;
+        }}
+        exact
+      />
+      <Route
+        path={routes.mainWithId}
+        render={({ match }) => {
+          const { id } = match.params;
+          return <Main userId={id} />;
+        }}
+        exact
+      />
     </Switch>
   );
 };

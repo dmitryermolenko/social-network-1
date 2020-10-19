@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useCallback, useState } from 'react';
 import { Modal } from 'antd';
 import {
@@ -8,13 +9,16 @@ import {
 import './style.scss';
 
 interface IModalLinkInput {
+    title: string;
     visible: boolean;
     setUnvisible?: () => void;
     onLinkSend: (link: string) => void;
 }
 
-const ModalLinkInput: React.FC<IModalLinkInput> = ({ visible, onLinkSend, setUnvisible }) => {
-  const title = 'Загрузка фотографии';
+const ModalLinkInput: React.FC<IModalLinkInput> = ({ visible,
+  title,
+  onLinkSend,
+  setUnvisible }) => {
   const [value, setValue] = useState('');
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const innerValue = event.target.value;
@@ -37,7 +41,7 @@ const ModalLinkInput: React.FC<IModalLinkInput> = ({ visible, onLinkSend, setUnv
       className="custom-antd-modal"
     >
       <Form onSubmit={onSubmit}>
-        <Input onChange={onChange} />
+        <Input onChange={onChange} autoFocus />
         <Button>Отправить</Button>
       </Form>
     </Modal>

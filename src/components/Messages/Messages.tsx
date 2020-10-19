@@ -77,23 +77,25 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
     if (chats.loading) return <LoadingBLock />;
     if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
     return (
-      chats.data.map((chat) => (
-        <button
-          key={chat.id}
-          className={massagesClass.selectChatElement}
-          type="button"
-          onClick={() => loadCurrentChat(chat.id)}
-        >
-          <img
-            alt="avatar"
-            src={chat.image}
-          />
-          <div className={massagesClass.selectChatUserInfo}>
-            <span>{chat.title}</span>
-            <p>{chat.lastMessage}</p>
-          </div>
-        </button>
-      )));
+      chats.data.map((chat) =>
+        (
+          <button
+            key={chat.id}
+            className={massagesClass.selectChatElement}
+            type="button"
+            onClick={() =>
+              loadCurrentChat(chat.id)}
+          >
+            <img
+              alt="avatar"
+              src={chat.image}
+            />
+            <div className={massagesClass.selectChatUserInfo}>
+              <span>{chat.title}</span>
+              <p>{chat.lastMessage}</p>
+            </div>
+          </button>
+        )));
   };
 
   return (
@@ -118,7 +120,11 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
           </div>
 
           <div className={massagesClass.content}>
-            <button type="button" onClick={() => console.log('menu chats')}>
+            <button
+              type="button"
+              onClick={() =>
+                console.log('menu chats')}
+            >
               <img alt="more" src={moreOptionSrc} />
             </button>
 

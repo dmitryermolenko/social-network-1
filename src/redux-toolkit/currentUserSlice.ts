@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
-import { getCurrentUser as _getCurrentUser } from '../services/user-controller';
 import { IUser } from '../types/user';
 import { PostsState } from './postsSlice';
 import { StateChat } from './chatSlice';
-import { updateUserStatus } from '../services/user-controller/user-controller';
+import {
+  updateUserStatus,
+  updateUser,
+  //  getCurrentUser as _getCurrentUser,
+  getAsyncCurrentUser,
+} from '../services/user-controller';
 
 const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () => {
-  const response = await _getCurrentUser();
+  const response = await getAsyncCurrentUser();
   return response;
 });
 
@@ -72,6 +76,20 @@ const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state:Clone
   },
 );
 
+const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, {state:CloneRootState }>(
+  'shownUser/updateAvatar',
+  async (avatarUrl: string, thunkApi) => {
+    const { currentUser } = thunkApi.getState();
+    const newUser = {
+      ...currentUser.data,
+      avatar: avatarUrl,
+      password: '1A',
+    } as IUser;
+    const response = await updateUser(newUser);
+    return response;
+  },
+);
+
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
@@ -81,12 +99,14 @@ const currentUserSlice = createSlice({
     UPDATE STATUS
       Изменяет статус юзера, из под которого пользователь залогинин, то есть currentUser.
     */
-    [updateStatus.pending.type]: (state) => ({ ...state, loading: true }),
-    [updateStatus.fulfilled.type]: (state, action) => ({
-      ...state,
-      data: action.payload,
-      loading: false,
-    }),
+    [updateStatus.pending.type]: (state) =>
+      ({ ...state, loading: true }),
+    [updateStatus.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        data: action.payload,
+        loading: false,
+      }),
     /*
       !!
       Старый код, если updateStatus заставить работать на updateUserStatus
@@ -107,25 +127,44 @@ const currentUserSlice = createSlice({
       return { ...state, data: newUser };
       */
 
-    [updateStatus.rejected.type]: (state, action) => ({
-      ...state,
-      error: action.error,
-      loading: false,
-    }),
+    [updateStatus.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
     /* GET CURRENT USER */
-    [loadCurrentUser.pending.type]: (state) => ({ ...state, loading: true }),
-    [loadCurrentUser.fulfilled.type]: (state, action) => ({
-      ...state,
-      data: action.payload,
-      loading: false,
-    }),
-    [loadCurrentUser.rejected.type]: (state, action) => ({
-      ...state,
-      error: action.error,
-      loading: false,
-    }),
+    [loadCurrentUser.pending.type]: (state) =>
+      ({ ...state, loading: true }),
+    [loadCurrentUser.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        data: action.payload,
+        loading: false,
+      }),
+    [loadCurrentUser.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
+    /* UPDATE AVATAR */
+    [updateAvatar.pending.type]: (state) =>
+      ({ ...state, loading: true }),
+    [updateAvatar.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        data: action.payload,
+        loading: false,
+      }),
+    [updateAvatar.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
   },
 });
 
-export { updateStatus, loadCurrentUser };
+export { updateStatus, loadCurrentUser, updateAvatar };
 export const currentUserReducer = currentUserSlice.reducer;

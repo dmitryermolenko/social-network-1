@@ -7,14 +7,15 @@ export default function CommentsList(props) {
   const { data } = props;
   return (
     <Container>
-      {data.map((item) => (
-        <CommentsListItem
+      {data.map((item) =>
+        (
+          <CommentsListItem
           // API отстутствует, временно key формируем так.
           // Когда с сервера будет приходить Id, заменить на него
-          key={item.author + new Date().toLocaleDateString()}
-          data={item}
-        />
-      ))}
+            key={item.author + new Date().toLocaleDateString()}
+            data={item}
+          />
+        ))}
     </Container>
   );
 }

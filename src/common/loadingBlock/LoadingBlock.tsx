@@ -6,6 +6,7 @@ interface ILoadingBlock {
     size?: number
 }
 
-const LoadingBLock:React.FC<ILoadingBlock> = ({ size = 150 }) => <StyledLoading $size={size} />;
+const LoadingBLock:React.FC<ILoadingBlock> = ({ size = 150 }) =>
+  <StyledLoading $size={size} />;
 
 export default LoadingBLock;

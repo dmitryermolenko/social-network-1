@@ -99,7 +99,8 @@ const allAudiosSlice = createSlice({
 });
 
 // Можно в useSelector подставлять просто эту константу
-export const allAudiosSliceSelector = (state: TypeRootReducer) => state.allAudiosReducer;
+export const allAudiosSliceSelector = (state: TypeRootReducer) =>
+  state.allAudiosReducer;
 // Можно в useSelector подставлять просто эту константу END
 
 const allAudiosReducer = allAudiosSlice.reducer;

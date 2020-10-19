@@ -40,15 +40,16 @@ const UserAbout: React.FC<IUserAbout> = function UserAbout({
     [desc.site, linkSite],
   ];
 
-  const renderAbout = () => descriptionItems.map(([desc, info]) => {
-    if (!info) {
-      return null;
-    }
-    return [
-      <InfoHeaderListItemLeft key={`desc_${desc}`}>{desc}</InfoHeaderListItemLeft>,
-      <InfoHeaderListItemRight key={`info_${desc}`}>{info}</InfoHeaderListItemRight>,
-    ];
-  });
+  const renderAbout = () =>
+    descriptionItems.map(([desc, info]) => {
+      if (!info) {
+        return null;
+      }
+      return [
+        <InfoHeaderListItemLeft key={`desc_${desc}`}>{desc}</InfoHeaderListItemLeft>,
+        <InfoHeaderListItemRight key={`info_${desc}`}>{info}</InfoHeaderListItemRight>,
+      ];
+    });
 
   return (
     <WallInfoUserAbout>

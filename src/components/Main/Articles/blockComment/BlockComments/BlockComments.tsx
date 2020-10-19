@@ -14,9 +14,10 @@ import ComponentInput from '../ComponentInput';
 import IComment from '../../../../../types/comment';
 import { RootState } from '../../../../../redux-toolkit/store';
 
-const mapStateToProps = (state: RootState) => ({
-  user: state?.user?.data,
-});
+const mapStateToProps = (state: RootState) =>
+  ({
+    user: state?.user?.data,
+  });
 
 const mapDispatchToProps = {
   loadCommentsByPost,
@@ -50,9 +51,10 @@ const BlockComments: React.FC<IBlockComments> = ({
     if (!comments) {
       return <CommentsEmpty>Комментариев нет. Будьте первым!</CommentsEmpty>;
     }
-    return comments.map((item) => (
-      <Comment key={item.id} comment={item} />
-    ));
+    return comments.map((item) =>
+      (
+        <Comment key={item.id} comment={item} />
+      ));
   };
 
   return (

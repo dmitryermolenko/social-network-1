@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ModalImage from 'react-modal-image';
 import { mainColor } from '../../colors.module';
 import Iimg from '../../types/Iimg';
 
@@ -15,7 +16,8 @@ export const HeaderContainer = styled.div`
   z-index: 15;
 `;
 
-export const Logo = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
+export const Logo = styled.img.attrs((props: Iimg) =>
+  ({ src: props.img }))`
   height: 32px;
   width: 67px;
   margin-top: 57px;
@@ -25,7 +27,8 @@ export const Logo = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
   }
 `;
 
-export const IconHeader = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
+export const IconHeader = styled.img.attrs((props: Iimg) =>
+  ({ src: props.img }))`
   height: 30px;
   width: 30px;
   margin-left: 55px;
@@ -33,7 +36,8 @@ export const IconHeader = styled.img.attrs((props: Iimg) => ({ src: props.img })
     cursor: pointer;
   }
 `;
-export const IconSearch = styled.img.attrs((props: Iimg) => ({ src: props.img }))`
+export const IconSearch = styled.img.attrs((props: Iimg) =>
+  ({ src: props.img }))`
   height: 30px;
   width: 30px;
   &:hover {
@@ -94,7 +98,7 @@ export const RightBlockContainer = styled.div`
 `;
 
 export const UserInfoHeaderContainer = styled.div`
-margin-left: 75px;
+margin-left: 30px;
 position: absolute;
 height: 344px;
 display: flex;
@@ -102,9 +106,9 @@ z-index: 10;
 `;
 
 export const UserInfoAvatar = styled.div`
-max-width: 340px;
-height: 340px;
-border-radius: 170px;
+display: flex;
+align-items: flex-end;
+position: relative;
 `;
 
 export const UserInfoNameBlock = styled.div`
@@ -113,10 +117,11 @@ display: flex;
 flex-direction: column;
 `;
 
-export const Avatar = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
-max-width: 340px;
-max-height: 340px;
-border-radius: 170px;
+export const Avatar = styled(ModalImage)`
+width: 270px;
+height: 270px;
+object-fit: cover;
+border-radius: 50%;
 box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
 &:hover {
   cursor: pointer;
@@ -125,12 +130,8 @@ box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
 
 export const AddPhotoBlock = styled.button`
 display: flex;
-position: absolute;
-bottom: 0;
-right: 50%;
-display: flex;
 justify-content: center;
-padding-top: 5%;
+align-items: normal;
 width:70px;
 height: 70px;
 border-radius: 50%;
@@ -170,8 +171,8 @@ color: #c1c1c1;
 
 export const UserOnlineIcon = styled.div`
 position: absolute;
-top: 35px;
-left: 277px;
+top: 25%;
+right: 25%;
 width: 28px;
 height: 28px;
 border-radius: 14px;
@@ -261,14 +262,11 @@ export const InfoPhotoBlock = styled.div`
   align-content: space-between;
 `;
 
-export const InfoUserPhoto = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+export const InfoUserPhoto = styled(ModalImage)`
   width: 256px;
   height: 162px;
   margin-right: 22px;
   border-radius: 15px;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 // Wall Create Article
@@ -294,10 +292,12 @@ export const WallCreateArticleHeaderBlockLeft = styled.div`
   display: flex;
 `;
 
-export const AvatarMin = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+export const AvatarMin = styled.img.attrs<Iimg>((props) =>
+  ({ src: props.img }))<Iimg>`
   width: 70px;
   height: 70px;
   border-radius: 35px;
+  object-fit: cover;
   &:hover {
     cursor: pointer;
   }
@@ -316,22 +316,28 @@ export const WallCreateArticleHeaderBlockRight = styled.div`
   justify-content: space-between;
 `;
 
-export const IconArticle = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+export const IconArticle = styled.img.attrs<Iimg>((props) =>
+  ({ src: props.img }))<Iimg>`
   margin-left: 13px;
   cursor: pointer;
 `;
 
 export const IconCross = styled(IconArticle)<{$isOpen: boolean}>`
-  transform: rotate(${({ $isOpen }) => ($isOpen ? '45' : '0')}deg);
+  transform: rotate(${({ $isOpen }) =>
+    ($isOpen ? '45' : '0')}deg);
+  transition: .3s;
+  background: white;
 `;
 
-export const WallCreateArticleIconContainer = styled.div<{ $isOpen: boolean }>`
+export const WallCreateArticleIconContainer = styled.div`
   overflow: hidden;
+  display: flex;
+`;
 
-  & > * {
-    transition: transform .3s;
-    transform: translate(${({ $isOpen }) => ($isOpen ? '0%' : '80%')});
-  }
+export const WallCreateArticleAdditionIcons = styled.div<{ $isOpen: boolean }>`
+transition: transform .3s;
+transform: translate(${({ $isOpen }) =>
+    ($isOpen ? '0%' : '100%')});
 `;
 
 export const ArticleName = styled.div`
@@ -342,7 +348,8 @@ export const ArticleName = styled.div`
 `;
 
 // Article Form
-export const ButtonMore = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
+export const ButtonMore = styled.img.attrs<Iimg>((props) =>
+  ({ src: props.img }))<Iimg>`
   position: absolute;
   right: 0;
   bottom: 0;

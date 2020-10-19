@@ -6,5 +6,6 @@ export default function NewsList(props) {
   const {
     data: { news },
   } = data;
-  return news.map((item) => <NewsItem key={item.id} item={item} />);
+  return news.map((item) =>
+    <NewsItem key={item.id} item={item} />);
 }

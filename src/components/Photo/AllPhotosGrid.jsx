@@ -7,7 +7,8 @@ const GridContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  grid-gap: ${(props) => `${props.gap}`};
+  grid-gap: ${(props) =>
+    `${props.gap}`};
 `;
 
 const AllPhotosGrid = ({ children, ...props }) => {

@@ -27,14 +27,15 @@ export default function NewsItem(props) {
   const [isFullContent, setFullContent] = useState(false);
   const height = isFullContent ? '' : '100px';
 
-  const listTags = tags.map((tag) => (
-    <LiItem key={tag}>
-      <TagLink href="http://localhost:3000/social-network">
-        #
-        {tag}
-      </TagLink>
-    </LiItem>
-  ));
+  const listTags = tags.map((tag) =>
+    (
+      <LiItem key={tag}>
+        <TagLink href="http://localhost:3000/social-network">
+          #
+          {tag}
+        </TagLink>
+      </LiItem>
+    ));
   return (
     <Container>
       <NewsHeader>
@@ -73,7 +74,8 @@ export default function NewsItem(props) {
         <ButtonMore>
           <MoreIcon
             src={isFullContent ? moreUp : more}
-            onClick={() => setFullContent(!isFullContent)}
+            onClick={() =>
+              setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </WrapperContent>

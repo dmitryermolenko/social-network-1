@@ -3,7 +3,8 @@ import { IUser, IUserFriend, IUserStatusUpdate } from '../../types/user';
 import baseUrl from '../config';
 
 const axios = axiosLib.create();
-axios.interceptors.response.use((response: AxiosResponse) => response.data);
+axios.interceptors.response.use((response: AxiosResponse) =>
+  response.data);
 axios.defaults.baseURL = `${baseUrl}user`;
 
 export async function getUserById(id: number): Promise<AxiosResponse<IUser>> {

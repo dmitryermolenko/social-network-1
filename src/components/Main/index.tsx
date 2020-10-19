@@ -1,7 +1,7 @@
 // eslint-disable-next-line
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { loadUser } from '../../redux-toolkit/userSlice';
+import { loadUser, resetUser } from '../../redux-toolkit/userSlice';
 import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
 import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
@@ -13,41 +13,58 @@ import ErrorBlock from '../../common/errorBlock';
 import LoadingBlock from '../../common/loadingBlock';
 import { StyledLoadingWrapped } from './styled';
 
-const mapStateToProps = (state: RootState) => ({
-  user: state.user?.data,
-  loading: state.user?.loading,
-  error: state.user?.error,
-});
+const mapStateToProps = (state: RootState) =>
+  ({
+    userModel: state.user,
+    currentUserModel: state.currentUser,
+  });
 
 const mapDispatch = {
   loadUser,
   loadPostsByUser,
+  resetUser,
 };
 const connector = connect(mapStateToProps, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
+type Props = PropsFromRedux & { userId: number };
 
 const Main: React.FC<Props> = ({
-  loadUser: _loadUser, loadPostsByUser: _loadPostsByUser, user, loading, error,
+  loadUser: _loadUser,
+  loadPostsByUser: _loadPostsByUser,
+  resetUser: _resetUser,
+  userModel,
+  currentUserModel,
+  userId,
 }) => {
+  const currentUserId = currentUserModel.data?.userId;
+  const isCurrentUserDisplayed = Number(userId) === currentUserId;
+  let showingUser = userModel;
+  if (isCurrentUserDisplayed) {
+    /* Решаем, кого выводить на экран - текущего пользователя, если idшники совпадают
+    или пользователя, который загружен */
+    showingUser = currentUserModel;
+  }
   useEffect(() => {
-    _loadUser(1);
-    _loadPostsByUser(1);
-  }, [_loadUser, _loadPostsByUser]);
+    _loadUser(userId);
+    _loadPostsByUser(userId);
+    return () => {
+      _resetUser();
+    };
+  }, [_loadUser, _loadPostsByUser, _resetUser, userId]);
   const renderContent = () => {
-    if (user) {
+    if (showingUser?.data) {
       return (
         <>
-          <UserInfoHeader />
-          <Wall />
+          <UserInfoHeader user={showingUser?.data} />
+          <Wall user={showingUser?.data} />
         </>
       );
     }
-    if (loading) {
+    if (showingUser?.loading) {
       return <StyledLoadingWrapped><LoadingBlock /></StyledLoadingWrapped>;
     }
-    return <ErrorBlock errorMessage={error?.message} />;
+    return <ErrorBlock errorMessage={showingUser?.error?.message} />;
   };
   return (
     <>

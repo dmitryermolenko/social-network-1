@@ -24,22 +24,23 @@ const ModalChat: React.FC = () => {
   const switchModalStatus = () => {
     setIsOpen(!isOpen);
   };
-  const renderMessages = () => dataMassages1.map((el) => {
-    if (el.username === 'bogdan13') {
+  const renderMessages = () =>
+    dataMassages1.map((el) => {
+      if (el.username === 'bogdan13') {
+        return (
+          <ModalChatMessageWrapper key={el.idMassage}>
+            <Messages messages={el.message} messagesType="our" date={el.persistDate} />
+            <Author img={el.userSenderImage} name={el.username} />
+          </ModalChatMessageWrapper>
+        );
+      }
       return (
         <ModalChatMessageWrapper key={el.idMassage}>
-          <Messages messages={el.message} messagesType="our" date={el.persistDate} />
           <Author img={el.userSenderImage} name={el.username} />
+          <Messages messages={el.message} messagesType="their" date={el.persistDate} />
         </ModalChatMessageWrapper>
       );
-    }
-    return (
-      <ModalChatMessageWrapper key={el.idMassage}>
-        <Author img={el.userSenderImage} name={el.username} />
-        <Messages messages={el.message} messagesType="their" date={el.persistDate} />
-      </ModalChatMessageWrapper>
-    );
-  });
+    });
   return (
     <ModalChatWrapper isOpen={isOpen}>
       <ContentWrapper isOpen={isOpen}>

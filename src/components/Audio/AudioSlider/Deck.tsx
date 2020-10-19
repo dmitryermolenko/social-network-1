@@ -34,16 +34,19 @@ const Deck = () => {
   };
 
   const handlePlayToggle = () => {
-    setPlaying((prevState) => !prevState);
+    setPlaying((prevState) =>
+      !prevState);
   };
 
-  const Slides = tracks.map((track: { image: string, id: number }) => (
-    <SwiperSlide key={track.id}>
-      <Card image={track.image} />
-    </SwiperSlide>
-  ));
+  const Slides = tracks.map((track: { image: string, id: number }) =>
+    (
+      <SwiperSlide key={track.id}>
+        <Card image={track.image} />
+      </SwiperSlide>
+    ));
 
-  const chosenTrack = tracks.find((song) => song.id === currentTrackId);
+  const chosenTrack = tracks.find((song) =>
+    song.id === currentTrackId);
   const titleSong = typeFuncFind(chosenTrack).title;
   const performerSong = typeFuncFind(chosenTrack).performer;
   const albomSongs = typeFuncFind(chosenTrack).album;

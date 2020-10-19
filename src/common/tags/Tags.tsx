@@ -11,14 +11,17 @@ interface ITags {
 
 const Tags: React.FC<ITags> = ({ deleteTag, setTags, tags }) => {
   const [value, setValue] = useState('');
-  const renderTags = useCallback(() => tags.map((tagText, index) => (
-    <Tag
-      key={tagText}
-      deleteTag={() => deleteTag(index)}
-    >
-      {tagText}
-    </Tag>
-  )), [deleteTag, tags]);
+  const renderTags = useCallback(() =>
+    tags.map((tagText, index) =>
+      (
+        <Tag
+          key={tagText}
+          deleteTag={() =>
+            deleteTag(index)}
+        >
+          {tagText}
+        </Tag>
+      )), [deleteTag, tags]);
   const onBlur = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();

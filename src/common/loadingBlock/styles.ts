@@ -5,7 +5,9 @@ import loading from '../../img/LoadingBlock.svg';
 export const StyledLoading = styled.div<{$size: number}>`
     background-image: url(${loading});
     background-size: contain;
-    width: ${({ $size }) => $size}px;
-    height: ${({ $size }) => $size}px;
+    width: ${({ $size }) =>
+    $size}px;
+    height: ${({ $size }) =>
+    $size}px;
     margin: 0 auto;
 `;

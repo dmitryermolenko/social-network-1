@@ -22,26 +22,33 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser: (state) =>
+      initialState,
+  },
   extraReducers: {
     /*
     LOAD USER
       Загружает текущего отображаемого юзера.
       Использовать для отображения личной страницы другого пользователя и т.д.
     */
-    [loadUser.pending.type]: (state) => ({ ...state, loading: true }),
-    [loadUser.fulfilled.type]: (state, action) => ({
-      ...state,
-      data: action.payload,
-      loading: false,
-    }),
-    [loadUser.rejected.type]: (state, action) => ({
-      ...state,
-      error: action.error,
-      loading: false,
-    }),
+    [loadUser.pending.type]: (state) =>
+      ({ ...state, loading: true }),
+    [loadUser.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        data: action.payload,
+        loading: false,
+      }),
+    [loadUser.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
   },
 });
 
 export { loadUser };
+export const { resetUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;

@@ -14,7 +14,9 @@ export const TagsComponent: React.FC = () => {
         tags={tags}
         setTags={(_tags) => { setTags(_tags); }}
         deleteTag={(index) => {
-          setTags((_tags) => _tags.filter((item, _index) => _index !== index));
+          setTags((_tags) =>
+            _tags.filter((item, _index) =>
+              _index !== index));
         }}
       />
     </div>

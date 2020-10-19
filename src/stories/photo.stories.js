@@ -5,10 +5,11 @@ import PhotoPage from '../components/Photo/Photo';
 
 export default { title: 'Photo Page' };
 
-export const Photo = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="*" component={PhotoPage} exact />
-    </Switch>
-  </BrowserRouter>
-);
+export const Photo = () =>
+  (
+    <BrowserRouter>
+      <Switch>
+        <Route path="*" component={PhotoPage} exact />
+      </Switch>
+    </BrowserRouter>
+  );
