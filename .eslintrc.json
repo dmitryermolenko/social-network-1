@@ -13,6 +13,7 @@
   },
   "rules": {
     "import/prefer-default-export": "warn",
+    "implicit-arrow-linebreak": ["warn", "below"],
     "max-depth": ["warn", 4],
     "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
     "no-lonely-if": ["error"],
@@ -27,15 +28,19 @@
     "import/extensions": "off",
     "no-param-reassign": ["error", { "props": false }],
     "linebreak-style": "off",
+    "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/no-var-requires": 0,
     "semi": "off",
+    "no-undef": "warn",
     "@typescript-eslint/semi": "error",
-    "object-curly-newline": ["error", {
-      "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
-    }],
-    "no-use-before-define" : [0],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": { "minProperties": 7, "consistent": false, "multiline": true }
+      }
+    ],
+    "no-use-before-define": [0],
     "@typescript-eslint/no-use-before-define": [1]
-
   },
   "settings": {
     "react": {

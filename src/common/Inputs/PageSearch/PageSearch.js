@@ -38,16 +38,17 @@ const SearchInpit = styled.input`
   position: relative;
 `;
 
-const PageSearchInput = ({ action, placeholder, defaultValue }) => (
-  <SearchBlock>
-    <SearchInpit
-      defaultValue={defaultValue}
-      placeholder={placeholder}
-      onChange={action}
-      nostyle="true"
-    />
-  </SearchBlock>
-);
+const PageSearchInput = ({ action, placeholder, defaultValue }) =>
+  (
+    <SearchBlock>
+      <SearchInpit
+        defaultValue={defaultValue}
+        placeholder={placeholder}
+        onChange={action}
+        nostyle="true"
+      />
+    </SearchBlock>
+  );
 
 PageSearchInput.defaultProps = {
   defaultValue: '',

@@ -24,20 +24,22 @@ const renderchatList = (
 ): JSX.Element | JSX.Element[] => {
   if (chats.loading) return <LoadingBLock />;
   if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
-  return filterChats.map((chat) => (
-    <button
-      key={chat.id}
-      className={massagesClass.selectChatElement}
-      type="button"
-      onClick={() => loadCurrentChat(chat.id)}
-    >
-      <img alt="avatar" src={chat.image} />
-      <div className={massagesClass.selectChatUserInfo}>
-        <span>{chat.title}</span>
-        <p>{chat.lastMessage}</p>
-      </div>
-    </button>
-  ));
+  return filterChats.map((chat) =>
+    (
+      <button
+        key={chat.id}
+        className={massagesClass.selectChatElement}
+        type="button"
+        onClick={() =>
+          loadCurrentChat(chat.id)}
+      >
+        <img alt="avatar" src={chat.image} />
+        <div className={massagesClass.selectChatUserInfo}>
+          <span>{chat.title}</span>
+          <p>{chat.lastMessage}</p>
+        </div>
+      </button>
+    ));
 };
 
 const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] => {

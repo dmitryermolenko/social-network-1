@@ -3,21 +3,22 @@ import React from 'react';
 import styled from 'styled-components';
 import img from '../../img/icons/search.svg';
 
-const Navbar = () => (
-  <NavbarWrapper>
-    <NavbarContainer>
-      <Menu>
-        <ButtonActive>Все</ButtonActive>
-        <Button>Новости</Button>
-        <Button>Интересные</Button>
-        <Button>Теги</Button>
-      </Menu>
-      <ButtonSearch>
-        <SearchIcon src={img} alt="Поиск" />
-      </ButtonSearch>
-    </NavbarContainer>
-  </NavbarWrapper>
-);
+const Navbar = () =>
+  (
+    <NavbarWrapper>
+      <NavbarContainer>
+        <Menu>
+          <ButtonActive>Все</ButtonActive>
+          <Button>Новости</Button>
+          <Button>Интересные</Button>
+          <Button>Теги</Button>
+        </Menu>
+        <ButtonSearch>
+          <SearchIcon src={img} alt="Поиск" />
+        </ButtonSearch>
+      </NavbarContainer>
+    </NavbarWrapper>
+  );
 
 export default Navbar;
 

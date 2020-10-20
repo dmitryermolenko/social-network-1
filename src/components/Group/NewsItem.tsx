@@ -13,7 +13,8 @@ import 'swiper/swiper-bundle.css';
 import { NewsProps } from '../../types/group';
 
 const NewsItem: React.FC<NewsProps> = ({
-  item: { title,
+  item: {
+    title,
     addressImageGroup,
     groupName,
     // img,
@@ -25,8 +26,8 @@ const NewsItem: React.FC<NewsProps> = ({
     countBookmarks,
     countLikes,
     countComments,
-    countReposts },
-
+    countReposts,
+  },
 }) => {
   const allowedProps = { isSelected: false };
   const [isOpen, setIsOpen] = useState(false);
@@ -57,14 +58,15 @@ const NewsItem: React.FC<NewsProps> = ({
   const [isFullContent, setFullContent] = useState(true);
   const height = isFullContent ? '' : '100px';
 
-  const listTags = tags.map((tag) => (
-    <LiItem key={tag.id}>
-      <TagLink href="http://localhost:3000/social-network">
-        #
-        {tag.text}
-      </TagLink>
-    </LiItem>
-  ));
+  const listTags = tags.map((tag) =>
+    (
+      <LiItem key={tag.id}>
+        <TagLink href="http://localhost:3000/social-network">
+          #
+          {tag.text}
+        </TagLink>
+      </LiItem>
+    ));
 
   let keyCount = 0;
   const testMedia = mockMediaImages;
@@ -76,10 +78,28 @@ const NewsItem: React.FC<NewsProps> = ({
 
     switch (el.mediaType) {
       case 'IMAGE':
-        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt: React.MouseEvent<HTMLElement>): void => handleModal(evt.currentTarget.getAttribute('src'))} {...allowedProps} />;
+        return (
+          <NewsImageMin
+            key={keyCount}
+            src={el.url}
+            alt=""
+            onClick={(evt: React.MouseEvent<HTMLElement>): void =>
+              handleModal(evt.currentTarget.getAttribute('src'))}
+            {...allowedProps}
+          />
+        );
       case 'VIDEO':
         return (
-          <NewsVideo title={el.url} key={keyCount} src={el.url} width="560" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+          <NewsVideo
+            title={el.url}
+            key={keyCount}
+            src={el.url}
+            width="560"
+            height="315"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         );
       case 'AUDIO':
         return (
@@ -108,9 +128,7 @@ const NewsItem: React.FC<NewsProps> = ({
         </AvatarContainer>
         <AuthorContainer>
           <Author>{groupName}</Author>
-          <Time>
-            {originDate}
-          </Time>
+          <Time>{originDate}</Time>
         </AuthorContainer>
         <ActionsContainer>
           <ButtonAction>
@@ -135,7 +153,14 @@ const NewsItem: React.FC<NewsProps> = ({
       <WrapperContent>
         <NewsContentContainer>
           <MediaContainer>
-            {isOpen && <MaxImg src={imgUrl} alt="no" onClick={(): void => handleModal()} />}
+            {isOpen && (
+            <MaxImg
+              src={imgUrl}
+              alt="no"
+              onClick={(): void =>
+                handleModal()}
+            />
+            )}
             {listMedia}
           </MediaContainer>
           <NewsContent style={{ height }}>{text}</NewsContent>
@@ -143,7 +168,8 @@ const NewsItem: React.FC<NewsProps> = ({
         <ButtonMore>
           <MoreIcon
             src={isFullContent ? moreUp : more}
-            onClick={(): void => setFullContent(!isFullContent)}
+            onClick={(): void =>
+              setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </WrapperContent>
@@ -152,9 +178,9 @@ const NewsItem: React.FC<NewsProps> = ({
   );
 };
 const MaxImg = styled.img`
- position: absolute;
- left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 const Container = styled.div`
   padding-top: 50px;
@@ -275,7 +301,7 @@ const NewsImage = styled.img`
 `;
 
 const NewsImageMin = styled.img`
-width: 350px;
+  width: 350px;
   height: 210px;
   object-fit: contain;
   margin-bottom: 25px;
@@ -285,7 +311,6 @@ width: 350px;
 `;
 
 const NewsVideo = styled.iframe`
-  
   margin-bottom: 25px;
   margin-right: auto;
   margin-left: auto;
@@ -302,16 +327,16 @@ const NewsContentContainer = styled.div`
   margin-bottom: 30px;
   flex-direction: column;
   margin: 0 auto;
-   @media (min-width: 2451px) {
+  @media (min-width: 2451px) {
     width: 1480px;
   }
-  @media (min-width: 1933px) and  (max-width: 2450px){
+  @media (min-width: 1933px) and (max-width: 2450px) {
     width: 1110px;
   }
-  @media (min-width: 1525px)  and  (max-width: 1932px){
+  @media (min-width: 1525px) and (max-width: 1932px) {
     width: 740px;
   }
-  @media (min-width: 1110px) and  (max-width: 1524px){
+  @media (min-width: 1110px) and (max-width: 1524px) {
     width: 370px;
   }
 `;
@@ -324,7 +349,7 @@ const NewsContent = styled.span`
   line-height: 165%;
   margin-right: 20px;
   text-align: justify;
-  color: #000000
+  color: #000000;
 `;
 
 const ButtonMore = styled.button`

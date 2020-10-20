@@ -1,24 +1,30 @@
 import avatar from '../../img/main photo.png';
 import { IUser } from '../../types/user';
+import { getUserById as originalGetUserById } from './user-controller';
 
-export function getUserById(id: number) :IUser {
+export function getUserById(id: number): IUser {
   return {
     userId: 1,
     firstName: 'Руслан',
     lastName: 'Вадимов',
-    password: 'qwerty',
-    email: 'email@email.com',
+    password: 'A1',
+    email: 'admin0@user.ru',
     dateOfBirth: '01.01.2000',
     education: 'Высшее техническое',
     aboutMe: 'About me',
     linkSite: 'www.site.com',
+    roleName: 'ADMIN',
     avatar,
     city: 'Moscow',
     status: '- На моем компе все работает.\n— Отправим клиенту твой комп.',
-    activeName: 'online',
+    activeName: 'Active',
   };
 }
 
-export function getCurrentUser() : IUser {
+export function getCurrentUser(): IUser {
   return getUserById(1);
+}
+
+export async function getAsyncCurrentUser() {
+  return originalGetUserById(1);
 }

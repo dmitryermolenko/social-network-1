@@ -22,12 +22,13 @@ const Headline = styled.h1`
   top: -90px;
 `;
 
-const ContentBox = ({ headline, children }) => (
-  <Box>
-    <Headline>{headline}</Headline>
-    {children}
-  </Box>
-);
+const ContentBox = ({ headline, children }) =>
+  (
+    <Box>
+      <Headline>{headline}</Headline>
+      {children}
+    </Box>
+  );
 
 export default ContentBox;
 

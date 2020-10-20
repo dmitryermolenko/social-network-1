@@ -73,7 +73,8 @@ const ButtonSingInUpTxt: any = styled.button`
   background-color: rgba(0, 125, 215, 0);
   padding: 0;
   border: none;
-  border-bottom: ${({ selected }: any) => (selected ? '2px solid #FFB11B' : 'none')};
+  border-bottom: ${({ selected }: any) =>
+    (selected ? '2px solid #FFB11B' : 'none')};
 
   box-shadow: none;
   p {
@@ -154,10 +155,11 @@ const InputError = styled.p`
   transition: all 0.5s ease;
 `;
 
-const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties => ({
-  opacity: (isVisible ? 1 : 0),
-  height: (isVisible ? '1em' : 0),
-});
+const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties =>
+  ({
+    opacity: (isVisible ? 1 : 0),
+    height: (isVisible ? '1em' : 0),
+  });
 
 const Login: React.FC = (): JSX.Element => {
   const [value, setValue] = useState(true);
@@ -205,8 +207,10 @@ const Login: React.FC = (): JSX.Element => {
       const result = JSON.stringify(values);
       console.log(result);
       createNewUser(values)
-        .then(() => alert('Регистрация прошла успешно!'))
-        .catch((e) => alert(`Error ${e.message}`));
+        .then(() =>
+          alert('Регистрация прошла успешно!'))
+        .catch((e) =>
+          alert(`Error ${e.message}`));
     },
   });
 
@@ -231,10 +235,18 @@ const Login: React.FC = (): JSX.Element => {
         {value === true && (
           <FormArea>
             <ButtonsArea>
-              <ButtonSingInUpTxt selected={border.first} onClick={() => selectLogin()}>
+              <ButtonSingInUpTxt
+                selected={border.first}
+                onClick={() =>
+                  selectLogin()}
+              >
                 <p>Вход</p>
               </ButtonSingInUpTxt>
-              <ButtonSingInUpTxt selected={border.second} onClick={() => selectRegistration()}>
+              <ButtonSingInUpTxt
+                selected={border.second}
+                onClick={() =>
+                  selectRegistration()}
+              >
                 <p>Регистрация</p>
               </ButtonSingInUpTxt>
             </ButtonsArea>
@@ -256,10 +268,18 @@ const Login: React.FC = (): JSX.Element => {
         {value === false && (
           <FormArea onSubmit={regForm.handleSubmit}>
             <ButtonsArea>
-              <ButtonSingInUpTxt selected={border.first} onClick={() => selectLogin()}>
+              <ButtonSingInUpTxt
+                selected={border.first}
+                onClick={() =>
+                  selectLogin()}
+              >
                 <p>Вход</p>
               </ButtonSingInUpTxt>
-              <ButtonSingInUpTxt selected={border.second} onClick={() => selectRegistration()}>
+              <ButtonSingInUpTxt
+                selected={border.second}
+                onClick={() =>
+                  selectRegistration()}
+              >
                 <p>Регистрация</p>
               </ButtonSingInUpTxt>
             </ButtonsArea>

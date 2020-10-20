@@ -18,9 +18,10 @@ interface OwnProps {
 }
 type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps;
 
-const mapStateToProps = (state: RootState): StateProps => ({
-  memberOf: state.groups.memberOf,
-});
+const mapStateToProps = (state: RootState): StateProps =>
+  ({
+    memberOf: state.groups.memberOf,
+  });
 
 const mapDispatchToProps = {
   joinGroup,
@@ -39,38 +40,48 @@ const SingleGroup: React.FC<Props> = ({
   leaveGroup: _leaveGroup,
   memberOf,
   history,
-}) => (
-  <SingleGroupContainer>
-    <LeftWrapper>
-      <GroupAvatar src={addressImageGroup} alt="avatar" />
-      <GroupDescriptionContainer>
-        <GroupTitle>
+}) =>
+  (
+    <SingleGroupContainer>
+      <LeftWrapper>
+        <GroupAvatar src={addressImageGroup} alt="avatar" />
+        <GroupDescriptionContainer>
+          <GroupTitle>
 
-          <ItemLink onClick={(): void => history.push(`/group/${id}`)}>{name}</ItemLink>
-        </GroupTitle>
-        <GroupCategory>{groupCategory}</GroupCategory>
-        <GroupFollowers>
-          {subscribers}
-          {' '}
-          подписчиков
-          {' '}
-        </GroupFollowers>
-      </GroupDescriptionContainer>
-    </LeftWrapper>
-    {memberOf.some((element: number) => element === id)
-      ? (
-        <UnFollowButton onClick={(): void => _leaveGroup({ userId: 4, groupId: id })}>
-          Выйти из группы
-        </UnFollowButton>
-      )
-      : (
-        <FollowButton onClick={(): void => _joinGroup({ userId: 4, groupId: id })}>
-          Вступить в группу
-        </FollowButton>
-      )}
+            <ItemLink onClick={(): void =>
+              history.push(`/group/${id}`)}
+            >
+              {name}
+            </ItemLink>
+          </GroupTitle>
+          <GroupCategory>{groupCategory}</GroupCategory>
+          <GroupFollowers>
+            {subscribers}
+            {' '}
+            подписчиков
+            {' '}
+          </GroupFollowers>
+        </GroupDescriptionContainer>
+      </LeftWrapper>
+      {memberOf.some((element: number) =>
+        element === id)
+        ? (
+          <UnFollowButton onClick={(): void =>
+            _leaveGroup({ userId: 4, groupId: id })}
+          >
+            Выйти из группы
+          </UnFollowButton>
+        )
+        : (
+          <FollowButton onClick={(): void =>
+            _joinGroup({ userId: 4, groupId: id })}
+          >
+            Вступить в группу
+          </FollowButton>
+        )}
 
-  </SingleGroupContainer>
-);
+    </SingleGroupContainer>
+  );
 
 const SingleGroupContainer = styled.div`
 display:flex;

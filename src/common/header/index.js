@@ -16,25 +16,26 @@ import {
   IconSearch,
 } from '../styledComponents';
 
-const Header = () => (
-  <HeaderContainer>
-    <Link to="/">
-      <Logo img={logo} />
-    </Link>
-    <RightBlockHeader>
-      <ButtonSearch>
-        <IconSearch img={search} />
-      </ButtonSearch>
-      <form>
-        <InputHeader type="text" />
-      </form>
-      <IconHeader img={ru} />
-      <IconHeader img={customization} />
-      <Link to="/social-network">
-        <IconHeader img={exit} />
+const Header = () =>
+  (
+    <HeaderContainer>
+      <Link to="/">
+        <Logo img={logo} />
       </Link>
-    </RightBlockHeader>
-  </HeaderContainer>
-);
+      <RightBlockHeader>
+        <ButtonSearch>
+          <IconSearch img={search} />
+        </ButtonSearch>
+        <form>
+          <InputHeader type="text" />
+        </form>
+        <IconHeader img={ru} />
+        <IconHeader img={customization} />
+        <Link to="/social-network">
+          <IconHeader img={exit} />
+        </Link>
+      </RightBlockHeader>
+    </HeaderContainer>
+  );
 
 export default Header;

@@ -22,7 +22,7 @@ import { onFilterChats, renderchatList, renderMessages } from './helpers';
 
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
 
-const mapStateToProps = (state:RootState) => {
+const mapStateToProps = (state: RootState) => {
   const { chats, currentChat } = state.chat;
   const { data } = state.currentUser;
   return {
@@ -68,7 +68,11 @@ const Messages: React.FC<Props> = ({
       <div className={massagesClass.wrapper}>
         <div className={massagesClass.selectChat}>
           <div className={massagesClass.pageSearchInputWrapper}>
-            <PageSearchInput placeholder="Поиск..." action={(value) => setFilterChats(onFilterChats(value, chats.data))} />
+            <PageSearchInput
+              placeholder="Поиск..."
+              action={(value) =>
+                setFilterChats(onFilterChats(value, chats.data))}
+            />
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
             <div className={massagesClass.selectChatElementsWrapper}>
@@ -79,7 +83,10 @@ const Messages: React.FC<Props> = ({
 
         <div className={massagesClass.contentWrapper}>
           <div className={massagesClass.contentHeader}>
-            <img alt="avatar" src="https://st.kp.yandex.net/images/actor_iphone/iphone360_1746394.jpg" />
+            <img
+              alt="avatar"
+              src="https://st.kp.yandex.net/images/actor_iphone/iphone360_1746394.jpg"
+            />
             <div className={massagesClass.contentUserInfo}>
               <span>{`${user?.firstName} ${user?.lastName}`}</span>
               {/* <p>Программист</p> */}
@@ -87,7 +94,12 @@ const Messages: React.FC<Props> = ({
           </div>
 
           <div className={massagesClass.content}>
-            <button className={massagesClass.menu} type="button" onClick={() => console.log('menu chats')}>
+            <button
+              className={massagesClass.menu}
+              type="button"
+              onClick={() =>
+                console.log('menu chats')}
+            >
               <img alt="more" src={moreOptionSrc} />
             </button>
 
@@ -98,7 +110,9 @@ const Messages: React.FC<Props> = ({
             </div>
 
             <div>
-              <SubmitMessage onSubmitMessage={(mess) => console.log(mess)} />
+              <SubmitMessage onSubmitMessage={(mess) =>
+                console.log(mess)}
+              />
             </div>
           </div>
         </div>

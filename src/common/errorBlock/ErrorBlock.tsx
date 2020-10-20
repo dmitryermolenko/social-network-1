@@ -3,15 +3,16 @@ import * as React from 'react';
 import StyledError from './styles';
 
 interface IErrorBlock {
-  errorMessage?: string
+  errorMessage?: string;
 }
-const ErrorBlock:React.FC<IErrorBlock> = ({ errorMessage }) => (
-  <StyledError>
-    Error occured with
-    {' '}
-    {errorMessage }
-    !
-  </StyledError>
-);
+const ErrorBlock: React.FC<IErrorBlock> = ({ errorMessage }) =>
+  (
+    <StyledError>
+      Error occured with
+      {' '}
+      {errorMessage }
+      !
+    </StyledError>
+  );
 
 export default ErrorBlock;

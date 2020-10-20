@@ -1,23 +1,26 @@
 import styled from 'styled-components';
 import { Form } from 'formik';
 
-export const InputName = styled.input`
+export const InputName = styled.input<{ $isError: boolean }>`
   margin-left: 0;
   margin-top: 32px;
   margin-bottom: 20px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #b3b3b3;
+  border-radius: 5px;
+  border-bottom: ${({ $isError }) =>
+    ($isError ? '1px solid red' : '1px solid #b3b3b3')};
   outline: none !important;
   font-size: 24px;
 `;
 
-export const InputText = styled.textarea`
+export const InputText = styled.textarea<{ $isError: boolean }>`
   margin-left: 0;
   margin-top: 42px;
   width: 100%;
   border-radius: 5px;
-  border: 1px solid #b2b2b2;
+  border: ${({ $isError }) =>
+    ($isError ? '1px solid red;' : '1px solid #b2b2b2;')};
   outline: none !important;
   font-size: 16px;
   resize: none;
@@ -48,4 +51,8 @@ export const ArticleButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const ErrorLine = styled.div`
+  color: red;
 `;

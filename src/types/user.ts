@@ -11,6 +11,7 @@ export interface IUser {
   confirmPassword?: string;
   city?: string;
   linkSite?: string;
+  profession?: string;
   roleName?: string;
   status?: string;
   activeName?: string;
@@ -24,4 +25,9 @@ export interface IUserFriend {
   friendId: number;
   id: number;
   userId: number;
+}
+
+export interface IUserStatusUpdate {
+  userId: number;
+  status: string;
 }

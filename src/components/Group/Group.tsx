@@ -29,11 +29,12 @@ interface RouteParams {
   slug: string;
 }
 
-const mapStateToProps = (state: RootState): StateProps => ({
-  groupInfo: state.singleGroup.groupInfo,
-  posts: state.singleGroup.posts,
-  loading: state.singleGroup.loading,
-});
+const mapStateToProps = (state: RootState): StateProps =>
+  ({
+    groupInfo: state.singleGroup.groupInfo,
+    posts: state.singleGroup.posts,
+    loading: state.singleGroup.loading,
+  });
 
 const mapDispatchToProps = {
   loadGroupInfo,
@@ -63,9 +64,10 @@ const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
     if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
       addressImageGroup = photogroup;
     }
-    const postsUpg = posts.map((element: GroupPosts) => ({ ...element,
-      addressImageGroup,
-      groupName: name }));
+    const postsUpg = posts.map((element: GroupPosts) =>
+      ({ ...element,
+        addressImageGroup,
+        groupName: name }));
 
     return (
       <Wrapper>

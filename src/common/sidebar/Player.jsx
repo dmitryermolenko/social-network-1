@@ -71,16 +71,17 @@ const TitleMusic = styled.h3`
   margin: 0;
 `;
 
-const Player = () => (
-  <Wrapper>
-    <Panel>
-      <BtnBack />
-      <BtnPlay />
-      <BtnNext />
-    </Panel>
-    <TitleAutor>Исполнитель</TitleAutor>
-    <TitleMusic>Название трека</TitleMusic>
-  </Wrapper>
-);
+const Player = () =>
+  (
+    <Wrapper>
+      <Panel>
+        <BtnBack />
+        <BtnPlay />
+        <BtnNext />
+      </Panel>
+      <TitleAutor>Исполнитель</TitleAutor>
+      <TitleMusic>Название трека</TitleMusic>
+    </Wrapper>
+  );
 
 export default Player;

@@ -8,7 +8,7 @@ const loadChatsOfUser = createAsyncThunk('chat/loadChatsOfUser', async () => {
   return response;
 });
 
-const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id:number) => {
+const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id: number) => {
   console.log('chat', id);
   const response = await getSingleChats(id);
   return response;
@@ -16,18 +16,18 @@ const loadCurrentChat = createAsyncThunk('chat/loadCurrentChat', async (id:numbe
 
 export interface StateChat {
   chats: {
-    data: Ichat[],
-    loading: boolean,
-    error: null | Error,
-  },
+    data: Ichat[];
+    loading: boolean;
+    error: null | Error;
+  };
   currentChat: {
-    data: IsingleChat[],
-    loading: boolean,
-    error: null | Error,
-  },
+    data: IsingleChat[];
+    loading: boolean;
+    error: null | Error;
+  };
 }
 
-const initialState : StateChat = {
+const initialState: StateChat = {
   chats: {
     data: [],
     loading: false,
@@ -45,47 +45,53 @@ const chatSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [loadChatsOfUser.pending.type]: (state) => ({
-      ...state,
-      chats: { data: [],
-        loading: true,
-        error: null },
-    }),
-    [loadChatsOfUser.fulfilled.type]: (state, action) => ({
-      ...state,
-      chats: { data: action.payload,
-        loading: false,
-        error: null },
-    }),
-    [loadChatsOfUser.rejected.type]: (state, action) => ({
-      ...state,
-      chats: {
-        data: [],
-        loading: false,
-        error: action.error,
-      },
-    }),
+    [loadChatsOfUser.pending.type]: (state) =>
+      ({
+        ...state,
+        chats: { data: [],
+          loading: true,
+          error: null },
+      }),
+    [loadChatsOfUser.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        chats: { data: action.payload,
+          loading: false,
+          error: null },
+      }),
+    [loadChatsOfUser.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        chats: {
+          data: [],
+          loading: false,
+          error: action.error,
+        },
+      }),
 
-    [loadCurrentChat.pending.type]: (state) => ({
-      ...state,
-      currentChat: { data: [],
-        loading: true,
-        error: null },
-    }),
-    [loadCurrentChat.fulfilled.type]: (state, action) => ({
-      ...state,
-      currentChat: { data: action.payload,
-        loading: false,
-        error: null },
-    }),
-    [loadCurrentChat.rejected.type]: (state, action) => ({
-      ...state,
-      currentChat: {
-        data: [],
-        loading: false,
-        error: action.error,
-      },
-    }),
+    [loadCurrentChat.pending.type]: (state) =>
+      ({
+        ...state,
+        currentChat: { data: [],
+          loading: true,
+          error: null },
+      }),
+    [loadCurrentChat.fulfilled.type]: (state, action) =>
+      ({
+        ...state,
+        currentChat: { data: action.payload,
+          loading: false,
+          error: null },
+      }),
+    [loadCurrentChat.rejected.type]: (state, action) =>
+      ({
+        ...state,
+        currentChat: {
+          data: [],
+          loading: false,
+          error: action.error,
+        },
+      }),
   },
 });
 

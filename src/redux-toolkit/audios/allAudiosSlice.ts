@@ -63,7 +63,7 @@ const allAudiosSlice = createSlice({
         console.log(state, action, 'plug');
       });
     builder.addCase(allAudiosAction.fulfilled,
-      (state: Draft<{ allAudios: Array<any>, loading: string }>, action: PayloadAction<any>) => {
+      (state: Draft<{ allAudios: Array<any>; loading: string }>, action: PayloadAction<any>) => {
         state.allAudios = action.payload;
         state.loading = action.type;
       });
@@ -99,7 +99,8 @@ const allAudiosSlice = createSlice({
 });
 
 // Можно в useSelector подставлять просто эту константу
-export const allAudiosSliceSelector = (state: TypeRootReducer) => state.allAudiosReducer;
+export const allAudiosSliceSelector = (state: TypeRootReducer) =>
+  state.allAudiosReducer;
 // Можно в useSelector подставлять просто эту константу END
 
 const allAudiosReducer = allAudiosSlice.reducer;

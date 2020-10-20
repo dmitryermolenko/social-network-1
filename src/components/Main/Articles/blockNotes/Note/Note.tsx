@@ -20,31 +20,38 @@ import {
   CountAction,
   Wrapper,
   TitleText,
-  Text,
+  TextWithMarkdown,
   TagsList,
   BtnOpenNote,
   TagItem,
   StyledLoadingBlock,
   NoteErrorBlock,
 } from './styles';
+import MediaContainer from '../../../../../common/mediaContainer';
 
 interface INote {
-  dataPost: IDataPost
+  dataPost: IDataPost;
 }
 
 const Note: React.FC<INote> = ({ dataPost }: INote) => {
-  const {
-    post, comments, loading, error,
-  } = dataPost;
+  const { post, comments, loading, error } = dataPost;
   const [isOpen, setIsOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(Boolean(comments));
-  const revertOpen = useCallback(() => setIsOpen((_isOpen) => !_isOpen),
-    [setIsOpen]);
-  const revertCommentsOpen = useCallback(() => setIsCommentsOpen((_isOpen) => !_isOpen),
-    [setIsCommentsOpen]);
+  const revertOpen = useCallback(() =>
+    setIsOpen((_isOpen) =>
+      !_isOpen), [setIsOpen]);
+  const revertCommentsOpen = useCallback(() =>
+    setIsCommentsOpen((_isOpen) =>
+      !_isOpen), [
+    setIsCommentsOpen,
+  ]);
   const renderState = useCallback(() => {
     if (loading) {
-      return <StyledLoadingBlock><LoadingBlock size={60} /></StyledLoadingBlock>;
+      return (
+        <StyledLoadingBlock>
+          <LoadingBlock size={60} />
+        </StyledLoadingBlock>
+      );
     }
     if (error) {
       return <NoteErrorBlock> Что-то пошло не так... </NoteErrorBlock>;
@@ -97,17 +104,16 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
       </WrapperNote>
       <Wrapper>
         <TitleText>{title}</TitleText>
-        <SmoothCollapse expanded={isOpen} collapsedHeight="200" heightTransition=".5s">
-          <Text isOpen={isOpen}>{text}</Text>
+        <SmoothCollapse expanded={isOpen} collapsedHeight="200px" heightTransition=".5s">
+          <TextWithMarkdown $isOpen={isOpen}>{text}</TextWithMarkdown>
+          <MediaContainer media={post?.media} postId={post.id} />
         </SmoothCollapse>
-        <BtnOpenNote
-          $isOpen={isOpen}
-          onClick={revertOpen}
-        />
+        <BtnOpenNote $isOpen={isOpen} onClick={revertOpen} />
         <TagsList>
-          {tags?.map((item) => (
-            <TagItem key={item.id}>{item.text}</TagItem>
-          ))}
+          {tags?.map((item) =>
+            (
+              <TagItem key={item.id}>{item.text}</TagItem>
+            ))}
         </TagsList>
 
         <SmoothCollapse expanded={isCommentsOpen} heightTransition=".5s">

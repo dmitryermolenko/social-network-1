@@ -1,5 +1,6 @@
 const routes = {
   main: '/',
+  mainWithId: '/:id',
   login: '/social-network',
   friends: '/friends',
   messages: '/messages',

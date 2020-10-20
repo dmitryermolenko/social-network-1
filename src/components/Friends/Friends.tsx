@@ -33,12 +33,13 @@ export const PageMarker = styled.h2`
   background: #ffb11b;
 `;
 
-const mapStateToProps = (state: RootState) => ({
-  frendsList: state.frends.data,
-  loading: state.frends.loading,
-  error: state.frends.error,
-  frendsFilter: state.frends.frendsFilter,
-});
+const mapStateToProps = (state: RootState) =>
+  ({
+    frendsList: state.frends.data,
+    loading: state.frends.loading,
+    error: state.frends.error,
+    frendsFilter: state.frends.frendsFilter,
+  });
 
 const mapDispatch = { loadFrendsList };
 const connector = connect(mapStateToProps, mapDispatch);
@@ -88,20 +89,21 @@ const Friends: React.FC<Props> = ({
     <FriendsWrapper>
       <PageMarker>Друзья</PageMarker>
       <PageSearchInput action={filterInputHandler} placeholder="Начните поиск друзей..." />
-      {frendsList.length === 0 ? (
+      {frendsList.length !== 0 ? (
         <div>
-          {userFiltered().map((item) => (
-            <SingleFriend
-              key={uniqueId()}
-              deleteButtonHandler={deleteButtonHandler}
-              messegeButtonHandler={messegeButtonHandler}
-              firstname={item.firstName}
-              lastname={item.lastName}
-              profesion="No field in api"
-              avatarka={item.avatar}
-              id={item.userId}
-            />
-          ))}
+          {userFiltered().map((item) =>
+            (
+              <SingleFriend
+                key={uniqueId()}
+                deleteButtonHandler={deleteButtonHandler}
+                messegeButtonHandler={messegeButtonHandler}
+                firstname={item.firstName}
+                lastname={item.lastName}
+                profesion="No field in api"
+                avatarka={item.avatar}
+                id={item.userId}
+              />
+            ))}
         </div>
       ) : (
         <Spin size="large" />

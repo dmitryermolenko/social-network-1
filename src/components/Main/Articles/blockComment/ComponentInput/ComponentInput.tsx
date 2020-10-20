@@ -8,7 +8,6 @@ import createComment from './createComment';
 import { IUser } from '../../../../../types/user';
 import { loadCommentsByPost } from '../../../../../redux-toolkit/postsSlice';
 
-import userFoto from '../../../../../img/userFoto.png';
 import { WrapperForm, Input, BtnSend, BtnOpenNote, StyledLoading } from './styles';
 import LoadingBlock from '../../../../../common/loadingBlock';
 
@@ -45,7 +44,7 @@ const ComponentInput: React.FC<Props> = ({
       }}
     >
       <WrapperForm>
-        <Avatar src={userFoto} />
+        <Avatar src={user.avatar} />
         {isLoading && (
           <StyledLoading>
             <LoadingBlock size={30} />

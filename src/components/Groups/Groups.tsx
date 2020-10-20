@@ -18,11 +18,12 @@ interface DispatchProps {
 }
 type Props = StateProps & DispatchProps;
 
-const mapStateToProps = (state: RootState): StateProps => ({
-  groups: state.groups.groups,
-  loading: state.groups.loading,
-  error: state.groups.error,
-});
+const mapStateToProps = (state: RootState): StateProps =>
+  ({
+    groups: state.groups.groups,
+    loading: state.groups.loading,
+    error: state.groups.error,
+  });
 const mapDispatchToProps = {
   loadGroups,
   joinGroup,
@@ -45,8 +46,9 @@ const Groups: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    groups.forEach((element: Group) => _loadAllUsers({ userId: currentUserId,
-      groupId: element.id }));
+    groups.forEach((element: Group) =>
+      _loadAllUsers({ userId: currentUserId,
+        groupId: element.id }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
 
@@ -57,16 +59,20 @@ const Groups: React.FC<Props> = ({
     setGroupName(value.toLowerCase());
   };
 
-  const filterGroups = (data: Group[]): Group[] => data.filter(
-    (el) => el.name.toLowerCase().includes(groupName),
-  );
+  const filterGroups = (data: Group[]): Group[] =>
+    data.filter(
+      (el) =>
+        el.name.toLowerCase().includes(groupName),
+    );
 
-  const renderGroups = (data: Group[]): JSX.Element[] => data.map((el: Group) => (
-    <SingleGroup
-      key={el.id}
-      groupInfo={el}
-    />
-  ));
+  const renderGroups = (data: Group[]): JSX.Element[] =>
+    data.map((el: Group) =>
+      (
+        <SingleGroup
+          key={el.id}
+          groupInfo={el}
+        />
+      ));
   return (
     <GroupsContainer>
       <PageSearchInput placeholder="Начните поиск группы..." action={handleInput} />

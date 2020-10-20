@@ -7,6 +7,7 @@ const AllPhotosItemStyled = styled.img`
   position: static;
 `;
 
-const PhotosItem = ({ ...props }) => <AllPhotosItemStyled {...props} />;
+const PhotosItem = ({ ...props }) =>
+  <AllPhotosItemStyled {...props} />;
 
 export default PhotosItem;

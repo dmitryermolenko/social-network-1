@@ -24,10 +24,12 @@ const Item = styled(ModalImage)`
   position: static;
 `;
 
-const sliderItems = data.map((item) => SliderItemSt(item));
-const allPhotoItems = data.map((item) => (
-  <Item large={item.bigImage} small={item.image} alt={`image#${item.id}`} key={__.uniqueId()} />
-));
+const sliderItems = data.map((item) =>
+  SliderItemSt(item));
+const allPhotoItems = data.map((item) =>
+  (
+    <Item large={item.bigImage} small={item.image} alt={`image#${item.id}`} key={__.uniqueId()} />
+  ));
 
 const LinkArrow = styled(Link)`
   mask-image: url(${arrowIcon});
@@ -51,26 +53,27 @@ const Headline = styled.h1`
   top: -90px;
 `;
 
-const Photo = () => (
-  <PageWrapper>
-    <ContentBox>
-      <Headline>Фотографии</Headline>
-      <SectionHeader headline="Альбомы">
-        <Button>Создать</Button>
-      </SectionHeader>
-      <Slider slidesToShow={3} slidesToScroll={3} spaceBetween={70} loop>
-        {sliderItems}
-      </Slider>
-      <SectionHeader headline="Все фотографии">
-        <Element name="all" />
-        <Button>Добавить</Button>
-      </SectionHeader>
-      <AllPhotosGrid gap="44px">
-        <LinkArrow to="all" duration={500} smooth spy />
-        {allPhotoItems}
-      </AllPhotosGrid>
-    </ContentBox>
-  </PageWrapper>
-);
+const Photo = () =>
+  (
+    <PageWrapper>
+      <ContentBox>
+        <Headline>Фотографии</Headline>
+        <SectionHeader headline="Альбомы">
+          <Button>Создать</Button>
+        </SectionHeader>
+        <Slider slidesToShow={3} slidesToScroll={3} spaceBetween={70} loop>
+          {sliderItems}
+        </Slider>
+        <SectionHeader headline="Все фотографии">
+          <Element name="all" />
+          <Button>Добавить</Button>
+        </SectionHeader>
+        <AllPhotosGrid gap="44px">
+          <LinkArrow to="all" duration={500} smooth spy />
+          {allPhotoItems}
+        </AllPhotosGrid>
+      </ContentBox>
+    </PageWrapper>
+  );
 
 export default Photo;

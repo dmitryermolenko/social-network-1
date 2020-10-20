@@ -27,12 +27,13 @@ const UserName = styled.div`
 `;
 
 // нужно добавить ссылку на страницу пользователя от роутера
-const MessageAuthor = ({ img, name }) => (
-  <Wrapper>
-    <UserImg src={img} />
-    <UserName>{name}</UserName>
-  </Wrapper>
-);
+const MessageAuthor = ({ img, name }) =>
+  (
+    <Wrapper>
+      <UserImg src={img} />
+      <UserName>{name}</UserName>
+    </Wrapper>
+  );
 
 export default MessageAuthor;
 

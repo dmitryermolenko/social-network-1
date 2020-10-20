@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { CommentData } from '../../types/group';
 import CommentsList from './CommentsList';
 
-const Comments: React.FC<CommentData> = ({ data }) => (
-  <Container>
-    <Heading>Комментарии</Heading>
-    <CommentsList data={data} />
-  </Container>
-);
+const Comments: React.FC<CommentData> = ({ data }) =>
+  (
+    <Container>
+      <Heading>Комментарии</Heading>
+      <CommentsList data={data} />
+    </Container>
+  );
 
 const Container = styled.div`
   max-height: 400px;

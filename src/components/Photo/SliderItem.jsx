@@ -9,11 +9,12 @@ const Headline = styled.h2`
   padding: 20px 0;
 `;
 
-const SliderItem = (item) => (
-  <div key={__.uniqueId()}>
-    <PhotoItem src={item.image} />
-    <Headline>{item.headline}</Headline>
-  </div>
-);
+const SliderItem = (item) =>
+  (
+    <div key={__.uniqueId()}>
+      <PhotoItem src={item.image} />
+      <Headline>{item.headline}</Headline>
+    </div>
+  );
 
 export default SliderItem;

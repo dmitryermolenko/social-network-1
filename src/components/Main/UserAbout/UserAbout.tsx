@@ -12,13 +12,13 @@ import {
 } from '../../../common/styledComponents';
 
 interface IUserAbout {
-    dateOfBirth?: string,
-    education?: string,
-    profession?: string,
-    linkSite?: string,
-    city?: string,
-    aboutMe?: string,
-    languages?: string[]
+    dateOfBirth?: string;
+    education?: string;
+    profession?: string;
+    linkSite?: string;
+    city?: string;
+    aboutMe?: string;
+    languages?: string[];
 }
 
 const UserAbout: React.FC<IUserAbout> = function UserAbout({
@@ -40,15 +40,16 @@ const UserAbout: React.FC<IUserAbout> = function UserAbout({
     [desc.site, linkSite],
   ];
 
-  const renderAbout = () => descriptionItems.map(([desc, info]) => {
-    if (!info) {
-      return null;
-    }
-    return [
-      <InfoHeaderListItemLeft key={`desc_${desc}`}>{desc}</InfoHeaderListItemLeft>,
-      <InfoHeaderListItemRight key={`info_${desc}`}>{info}</InfoHeaderListItemRight>,
-    ];
-  });
+  const renderAbout = () =>
+    descriptionItems.map(([desc, info]) => {
+      if (!info) {
+        return null;
+      }
+      return [
+        <InfoHeaderListItemLeft key={`desc_${desc}`}>{desc}</InfoHeaderListItemLeft>,
+        <InfoHeaderListItemRight key={`info_${desc}`}>{info}</InfoHeaderListItemRight>,
+      ];
+    });
 
   return (
     <WallInfoUserAbout>

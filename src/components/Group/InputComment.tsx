@@ -5,21 +5,22 @@ import submit from '../../img/icons/submit.svg';
 import more from '../../img/icons/more.svg';
 // import moreUp from './moreUp.svg';
 
-const InputComment: React.FC = () => (
-  <Container>
-    <AvatarContainer>
-      <AvatarImg src={avatar} alt="Aватар" />
-    </AvatarContainer>
-    <InputField placeholder="Напишите что-нибудь..." />
-    <ButtonSubmit>
-      <SubmitIcon src={submit} />
-    </ButtonSubmit>
+const InputComment: React.FC = () =>
+  (
+    <Container>
+      <AvatarContainer>
+        <AvatarImg src={avatar} alt="Aватар" />
+      </AvatarContainer>
+      <InputField placeholder="Напишите что-нибудь..." />
+      <ButtonSubmit>
+        <SubmitIcon src={submit} />
+      </ButtonSubmit>
 
-    <ButtonMore>
-      <MoreIcon src={more} />
-    </ButtonMore>
-  </Container>
-);
+      <ButtonMore>
+        <MoreIcon src={more} />
+      </ButtonMore>
+    </Container>
+  );
 
 const Container = styled.div`
   display: flex;

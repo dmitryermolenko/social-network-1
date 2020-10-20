@@ -20,12 +20,13 @@ const Container = styled.div`
   margin: 65px 0;
 `;
 
-const SectionHeader = ({ headline, children }) => (
-  <Container>
-    <Headline>{headline}</Headline>
-    {children || null}
-  </Container>
-);
+const SectionHeader = ({ headline, children }) =>
+  (
+    <Container>
+      <Headline>{headline}</Headline>
+      {children || null}
+    </Container>
+  );
 
 export default SectionHeader;
 

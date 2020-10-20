@@ -4,7 +4,8 @@ import { CommentsListProps } from '../../types/group';
 import avatar from '../../img/icons/mock-avatar.svg';
 
 const CommentsList: React.FC<CommentsListProps> = ({ data:
-  { author, date, text } }) => (
+  { author, date, text } }) =>
+  (
     <Container>
       <AvatarContainer>
         <AvatarImg src={avatar} alt="Aватар" />
@@ -15,7 +16,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ data:
         <Text>{text}</Text>
       </Content>
     </Container>
-);
+  );
 
 const Container = styled.div`
   display: flex;

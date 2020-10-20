@@ -4,11 +4,11 @@ import { ICreatePost } from '../../../types/post';
 import { IUser } from '../../../types/user';
 
 interface IFuncCreatePost {
-    title: string,
-    text: string,
-    user: IUser,
-    tags?: Array<string>,
-    media?: IMedia
+    title: string;
+    text: string;
+    user?: IUser | null;
+    tags?: Array<string>;
+    media?: IMedia[];
 }
 
 export default async function createPost({
@@ -17,10 +17,12 @@ export default async function createPost({
   user,
   tags,
   media,
-} : IFuncCreatePost) {
+}: IFuncCreatePost) {
   if (!user?.userId) {
     throw new Error('unlogged');
   }
+  const mappedTags = tags?.map((tag) =>
+    ({ id: 1, text: tag }));
   const post: ICreatePost = {
     userId: user.userId,
     avatar: user.avatar,
@@ -30,9 +32,10 @@ export default async function createPost({
     commentAmount: 0,
     likeAmount: 0,
     shareAmount: 0,
-    persistDate: (new Date()).toString(),
     title,
     text,
+    tags: mappedTags || [],
+    media: media || [{ userId: user.userId, mediaType: 'IMAGE', url: 'url' }],
   };
   await createNewPost(post);
 }

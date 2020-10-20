@@ -162,8 +162,10 @@ interface ISlickOnClick {
   onClick?: () => void;
 }
 
-const SampleNextArrow = ({ onClick }: ISlickOnClick) => <Next onClick={onClick} />;
-const SamplePrevArrow = ({ onClick }: ISlickOnClick) => <Prev onClick={onClick} />;
+const SampleNextArrow = ({ onClick }: ISlickOnClick) =>
+  <Next onClick={onClick} />;
+const SamplePrevArrow = ({ onClick }: ISlickOnClick) =>
+  <Prev onClick={onClick} />;
 const settings = {
   loop: true,
   slidesToShow: 5,
@@ -177,7 +179,8 @@ const settings = {
 const Audio: React.FC = () => {
   const arr = [1, 2, 3, 4, 5, 6];
   const dispatch: TypeDispatch = useDispatch();
-  const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) => allAudiosReducer);
+  const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) =>
+    allAudiosReducer);
 
   useEffect(() => {
     if (objAudiosState.loading.endsWith(rejected)) {
@@ -237,40 +240,44 @@ const Audio: React.FC = () => {
   const ListFriends = objAudiosState
     && objAudiosState.friends.length > 0
     && objAudiosState.friends
-      .map(({ firstName, lastName, userId, status, avatar, aboutMe }: any) => (
-        <li key={userId}>
-          <LeftSide onClick={() => console.log('Открыть список аудио')}>
-            <div>
-              <img src={pic || avatar} alt="icon" title="icon" />
-            </div>
-            <div>
-              <h3>{`${firstName} ${lastName}`}</h3>
-              <p>{aboutMe}</p>
-            </div>
-          </LeftSide>
-          <RightSide>
-            <h4>{status}</h4>
-          </RightSide>
-        </li>
-      ));
+      .map(({ firstName, lastName, userId, status, avatar, aboutMe }: any) =>
+        (
+          <li key={userId}>
+            <LeftSide onClick={() =>
+              console.log('Открыть список аудио')}
+            >
+              <div>
+                <img src={pic || avatar} alt="icon" title="icon" />
+              </div>
+              <div>
+                <h3>{`${firstName} ${lastName}`}</h3>
+                <p>{aboutMe}</p>
+              </div>
+            </LeftSide>
+            <RightSide>
+              <h4>{status}</h4>
+            </RightSide>
+          </li>
+        ));
 
-  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) => async (): Promise<any> => {
+  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
+    async (): Promise<any> => {
     // this.setState((prev: any): any => ({ [argCategoryAudio]: !prev[argCategoryAudio] }));
-    setChosenCategoryAudios({
-      [argCategoryAudio]: true,
-    });
+      setChosenCategoryAudios({
+        [argCategoryAudio]: true,
+      });
 
-    if (argCategoryAudio === 'myAudios') {
-      return dispatch(myAudiosAction());
-    }
-    if (argCategoryAudio === 'allAudios') {
-      return dispatch(allAudiosAction());
-    }
-    if (argCategoryAudio === 'friendsAudios') {
-      return dispatch(friendsAudioAction());
-    }
-    return undefined;
-  };
+      if (argCategoryAudio === 'myAudios') {
+        return dispatch(myAudiosAction());
+      }
+      if (argCategoryAudio === 'allAudios') {
+        return dispatch(allAudiosAction());
+      }
+      if (argCategoryAudio === 'friendsAudios') {
+        return dispatch(friendsAudioAction());
+      }
+      return undefined;
+    };
 
   interface IBtnCategAudio {
     type?: string;
@@ -283,7 +290,8 @@ const Audio: React.FC = () => {
     background: none;
     padding: 0;
     line-height: 30px;
-    border-bottom: ${(props: any): any => props.selected && '3px solid #FFB11B'};
+    border-bottom: ${(props: any): any =>
+    props.selected && '3px solid #FFB11B'};
     &:not(:last-child) {
       margin-right: 51px;
     }
@@ -324,12 +332,13 @@ const Audio: React.FC = () => {
       <PlayListArea>
         <h3>Плейлисты</h3>
         <Slider {...settings}>
-          {arr.map((el) => (
-            <div key={__.uniqueId()}>
-              <img src={album} alt="" />
-              <p>{el}</p>
-            </div>
-          ))}
+          {arr.map((el) =>
+            (
+              <div key={__.uniqueId()}>
+                <img src={album} alt="" />
+                <p>{el}</p>
+              </div>
+            ))}
         </Slider>
       </PlayListArea>
       <SongsArea>
