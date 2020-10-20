@@ -98,85 +98,84 @@ export const RightBlockContainer = styled.div`
 `;
 
 export const UserInfoHeaderContainer = styled.div`
-margin-left: 30px;
-position: absolute;
-height: 344px;
-display: flex;
-z-index: 10;
+  margin-left: 30px;
+  position: absolute;
+  height: 344px;
+  display: flex;
+  z-index: 10;
 `;
 
 export const UserInfoAvatar = styled.div`
-display: flex;
-align-items: flex-end;
-position: relative;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
 `;
 
 export const UserInfoNameBlock = styled.div`
-height: 340px;
-display: flex;
-flex-direction: column;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Avatar = styled(ModalImage)`
-width: 270px;
-height: 270px;
-object-fit: cover;
-border-radius: 50%;
-box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
-&:hover {
-  cursor: pointer;
-}
+  width: 270px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const AddPhotoBlock = styled.button`
-display: flex;
-justify-content: center;
-align-items: normal;
-width:70px;
-height: 70px;
-border-radius: 50%;
-border: none;
-background-color: ${mainColor};
-box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
-overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: normal;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${mainColor};
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
 `;
 
-export const AddPhotoIcon = styled.img<{ src: string }>`
-`;
+export const AddPhotoIcon = styled.img<{ src: string }>``;
 
 export const UserName = styled.div`
-margin-top: 136px;
-margin-left: 32px;
-font-weight: bold;
-font-size: 30px;
-line-height: 37px;
-color: #ffffff;
+  margin-top: 136px;
+  margin-left: 32px;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 37px;
+  color: #ffffff;
 `;
 
 export const UserProfession = styled.div`
-margin-top: 13px;
-margin-left: 32px;
-font-size: 16px;
-line-height: 20px;
-color: #c1c1c1;
+  margin-top: 13px;
+  margin-left: 32px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #c1c1c1;
 `;
 
 export const UserOnlineStatus = styled.div`
-margin-top: 91px;
-margin-left: 32px;
-font-size: 16px;
-line-height: 20px;
-color: #c1c1c1;
+  margin-top: 91px;
+  margin-left: 32px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #c1c1c1;
 `;
 
 export const UserOnlineIcon = styled.div`
-position: absolute;
-top: 25%;
-right: 25%;
-width: 28px;
-height: 28px;
-border-radius: 14px;
-background: #ffb11b;
+  position: absolute;
+  top: 25%;
+  right: 25%;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: #ffb11b;
 `;
 
 export const WallContainer = styled.div`
@@ -209,7 +208,6 @@ export const WallInfoBlock = styled.div`
 
 export const WallInfoUserAbout = styled.div`
   width: 531px;
-  height: 511px;
   border-top: 1px solid #515151;
 `;
 
@@ -256,7 +254,6 @@ export const InfoHeaderListItemRight = styled.div`
 export const InfoPhotoBlock = styled.div`
   margin-top: 55px;
   width: 560px;
-  height: 350px;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
@@ -322,10 +319,10 @@ export const IconArticle = styled.img.attrs<Iimg>((props) =>
   cursor: pointer;
 `;
 
-export const IconCross = styled(IconArticle)<{$isOpen: boolean}>`
+export const IconCross = styled(IconArticle)<{ $isOpen: boolean }>`
   transform: rotate(${({ $isOpen }) =>
     ($isOpen ? '45' : '0')}deg);
-  transition: .3s;
+  transition: 0.3s;
   background: white;
 `;
 
@@ -335,8 +332,8 @@ export const WallCreateArticleIconContainer = styled.div`
 `;
 
 export const WallCreateArticleAdditionIcons = styled.div<{ $isOpen: boolean }>`
-transition: transform .3s;
-transform: translate(${({ $isOpen }) =>
+  transition: transform 0.3s;
+  transform: translate(${({ $isOpen }) =>
     ($isOpen ? '0%' : '100%')});
 `;
 

@@ -36,7 +36,7 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
 
   const userId = user?.userId;
   const onLinkSend = useCallback(
-    (type: string, link: string) => {
+    (type: 'IMAGE' | 'AUDIO' | 'VIDEO', link: string) => {
       setMedia((state) => {
         if (Array.isArray(link)) {
           const additionalState: IMedia[] = link.map((url) =>
@@ -55,21 +55,15 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
           index !== mediaIndex)),
     [],
   );
-  const resetMedia = useCallback(
-    () =>
-      setMedia([]), [],
-  );
-  const changeArticleOpen = useCallback(
-    () =>
-      setArticleOpen(false),
-    [setArticleOpen],
-  );
-  const revertArticleOpen = useCallback(
-    () =>
-      setArticleOpen((_isOpen) =>
-        !_isOpen),
-    [setArticleOpen],
-  );
+  const resetMedia = useCallback(() =>
+    setMedia([]), []);
+  const changeArticleOpen = useCallback(() =>
+    setArticleOpen(false), [setArticleOpen]);
+  const revertArticleOpen = useCallback(() =>
+    setArticleOpen((_isOpen) =>
+      !_isOpen), [
+    setArticleOpen,
+  ]);
 
   if (!user) {
     return null;
@@ -111,7 +105,7 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
                 setUnvisible={() =>
                   setMusicModalOpen(false)}
                 onLinkSend={(link) =>
-                  onLinkSend('MUSIC', link)}
+                  onLinkSend('AUDIO', link)}
               />
               <IconArticle
                 img={video}

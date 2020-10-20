@@ -9,7 +9,10 @@ import Wall from '../components/Main/Wall';
 import WallCreateArticle from '../components/Main/WallCreateArticle';
 import MessagesPage from '../components/Messages/Messages';
 import { TagsComponent } from './tags.stories';
-import { ModalInput } from './modalInputLink.stories';
+import {
+  MediaContainerComponent,
+  MediaContainerComponentWithoutDelete,
+} from './mediaContainer.stories';
 
 storiesOf('Social network', module)
   .add('Страница авторизации', () =>
@@ -28,5 +31,7 @@ storiesOf('Social network', module)
     <WallCreateArticle />)
   .add('Теги', () =>
     <TagsComponent />)
-  .add('Модалка для ввода ссылок', () =>
-    <ModalInput />);
+  .add('Поле с медиа', () =>
+    <MediaContainerComponent />)
+  .add('Поле с медиа без удаления', () =>
+    <MediaContainerComponentWithoutDelete />);

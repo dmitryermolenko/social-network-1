@@ -1,5 +1,5 @@
 import axiosLib, { AxiosResponse } from 'axios';
-import ImageCreateDto from '../../types/image';
+import { ImageCreateDto } from '../../types/image';
 import baseUrl from '../config';
 
 const axios = axiosLib.create();

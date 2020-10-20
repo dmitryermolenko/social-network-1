@@ -18,6 +18,19 @@ import ModalLinkInput from '../../../common/modalLinkInput';
 import { updateAvatar } from '../../../redux-toolkit/currentUserSlice';
 import { IUser } from '../../../types/user';
 
+const renderAddPhotoBlock = (setIsOpen: (newValue: boolean) => void, isCurrentUser: boolean) => {
+  if (!isCurrentUser) {
+    return null;
+  }
+  return (
+    <AddPhotoBlock onClick={() =>
+      setIsOpen(true)}
+    >
+      <AddPhotoIcon src={addPhotoIcon} alt="Изменить аватар" />
+    </AddPhotoBlock>
+  );
+};
+
 const mapDispatchToProps = {
   updateAvatar,
 };
@@ -25,9 +38,9 @@ const mapDispatchToProps = {
 const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux & { user: IUser };
+type Props = PropsFromRedux & { user: IUser; isCurrentUser: boolean };
 
-const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar }) => {
+const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, isCurrentUser }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const onLinkSend = useCallback(
     (link: string) => {
@@ -41,11 +54,7 @@ const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar }) 
     <UserInfoHeaderContainer>
       <UserInfoAvatar>
         <Avatar small={avatar} large={avatar} alt={`Аватар ${firstName} ${lastName}`} />
-        <AddPhotoBlock onClick={() =>
-          setIsOpen(true)}
-        >
-          <AddPhotoIcon src={addPhotoIcon} alt="Изменить аватар" />
-        </AddPhotoBlock>
+        {renderAddPhotoBlock(setIsOpen, isCurrentUser)}
         <ModalLinkInput
           onLinkSend={onLinkSend}
           visible={isOpen}

@@ -3,22 +3,33 @@
 /* !! Удалить правило сверху, когда появится возможность добавлять субтитры для аудио и видео */
 import React, { useCallback } from 'react';
 import ModalImage from 'react-modal-image';
-import IMedia from '../../../types/media';
+import IMedia from '../../types/media';
 import add from './img/add.svg';
 
 import { CloseButton, CloseButtonImg, MediaBlockWrapped } from './styles';
 
 interface Props {
   media: IMedia;
-  onClose: () => void;
+  onClose: null | (() => void);
 }
+
+const renderCloseButton = (onClose: null | (() => void)) => {
+  if (!onClose) {
+    return null;
+  }
+  return (
+    <CloseButton type="button" onClick={onClose}>
+      <CloseButtonImg src={add} alt="Удалить элемент мультимедии" />
+    </CloseButton>
+  );
+};
 
 const MediaBlock: React.FC<Props> = ({ media, onClose }) => {
   const renderContent = useCallback(() => {
     if (media.mediaType === 'IMAGE') {
       return <ModalImage id="Test" small={media.url} large={media.url} alt="Ваше изображение" />;
     }
-    if (media.mediaType === 'MUSIC') {
+    if (media.mediaType === 'AUDIO') {
       return <audio src={media.url} controls />;
     }
     if (media.mediaType === 'VIDEO') {
@@ -32,9 +43,7 @@ const MediaBlock: React.FC<Props> = ({ media, onClose }) => {
   }, [media.mediaType, media.url]);
   return (
     <MediaBlockWrapped>
-      <CloseButton type="button" onClick={onClose}>
-        <CloseButtonImg src={add} alt="Удалить элемент мультимедии" />
-      </CloseButton>
+      {renderCloseButton(onClose)}
       {renderContent()}
     </MediaBlockWrapped>
   );

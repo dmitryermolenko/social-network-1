@@ -1,7 +1,7 @@
 // eslint-disable-next-line
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { loadUser, resetUser } from '../../redux-toolkit/userSlice';
+import { loadUser, loadUserPhotos, resetUser } from '../../redux-toolkit/userSlice';
 import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
 import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
@@ -16,12 +16,13 @@ import { StyledLoadingWrapped } from './styled';
 const mapStateToProps = (state: RootState) =>
   ({
     userModel: state.user,
-    currentUserModel: state.currentUser,
+    currentUserId: state.currentUser.data?.userId,
   });
 
 const mapDispatch = {
   loadUser,
   loadPostsByUser,
+  loadUserPhotos,
   resetUser,
 };
 const connector = connect(mapStateToProps, mapDispatch);
@@ -31,40 +32,45 @@ type Props = PropsFromRedux & { userId: number };
 
 const Main: React.FC<Props> = ({
   loadUser: _loadUser,
+  loadUserPhotos: _loadUserPhotos,
   loadPostsByUser: _loadPostsByUser,
   resetUser: _resetUser,
   userModel,
-  currentUserModel,
+  currentUserId,
   userId,
 }) => {
-  const currentUserId = currentUserModel.data?.userId;
-  const isCurrentUserDisplayed = Number(userId) === currentUserId;
-  let showingUser = userModel;
-  if (isCurrentUserDisplayed) {
-    /* Решаем, кого выводить на экран - текущего пользователя, если idшники совпадают
-    или пользователя, который загружен */
-    showingUser = currentUserModel;
-  }
   useEffect(() => {
     _loadUser(userId);
     _loadPostsByUser(userId);
+    _loadUserPhotos(userId);
     return () => {
       _resetUser();
     };
-  }, [_loadUser, _loadPostsByUser, _resetUser, userId]);
+  }, [_loadUser, _loadPostsByUser, _loadUserPhotos, _resetUser, userId]);
   const renderContent = () => {
-    if (showingUser?.data) {
+    if (userModel?.data) {
       return (
         <>
-          <UserInfoHeader user={showingUser?.data} />
-          <Wall user={showingUser?.data} />
+          <UserInfoHeader
+            user={userModel?.data}
+            isCurrentUser={currentUserId === userModel?.data?.userId}
+          />
+          <Wall
+            user={userModel?.data}
+            photos={userModel?.photos}
+            isCurrentUser={currentUserId === userModel?.data?.userId}
+          />
         </>
       );
     }
-    if (showingUser?.loading) {
-      return <StyledLoadingWrapped><LoadingBlock /></StyledLoadingWrapped>;
+    if (userModel?.loading) {
+      return (
+        <StyledLoadingWrapped>
+          <LoadingBlock />
+        </StyledLoadingWrapped>
+      );
     }
-    return <ErrorBlock errorMessage={showingUser?.error?.message} />;
+    return <ErrorBlock errorMessage={userModel?.error?.message} />;
   };
   return (
     <>

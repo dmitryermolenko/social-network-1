@@ -10,7 +10,7 @@ import { ArticleName, ButtonMore } from '../../../common/styledComponents';
 import createPost from './createPost';
 import Tags from '../../../common/tags';
 import LoadingBlock from '../../../common/loadingBlock';
-import MediaContainer from './MediaContainer';
+import MediaContainer from '../../../common/mediaContainer';
 
 import { loadPostsByUser } from '../../../redux-toolkit/postsSlice';
 import { RootState } from '../../../redux-toolkit/store';
@@ -21,8 +21,7 @@ const ArticleSchema = Yup.object().shape({
     .min(1, 'Слишком короткое название!')
     .max(50, 'Слишком длинное название!')
     .required('Название должно быть указано'),
-  articleText: Yup.string()
-    .required('В статье должен быть текст'),
+  articleText: Yup.string().required('В статье должен быть текст'),
 });
 
 const mapStateToProps = (state: RootState) =>
@@ -98,11 +97,9 @@ const ArticleForm: React.FC<Props> = ({
                 autoComplete="off"
                 $isError={errors.articleName && touched.articleName}
               />
-              {
-                errors.articleName && touched.articleName && (
-                  <ErrorLine>{errors.articleName}</ErrorLine>
-                )
-              }
+              {errors.articleName && touched.articleName && (
+              <ErrorLine>{errors.articleName}</ErrorLine>
+              )}
               <MediaContainer media={media} onDeleteMedia={onDeleteMedia} />
               <ArticleName>Текст</ArticleName>
               <Field
@@ -111,11 +108,9 @@ const ArticleForm: React.FC<Props> = ({
                 as={InputText}
                 $isError={errors.articleText && touched.articleText}
               />
-              {
-                errors.articleText && touched.articleText && (
-                  <ErrorLine>{errors.articleText}</ErrorLine>
-                )
-            }
+              {errors.articleText && touched.articleText && (
+              <ErrorLine>{errors.articleText}</ErrorLine>
+              )}
               <ArticleName>Теги</ArticleName>
               <Tags
                 tags={tags}

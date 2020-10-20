@@ -3,11 +3,6 @@ import React from 'react';
 // import { connect, ConnectedProps } from 'react-redux';
 // import { RootState } from '../../../redux-toolkit/store';
 
-import photo1 from './img/photo 1.png';
-import photo2 from './img/photo 2.png';
-import photo3 from './img/photo 3.png';
-import photo4 from './img/photo 4.png';
-
 import {
   WallContainer,
   WallInfoBlock,
@@ -21,18 +16,35 @@ import FormStatus from './FormStatus';
 import BlockNotes from '../Articles/blockNotes/BlockNotes';
 import UserAbout from '../UserAbout';
 import { IUser } from '../../../types/user';
-/*
-const mapStateToProps = (state: RootState) => ({
-  user: state.user.data,
-});
+import { ImageDto } from '../../../types/image';
 
-const connector = connect(mapStateToProps);
+const renderPhotoBlock = (photos: ImageDto[] | undefined) => {
+  if (!photos) {
+    return null;
+  }
+  return (
+    <WallInfoUserAbout>
+      <InfoHeaderText>Фотографии</InfoHeaderText>
+      <InfoPhotoBlock>
+        {photos?.map((photo) =>
+          (
+            <InfoUserPhoto key={photo.url} small={photo.url} medium={photo.url} />
+          ))}
+      </InfoPhotoBlock>
+    </WallInfoUserAbout>
+  );
+};
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-*/
-type Props = { user: IUser }; // PropsFromRedux;
+const renderCreateArticle = (user: IUser, isCurrentUser: boolean) => {
+  if (!isCurrentUser) {
+    return null;
+  }
+  return <WallCreateArticle user={user} />;
+};
 
-const Wall: React.FC<Props> = ({ user }) =>
+type Props = { user: IUser; photos?: ImageDto[]; isCurrentUser: boolean }; // PropsFromRedux;
+
+const Wall: React.FC<Props> = ({ user, photos, isCurrentUser }) =>
   (
     <WallContainer>
       <FormStatus statusText={user?.status} />
@@ -45,17 +57,9 @@ const Wall: React.FC<Props> = ({ user }) =>
           city={user?.city}
           aboutMe={user?.aboutMe}
         />
-        <WallInfoUserAbout>
-          <InfoHeaderText>Фотографии</InfoHeaderText>
-          <InfoPhotoBlock>
-            <InfoUserPhoto small={photo1} medium={photo1} />
-            <InfoUserPhoto small={photo2} medium={photo2} />
-            <InfoUserPhoto small={photo3} medium={photo3} />
-            <InfoUserPhoto small={photo4} medium={photo4} />
-          </InfoPhotoBlock>
-        </WallInfoUserAbout>
+        {renderPhotoBlock(photos)}
       </WallInfoBlock>
-      <WallCreateArticle user={user} />
+      {renderCreateArticle(user, isCurrentUser)}
       <BlockNotes />
     </WallContainer>
   );
