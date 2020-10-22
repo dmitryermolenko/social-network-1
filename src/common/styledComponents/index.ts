@@ -289,8 +289,7 @@ export const WallCreateArticleHeaderBlockLeft = styled.div`
   display: flex;
 `;
 
-export const AvatarMin = styled.img.attrs<Iimg>((props) =>
-  ({ src: props.img }))<Iimg>`
+export const AvatarMin = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 35px;

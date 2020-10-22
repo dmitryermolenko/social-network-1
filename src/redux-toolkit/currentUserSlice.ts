@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { IUser } from '../types/user';
 import { PostsState } from './postsSlice';
 import { StateChat } from './chatSlice';
+import { setData } from './userSlice';
 import {
   updateUserStatus,
   updateUser,
@@ -67,25 +68,35 @@ const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state:Clone
 );
 */
 
-const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, {state: CloneRootState }>(
-  'shownUser/updateStatus',
+const updateStatus = createAsyncThunk<AxiosResponse<IUser>, string, { state: CloneRootState }>(
+  'currentUser/updateStatus',
   async (status: string, thunkApi) => {
+    const currentUserId = thunkApi.getState().currentUser.data?.userId;
+    if (!currentUserId) {
+      return thunkApi.rejectWithValue('Error, no userId');
+    }
+    const response = await updateUserStatus({ userId: currentUserId, status });
     const userId = thunkApi.getState().currentUser.data?.userId;
-    const response = await updateUserStatus({ userId, status });
+    if (currentUserId === userId) {
+      thunkApi.dispatch(setData(response));
+    }
     return response;
   },
 );
 
-const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, {state: CloneRootState }>(
-  'shownUser/updateAvatar',
+const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, { state: CloneRootState }>(
+  'currentUser/updateAvatar',
   async (avatarUrl: string, thunkApi) => {
     const { currentUser } = thunkApi.getState();
     const newUser = {
       ...currentUser.data,
       avatar: avatarUrl,
-      password: '1A',
     } as IUser;
     const response = await updateUser(newUser);
+    const userId = thunkApi.getState().user.data?.userId;
+    if (currentUser.data?.userId === userId) {
+      thunkApi.dispatch(setData(response));
+    }
     return response;
   },
 );

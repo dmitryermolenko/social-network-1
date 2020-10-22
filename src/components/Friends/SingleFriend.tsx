@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import funcsRoutes from '../../routes/funcsRoutes';
+import userFoto from '../../img/userFoto.png';
 import DeleteIcon from '../../common/img/icons/delete.svg';
 import MessageIcon from '../../common/img/icons/message.svg';
 import { ISingleFriendProps } from './FriendsInterface';
@@ -94,7 +95,7 @@ const SingleFriend: React.FC<ISingleFriendProps> = ({
     <SingleFriendWrapper>
       <Placer>
         <FriendAvatarWrapper href="#">
-          <FriendAvatar src={avatarka} alt="there should be avatarka" />
+          <FriendAvatar src={avatarka || userFoto} alt="there should be avatarka" />
         </FriendAvatarWrapper>
         <FriendInfo>
           <FriendFullName to={funcsRoutes.mainWithId(id)}>

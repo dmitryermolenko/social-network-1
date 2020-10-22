@@ -2,6 +2,7 @@
 import {
   getPostsByUser,
   getAllCommentsByPost,
+  addNewCommentToPost,
   getAllPosts,
   createNewPost,
   deletePost,
@@ -11,6 +12,7 @@ import {
 export {
   getAllPosts,
   getAllCommentsByPost,
+  addNewCommentToPost,
   createNewPost,
   deletePost,
   getPostsByUser,

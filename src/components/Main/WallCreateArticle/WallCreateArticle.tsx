@@ -24,7 +24,7 @@ import { IUser } from '../../../types/user';
 import IMedia from '../../../types/media';
 
 interface IWallCreateArticle {
-  user: IUser | null;
+  user: IUser;
 }
 
 const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
@@ -34,7 +34,7 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
   const [isMusicModalOpen, setMusicModalOpen] = useState(false);
   const [media, setMedia] = useState<IMedia[]>([]);
 
-  const userId = user?.userId;
+  const { userId } = user;
   const onLinkSend = useCallback(
     (type: 'IMAGE' | 'AUDIO' | 'VIDEO', link: string) => {
       setMedia((state) => {
@@ -73,7 +73,7 @@ const WallCreateArticle: React.FC<IWallCreateArticle> = ({ user }) => {
     <WallCreateArticleContainer>
       <WallCreateArticleHeaderBlock>
         <WallCreateArticleHeaderBlockLeft>
-          <AvatarMin img={user.avatar} />
+          <AvatarMin src={user.avatar} />
           <WallCreateArticleHeaderBlockLeftText>
             Напишите заметку или статью...
           </WallCreateArticleHeaderBlockLeftText>

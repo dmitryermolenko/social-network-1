@@ -8,9 +8,14 @@ import { StatusForm, StatusInput } from './styles';
 interface IFormStatus {
   statusText?: string;
   updateStatus: (status: string) => void;
+  isCurrentUser: boolean;
 }
 
-const FormStatus: React.FC<IFormStatus> = ({ statusText, updateStatus: _updateStatus }) => {
+const FormStatus: React.FC<IFormStatus> = ({
+  statusText,
+  updateStatus: _updateStatus,
+  isCurrentUser,
+}) => {
   /*
   Не использовал formik, потому что мне необходимо было сделать
   зависимость от statusText, а formik принимает лишь initialValue, а после не реагирует
@@ -41,6 +46,7 @@ const FormStatus: React.FC<IFormStatus> = ({ statusText, updateStatus: _updateSt
         onChange={onChange}
         onBlur={onSubmit}
         value={status}
+        disabled={!isCurrentUser}
       />
     </StatusForm>
   );
