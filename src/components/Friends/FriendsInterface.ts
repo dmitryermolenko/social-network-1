@@ -4,7 +4,7 @@ export interface ISingleFriendProps {
   firstname: string;
   lastname: string;
   profesion: string;
-  avatarka: string;
+  avatarka?: string;
   id: number;
   deleteButtonHandler(event: React.MouseEvent, id: number): void;
   messegeButtonHandler(event: React.MouseEvent, id: number): void;

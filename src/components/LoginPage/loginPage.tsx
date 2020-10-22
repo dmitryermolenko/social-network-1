@@ -9,7 +9,7 @@ import jm from '../../common/JM.svg';
 import sn from '../../common/SN.svg';
 import logo from '../../common/logo.svg';
 import { createNewUser } from '../../services/user-controller/user-controller';
-import { IUser, IUserWithTerms } from '../../types/user';
+import { ICreateUser, IUserWithTerms } from '../../types/user';
 
 const Wrapper = styled.div`
   display: flex;
@@ -157,8 +157,8 @@ const InputError = styled.p`
 
 const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties =>
   ({
-    opacity: (isVisible ? 1 : 0),
-    height: (isVisible ? '1em' : 0),
+    opacity: isVisible ? 1 : 0,
+    height: isVisible ? '1em' : 0,
   });
 
 const Login: React.FC = (): JSX.Element => {
@@ -170,14 +170,12 @@ const Login: React.FC = (): JSX.Element => {
 
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
-  const initialValues: IUserWithTerms = {
+  const initialValues: IUserWithTerms & { confirmPassword: string } = {
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    activeName: 'Active',
     confirmPassword: '',
-    avatar: '',
     terms: true,
   };
 
@@ -200,10 +198,9 @@ const Login: React.FC = (): JSX.Element => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Пароли не совпадают')
         .required('Заполните поле!'),
-      terms: Yup.boolean()
-        .oneOf([true], 'Требуется согласие на обработку данных'),
+      terms: Yup.boolean().oneOf([true], 'Требуется согласие на обработку данных'),
     }),
-    onSubmit: (values: IUser) => {
+    onSubmit: (values: ICreateUser) => {
       const result = JSON.stringify(values);
       console.log(result);
       createNewUser(values)

@@ -28,7 +28,7 @@ export const CloseButton = styled.button`
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
   background-color: ${mainColor};
   border-radius: 50%;
-  z-index: 100;
+  z-index: 1;
 `;
 
 export const CloseButtonImg = styled.img`

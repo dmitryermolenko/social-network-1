@@ -4,20 +4,14 @@ import { ICreatePost } from '../../../types/post';
 import { IUser } from '../../../types/user';
 
 interface IFuncCreatePost {
-    title: string;
-    text: string;
-    user?: IUser | null;
-    tags?: Array<string>;
-    media?: IMedia[];
+  title: string;
+  text: string;
+  user?: IUser | null;
+  tags?: Array<string>;
+  media?: IMedia[];
 }
 
-export default async function createPost({
-  title,
-  text,
-  user,
-  tags,
-  media,
-}: IFuncCreatePost) {
+export default async function createPost({ title, text, user, tags, media }: IFuncCreatePost) {
   if (!user?.userId) {
     throw new Error('unlogged');
   }

@@ -47,7 +47,7 @@ type Props = { user: IUser; photos?: ImageDto[]; isCurrentUser: boolean }; // Pr
 const Wall: React.FC<Props> = ({ user, photos, isCurrentUser }) =>
   (
     <WallContainer>
-      <FormStatus statusText={user?.status} />
+      <FormStatus statusText={user?.status} isCurrentUser={isCurrentUser} />
       <WallInfoBlock>
         <UserAbout
           dateOfBirth={user?.dateOfBirth}

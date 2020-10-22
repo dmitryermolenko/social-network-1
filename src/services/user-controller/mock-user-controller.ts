@@ -17,7 +17,7 @@ export function getUserById(id: number): IUser {
     avatar,
     city: 'Moscow',
     status: '- На моем компе все работает.\n— Отправим клиенту твой комп.',
-    activeName: 'Active',
+    activeName: 'ACTIVE',
   };
 }
 
@@ -26,5 +26,5 @@ export function getCurrentUser(): IUser {
 }
 
 export async function getAsyncCurrentUser() {
-  return originalGetUserById(1);
+  return originalGetUserById(14);
 }

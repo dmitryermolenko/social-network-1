@@ -1,18 +1,14 @@
-import addNewCommentToPost from '../../../../../services/post-comment-controller';
+import { addNewCommentToPost } from '../../../../../services/post-controller';
 import { ICreateComment } from '../../../../../types/comment';
 import { IUser } from '../../../../../types/user';
 
 interface IFuncCreateComment {
-    postId: number;
-    text: string;
-    user: IUser;
+  postId: number;
+  text: string;
+  user: IUser;
 }
 
-export default async function createPost({
-  postId,
-  text,
-  user,
-}: IFuncCreateComment) {
+export default async function createPost({ postId, text, user }: IFuncCreateComment) {
   if (!user?.userId) {
     throw new Error('unlogged');
   }
@@ -25,7 +21,7 @@ export default async function createPost({
       avatar: user.avatar,
       firstName: user.firstName,
       lastName: user.lastName,
-      activeName: 'Active',
+      activeName: 'ACTIVE',
       status: user.status,
       linkSite: user.linkSite,
       dateOfBirth: user.dateOfBirth,

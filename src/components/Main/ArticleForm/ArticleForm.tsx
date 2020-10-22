@@ -26,7 +26,7 @@ const ArticleSchema = Yup.object().shape({
 
 const mapStateToProps = (state: RootState) =>
   ({
-    user: state?.user?.data,
+    currentUser: state?.currentUser?.data,
   });
 
 const mapDispatchToProps = {
@@ -50,7 +50,7 @@ const ArticleForm: React.FC<Props> = ({
   changeOpen,
   isOpen,
   loadPostsByUser: _loadPostsByUser,
-  user,
+  currentUser,
   media,
   onDeleteMedia,
   resetMedia,
@@ -66,14 +66,17 @@ const ArticleForm: React.FC<Props> = ({
       onSubmit={async (values, actions) => {
         setLoading(true);
         try {
+          if (currentUser === null) {
+            throw new Error('You have not logged in');
+          }
           await createPost({
             title: values.articleName,
             text: values.articleText,
             tags,
             media,
-            user,
+            user: currentUser,
           });
-          await _loadPostsByUser(user?.userId);
+          await _loadPostsByUser(currentUser.userId);
           setTags([]);
           resetMedia();
           actions.resetForm();

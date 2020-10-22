@@ -33,8 +33,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    resetUser: (state) =>
+    resetUser: () =>
       initialState,
+    setData: (state, action) =>
+      ({ ...state, data: action.payload }),
   },
   extraReducers: {
     /*
@@ -70,5 +72,5 @@ const userSlice = createSlice({
 });
 
 export { loadUser, loadUserPhotos };
-export const { resetUser } = userSlice.actions;
+export const { resetUser, setData } = userSlice.actions;
 export const userReducer = userSlice.reducer;
