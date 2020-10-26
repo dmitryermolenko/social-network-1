@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { loadUser, loadUserPhotos, resetUser } from '../../redux-toolkit/userSlice';

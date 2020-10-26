@@ -1,5 +1,5 @@
 export interface IsingleChat {
-  idMassage: number;
+  idMessage: number;
   username: string;
   lastRedactionDate: string;
   persistDate: string;

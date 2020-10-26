@@ -31,7 +31,6 @@ const StyledButton = styled.button`
     box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px #000000;
     transition: none;
   }
-
   &:focus {
     outline: none;
   }

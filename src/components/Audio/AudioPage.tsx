@@ -52,6 +52,13 @@ const SearchArea = styled.div`
   align-items: center;
   input {
     border: none;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      cursor: text;
+    }
   }
 `;
 
@@ -290,6 +297,7 @@ const Audio: React.FC = () => {
     background: none;
     padding: 0;
     line-height: 30px;
+    outline: none;
     border-bottom: ${(props: any): any =>
     props.selected && '3px solid #FFB11B'};
     &:not(:last-child) {
@@ -308,7 +316,7 @@ const Audio: React.FC = () => {
           onClick={chooseCategoryAudiosOnClick('myAudios')}
           selected={objCategoryAudios.myAudios}
         >
-          Моя музыка!!!
+          Моя музыка
         </BtnCategAudio>
         <BtnCategAudio
           type="button"

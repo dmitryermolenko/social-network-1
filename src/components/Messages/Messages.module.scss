@@ -60,6 +60,10 @@
     background-color: #fff5e3;
   }
 
+  &:focus {
+    background-color: #fff5e3;
+  }
+
   &::after {
     content: '';
     border-bottom: 1px solid #b3b3b3;

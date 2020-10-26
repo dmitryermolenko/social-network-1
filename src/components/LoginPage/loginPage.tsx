@@ -61,6 +61,9 @@ const SearchInpit = styled(Input)`
   &:not(:first-child) {
     margin-top: 33px;
   }
+  &:hover {
+    cursor: text;
+  }
 `;
 
 const ButtonsArea = styled.div`

@@ -54,6 +54,9 @@ const Button = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ButtonActive = styled(Button)`
@@ -75,6 +78,9 @@ const ButtonSearch = styled.button`
   transition: 0.1s;
   &:hover {
     transform: scale(1.05);
+  }
+  &:focus {
+    outline: none;
   }
 `;
 

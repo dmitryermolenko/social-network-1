@@ -26,7 +26,7 @@ const SearchBlock = styled.div`
   }
 `;
 
-const SearchInpit = styled.input`
+const SearchInput = styled.input`
   color: #515151;
   min-width: 100%;
   padding-right: 30px;
@@ -36,12 +36,15 @@ const SearchInpit = styled.input`
   font-size: 16px;
   line-height: 20px;
   position: relative;
+  &:hover {
+    cursor: text;
+  }
 `;
 
 const PageSearchInput = ({ action, placeholder, defaultValue }) =>
   (
     <SearchBlock>
-      <SearchInpit
+      <SearchInput
         defaultValue={defaultValue}
         placeholder={placeholder}
         onChange={action}
