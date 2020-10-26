@@ -26,14 +26,14 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state: RootState) =>
   ({
-    currentUser: state.currentUser?.data,
+    currentUserModel: state.currentUser,
   });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUser }) => {
+const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserModel }) => {
   useEffect(() => {
     _loadCurrentUser();
   }, [_loadCurrentUser]);
@@ -58,8 +58,12 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUser }
         На будущее: можно сделать, что, если пользователь не авторизирован
         (например, это будет сообщать сервер), то выкидывать его на страницу с авторизацией
         */
-          if (currentUser) {
-            return <Redirect to={funcRoutes.mainWithId(currentUser.userId)} />;
+          if (currentUserModel?.data) {
+            return <Redirect to={funcRoutes.mainWithId(currentUserModel?.data.userId)} />;
+          }
+          if (currentUserModel?.error) {
+            alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
+            return <Redirect to={routes.login} />;
           }
           return null;
         }}
