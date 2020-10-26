@@ -5,10 +5,10 @@ import { PageMarker } from '../../Friends/Friends';
 import BlockNotes from '../../Main/Articles/blockNotes/BlockNotes';
 
 const Wrapper = styled.div`
-  background: #ffffff;
+  background: #fff;
   font-family: 'Montserrat', sans-serif;
   border-radius: 15px;
-  padding: 114px 0 114px 0;
+  padding: 114px;
   margin-top: 275px;
   position: relative;
   min-height: 1200px;

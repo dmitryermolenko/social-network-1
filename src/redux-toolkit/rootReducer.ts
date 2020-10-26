@@ -4,7 +4,7 @@ import { userReducer } from './userSlice';
 import allAudiosReducer from './audios/allAudiosSlice';
 // import myAudiosReducer from './audios/myAudiosSlice';
 import { singleGroupsReducer } from './groups/singleGroupSlice';
-import { frendsReducer } from './frendsListSlice';
+import { friendsReducer } from './friendsListSlice';
 import { postsReducer } from './postsSlice';
 import chatReducer from './chatSlice';
 import { currentUserReducer } from './currentUserSlice';
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   posts: postsReducer,
   allAudiosReducer,
   chat: chatReducer,
-  frends: frendsReducer,
+  friends: friendsReducer,
 });
 
 export type TypeRootReducer = ReturnType<typeof rootReducer>;

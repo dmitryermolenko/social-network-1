@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { uniqueId } from 'lodash';
@@ -7,7 +6,7 @@ import { Spin } from 'antd';
 import { RootState } from '../../redux-toolkit/store';
 import SingleFriend from './SingleFriend';
 import PageSearchInput from '../../common/Inputs/PageSearch';
-import { loadFrendsList, setFrendFilter } from '../../redux-toolkit/frendsListSlice';
+import { loadFriendsList, setFriendFilter } from '../../redux-toolkit/friendsListSlice';
 
 export const FriendsWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
@@ -35,46 +34,46 @@ export const PageMarker = styled.h2`
 
 const mapStateToProps = (state: RootState) =>
   ({
-    frendsList: state.frends.data,
-    loading: state.frends.loading,
-    error: state.frends.error,
-    frendsFilter: state.frends.frendsFilter,
+    friendsList: state.friends.data,
+    loading: state.friends.loading,
+    error: state.friends.error,
+    friendsFilter: state.friends.friendsFilter,
   });
 
-const mapDispatch = { loadFrendsList };
+const mapDispatch = { loadFriendsList };
 const connector = connect(mapStateToProps, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const Friends: React.FC<Props> = ({
-  loadFrendsList: _loadFrendsList,
-  frendsList,
-  frendsFilter,
+  loadFriendsList: _loadFriendsList,
+  friendsList,
+  friendsFilter,
   loading,
   error,
 }) => {
   useEffect(() => {
-    _loadFrendsList(2);
-  }, [_loadFrendsList]);
-  console.log(frendsList);
-  console.log(frendsFilter);
+    _loadFriendsList(2);
+  }, [_loadFriendsList]);
+  console.log(friendsList);
+  console.log(friendsFilter);
 
   const dispatch = useDispatch();
 
   const filterInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setFrendFilter(event.target.value.toLowerCase()));
+    dispatch(setFriendFilter(event.target.value.toLowerCase()));
   };
 
   const userFiltered = () => {
     console.log('userFiltered');
-    if (frendsFilter.length > 0 && frendsList !== null) {
-      return frendsList.filter(({ firstName, lastName }) => {
+    if (friendsFilter.length > 0 && friendsList !== null) {
+      return friendsList.filter(({ firstName, lastName }) => {
         const fullName = `${firstName} ${lastName}`.toLowerCase();
-        return fullName.includes(frendsFilter);
+        return fullName.includes(friendsFilter);
       });
     }
-    return frendsList;
+    return friendsList;
   };
 
   const deleteButtonHandler = (event: React.MouseEvent, id: number) => {
@@ -89,7 +88,7 @@ const Friends: React.FC<Props> = ({
     <FriendsWrapper>
       <PageMarker>Друзья</PageMarker>
       <PageSearchInput action={filterInputHandler} placeholder="Начните поиск друзей..." />
-      {frendsList.length !== 0 ? (
+      {friendsList.length !== 0 ? (
         <div>
           {userFiltered().map((item) =>
             (

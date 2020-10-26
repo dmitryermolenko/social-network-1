@@ -12,11 +12,11 @@ export async function getSingleChats(id: number): Promise<IsingleChat[]> {
   switch (id) {
     case 1: return new Promise((resolve) => {
       setTimeout(() =>
-        resolve(dataMassages1), 200);
+        resolve(dataMessages1), 200);
     });
     case 2: return new Promise((resolve) => {
       setTimeout(() =>
-        resolve(dataMassages2), 500);
+        resolve(dataMessages2), 500);
     });
     default:
       return [];
@@ -90,9 +90,9 @@ const dataChats: Ichat[] = [
   },
 ];
 
-export const dataMassages1: IsingleChat[] = [
+export const dataMessages1: IsingleChat[] = [
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'kirill22',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -109,7 +109,7 @@ export const dataMassages1: IsingleChat[] = [
     active: 'DISABLED',
   },
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'bogdan13',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -119,7 +119,7 @@ export const dataMassages1: IsingleChat[] = [
     active: 'DISABLED',
   },
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'kirill22',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -136,7 +136,7 @@ export const dataMassages1: IsingleChat[] = [
     active: 'DISABLED',
   },
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'bogdan13',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -147,9 +147,9 @@ export const dataMassages1: IsingleChat[] = [
   },
 ];
 
-const dataMassages2: IsingleChat[] = [
+const dataMessages2: IsingleChat[] = [
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'kirill22',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -159,7 +159,7 @@ const dataMassages2: IsingleChat[] = [
     active: 'DISABLED',
   },
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'bogdan13',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',
@@ -169,7 +169,7 @@ const dataMassages2: IsingleChat[] = [
     active: 'DISABLED',
   },
   {
-    idMassage: Number(uniqueId()),
+    idMessage: Number(uniqueId()),
     username: 'kirill22',
     lastRedactionDate: '2020-09-28T06:58:51.277233',
     persistDate: '2020-09-28T06:58:51.277249',

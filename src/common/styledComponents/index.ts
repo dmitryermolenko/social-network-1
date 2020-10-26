@@ -67,6 +67,9 @@ export const InputHeader = styled.input`
   color: white;
   outline: none !important;
   font-size: 24px;
+  &:hover {
+    cursor: text;
+  }
 `;
 
 export const MainContainer = styled.div`

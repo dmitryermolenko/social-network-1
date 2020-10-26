@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import * as userController from '../services/user-controller';
 import { IUser, IUserFriend } from '../types/user';
 
-const loadFrendsList = createAsyncThunk('frendList/loadFrendsList', async (id: number) => {
+const loadFriendsList = createAsyncThunk('friendList/loadFriendsList', async (id: number) => {
   const response = await userController.getFriendsByUserId(id) as unknown as IUserFriend[];
   const temp: Array<Promise<AxiosResponse<IUser>>> = [];
   response.forEach((item) =>
@@ -11,43 +11,43 @@ const loadFrendsList = createAsyncThunk('frendList/loadFrendsList', async (id: n
   return Promise.all(temp);
 });
 
-interface FrendsState {
+interface FriendsState {
   data: IUser[];
   loading: boolean;
   error: null | Error;
-  frendsFilter: string;
+  friendsFilter: string;
 }
 
-const initialState: FrendsState = {
+const initialState: FriendsState = {
   data: [],
   loading: false,
   error: null,
-  frendsFilter: '',
+  friendsFilter: '',
 };
 
-const frendsListSlice = createSlice({
-  name: 'frendList',
+const friendsListSlice = createSlice({
+  name: 'friendList',
   initialState,
   reducers: {
     setData: (state, action) =>
       ({ ...state, data: action.payload, loading: false }),
     setError: (state, action) =>
       ({ ...state, error: action.payload, loading: false }),
-    setFrendFilter: (state, action) =>
-      ({ ...state, frendsFilter: action.payload }),
+    setFriendFilter: (state, action) =>
+      ({ ...state, friendsFilter: action.payload }),
     setLoading: (state) =>
       ({ ...state, loading: true }),
   },
   extraReducers: {
-    [loadFrendsList.pending.type]: (state) =>
+    [loadFriendsList.pending.type]: (state) =>
       ({ ...state, loading: true }),
-    [loadFrendsList.fulfilled.type]: (state, action) =>
+    [loadFriendsList.fulfilled.type]: (state, action) =>
       ({
         ...state,
         data: action.payload,
         loading: false,
       }),
-    [loadFrendsList.rejected.type]: (state, action) =>
+    [loadFriendsList.rejected.type]: (state, action) =>
       ({
         ...state,
         error: action.error,
@@ -56,6 +56,6 @@ const frendsListSlice = createSlice({
   },
 });
 
-export const { setData, setError, setLoading, setFrendFilter } = frendsListSlice.actions;
-export { loadFrendsList };
-export const frendsReducer = frendsListSlice.reducer;
+export const { setData, setError, setLoading, setFriendFilter } = friendsListSlice.actions;
+export { loadFriendsList };
+export const friendsReducer = friendsListSlice.reducer;

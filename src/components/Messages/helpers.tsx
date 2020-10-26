@@ -1,7 +1,7 @@
 import React from 'react';
 import ErrorBlock from '../../common/errorBlock/ErrorBlock';
 import MessagesChat from '../../common/chat/messages';
-import massagesClass from './Messages.module.scss';
+import messagesClass from './Messages.module.scss';
 import LoadingBLock from '../../common/loadingBlock/LoadingBlock';
 import { Ichat, IsingleChat } from '../../types/chat';
 
@@ -28,13 +28,13 @@ const renderchatList = (
     (
       <button
         key={chat.id}
-        className={massagesClass.selectChatElement}
+        className={messagesClass.selectChatElement}
         type="button"
         onClick={() =>
           loadCurrentChat(chat.id)}
       >
         <img alt="avatar" src={chat.image} />
-        <div className={massagesClass.selectChatUserInfo}>
+        <div className={messagesClass.selectChatUserInfo}>
           <span>{chat.title}</span>
           <p>{chat.lastMessage}</p>
         </div>
@@ -48,14 +48,14 @@ const renderMessages = (currentChat: CurrentChat): JSX.Element | JSX.Element[] =
   return currentChat.data.map((el) => {
     if (el.username === 'bogdan13') {
       return (
-        <div className={massagesClass.messageWrapper} key={el.idMassage}>
+        <div className={messagesClass.messageWrapper} key={el.idMessage}>
           <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
           <img alt="avatar" src={el.userSenderImage} />
         </div>
       );
     }
     return (
-      <div className={massagesClass.messageWrapper} key={el.idMassage}>
+      <div className={messagesClass.messageWrapper} key={el.idMessage}>
         <img alt="avatar" src={el.userSenderImage} />
         <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
       </div>

@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
 import { Ichat } from '../../types/chat';
 import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../img/icons/chat-more-options.svg';
-import massagesClass from './Messages.module.scss';
+import messagesClass from './Messages.module.scss';
 import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
-import PageSearchInput from '../../common/Inputs/PageSearchMasseges/PageSearchInput';
+import PageSearchInput from '../../common/Inputs/PageSearchMessages/PageSearchInput';
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
 import { onFilterChats, renderchatList, renderMessages } from './helpers';
@@ -65,9 +64,9 @@ const Messages: React.FC<Props> = ({
 
   return (
     <PageWrapper messages>
-      <div className={massagesClass.wrapper}>
-        <div className={massagesClass.selectChat}>
-          <div className={massagesClass.pageSearchInputWrapper}>
+      <div className={messagesClass.wrapper}>
+        <div className={messagesClass.selectChat}>
+          <div className={messagesClass.pageSearchInputWrapper}>
             <PageSearchInput
               placeholder="Поиск..."
               action={(value) =>
@@ -75,27 +74,27 @@ const Messages: React.FC<Props> = ({
             />
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
-            <div className={massagesClass.selectChatElementsWrapper}>
+            <div className={messagesClass.selectChatElementsWrapper}>
               {renderchatList(chats, filterChats, loadCurrentChat)}
             </div>
           </ScrollBar>
         </div>
 
-        <div className={massagesClass.contentWrapper}>
-          <div className={massagesClass.contentHeader}>
+        <div className={messagesClass.contentWrapper}>
+          <div className={messagesClass.contentHeader}>
             <img
               alt="avatar"
               src="https://st.kp.yandex.net/images/actor_iphone/iphone360_1746394.jpg"
             />
-            <div className={massagesClass.contentUserInfo}>
+            <div className={messagesClass.contentUserInfo}>
               <span>{`${user?.firstName} ${user?.lastName}`}</span>
               {/* <p>Программист</p> */}
             </div>
           </div>
 
-          <div className={massagesClass.content}>
+          <div className={messagesClass.content}>
             <button
-              className={massagesClass.menu}
+              className={messagesClass.menu}
               type="button"
               onClick={() =>
                 console.log('menu chats')}
@@ -103,7 +102,7 @@ const Messages: React.FC<Props> = ({
               <img alt="more" src={moreOptionSrc} />
             </button>
 
-            <div className={massagesClass.messagesWrapper}>
+            <div className={messagesClass.messagesWrapper}>
               <ScrollBar scrollTop={9999} style={scrollBarStyles}>
                 {renderMessages(currentChat)}
               </ScrollBar>
