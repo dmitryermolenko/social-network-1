@@ -1,10 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { urlGetAllAudios, urlGetFriends, urlGetMyAudios } from './urls';
+import { urlGetFriends } from './urls';
 
-export const fetchAudiosAll = async (): Promise<AxiosResponse> =>
-  axios.get(urlGetAllAudios);
-export const fetchMyPartAudios = async (): Promise<AxiosResponse> =>
-  axios.get(`${urlGetMyAudios}?currentPage=0&itemsOnPage=2`);
 export const fetchGetFriends = async (id = 1): Promise<AxiosResponse> =>
   axios.get(`${urlGetFriends}/${id}`);
 // TEST

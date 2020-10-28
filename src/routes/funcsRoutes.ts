@@ -1,12 +1,12 @@
 const funcsRoutes = {
   urlApi: (host: string, api: string): string =>
     [host, api].join('/'),
-  urlAllAudios: (hostApi: string, audios: string, all: string): string =>
-    [hostApi, audios, all].join('/'),
+  urlAllAudios: (hostApi: string, audios: string): string =>
+    [hostApi, audios].join('/'),
   urlMyAudios: (
-    hostApi: string, audios: string, partAudioOfUser: string, userId = 60,
+    hostApi: string, audios: string, user: string,
   ): string =>
-    [hostApi, audios, partAudioOfUser, userId].join('/'),
+    [hostApi, audios, user].join('/'),
   urlFriendsAudios: (hostApi: string, user: string, getFriends: string): string =>
     [hostApi, user, getFriends].join('/'),
   mainWithId: (id: number): string =>

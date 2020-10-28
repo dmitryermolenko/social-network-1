@@ -1,4 +1,4 @@
-interface IAllAudios {
+interface IAudios {
   album: string;
   author: string;
   icon: string;
@@ -8,4 +8,4 @@ interface IAllAudios {
   url: string;
 }
 
-export default IAllAudios;
+export default IAudios;

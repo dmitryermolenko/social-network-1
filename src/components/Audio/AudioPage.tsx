@@ -21,7 +21,7 @@ import {
   myAudiosAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected } from '../../constants/fetchState';
-import IAllAudios from '../../typesInterfaces/IAllAudios';
+import IAudios from '../../typesInterfaces/IAllAudios';
 
 const Main = styled.div`
   //width: 1300px;
@@ -164,6 +164,25 @@ const RightSide = styled.div`
   align-items: center;
 `;
 
+const BtnCategAudio = styled.button<IBtnCategAudio>`
+  border: none;
+  background: none;
+  padding: 0;
+  line-height: 30px;
+  outline: none;
+  border-bottom: ${(props: any): any =>
+    props.selected && '3px solid #FFB11B'};
+  &:not(:last-child) {
+    margin-right: 51px;
+  }
+`;
+
+interface IBtnCategAudio {
+  type?: string;
+  onClick?: (arg?: string) => void;
+  selected?: boolean;
+}
+
 // slick arrows and settings area
 interface ISlickOnClick {
   onClick?: () => void;
@@ -190,10 +209,11 @@ const Audio: React.FC = () => {
     allAudiosReducer);
 
   useEffect(() => {
+    console.log(objAudiosState);
     if (objAudiosState.loading.endsWith(rejected)) {
       message.error(objAudiosState.msgFetchState);
     }
-  }, [objAudiosState.loading, objAudiosState.msgFetchState]);
+  }, [objAudiosState, objAudiosState.loading, objAudiosState.msgFetchState]);
 
   // Вариант типизации для initialStateActiveBtn
   // type TypeInitialStateActiveBtn<T extends string> = { [key in T]: boolean };
@@ -212,25 +232,22 @@ const Audio: React.FC = () => {
     dispatch(myAudiosAction());
   }, [dispatch]);
 
-  // const songsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  // const songsItems = objAudiosState.length > 0 &&
-  // objAudiosState.map(({ id, icon, author, name }) => (
-  const songsItems = objAudiosState && objAudiosState.allAudios.length > 0
-    && objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAllAudios) => {
-      const timeAudio = (sec: number): string => {
-        if (sec === null) {
-          return sec;
-        }
-        const minutes = Math.floor(sec / 60);
-        const seconds = sec % 60;
-        return `${minutes}:${seconds}`;
-      };
-      console.log('length', length, typeof length);
-      return (
+  const timeAudio = (sec: number): string|number => {
+    if (sec === null) {
+      return sec;
+    }
+    const minutes = Math.floor(sec / 60);
+    const seconds = sec % 60;
+    return `${minutes}:${seconds}`;
+  };
+
+  const AllAudios = objAudiosState && objAudiosState.allAudios.length > 0
+    && objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAudios) =>
+      (
         <li key={id}>
           <LeftSide>
             <div>
-              <img src={pic || icon} alt="icon" title="icon" />
+              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
             </div>
             <div>
               <h3>{author}</h3>
@@ -241,20 +258,20 @@ const Audio: React.FC = () => {
             <h4>{timeAudio(length)}</h4>
           </RightSide>
         </li>
-      );
-    });
+      ));
 
-  const ListFriends = objAudiosState
+  const FriendsAudios = objAudiosState
     && objAudiosState.friends.length > 0
     && objAudiosState.friends
-      .map(({ firstName, lastName, userId, status, avatar, aboutMe }: any) =>
+      .map(({ firstName, lastName, userId, avatar, aboutMe, status }: any) =>
         (
           <li key={userId}>
-            <LeftSide onClick={() =>
-              console.log('Открыть список аудио')}
+            <LeftSide onClick={() => {
+              console.log('Открыть список аудио');
+            }}
             >
               <div>
-                <img src={pic || avatar} alt="icon" title="icon" />
+                <img src={pic || `https://${avatar}`} alt="avatar" title="avatar" />
               </div>
               <div>
                 <h3>{`${firstName} ${lastName}`}</h3>
@@ -266,6 +283,25 @@ const Audio: React.FC = () => {
             </RightSide>
           </li>
         ));
+
+  const MyAudios = objAudiosState && objAudiosState.myAudios.length > 0
+    && objAudiosState.myAudios.map(({ icon, author, name, id, length }: IAudios) =>
+      (
+        <li key={id}>
+          <LeftSide>
+            <div>
+              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+            </div>
+            <div>
+              <h3>{author}</h3>
+              <p>{name}</p>
+            </div>
+          </LeftSide>
+          <RightSide>
+            <h4>{timeAudio(length)}</h4>
+          </RightSide>
+        </li>
+      ));
 
   const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
     async (): Promise<any> => {
@@ -285,25 +321,6 @@ const Audio: React.FC = () => {
       }
       return undefined;
     };
-
-  interface IBtnCategAudio {
-    type?: string;
-    onClick?: (arg?: string) => void;
-    selected?: boolean;
-  }
-
-  const BtnCategAudio = styled.button<IBtnCategAudio>`
-    border: none;
-    background: none;
-    padding: 0;
-    line-height: 30px;
-    outline: none;
-    border-bottom: ${(props: any): any =>
-    props.selected && '3px solid #FFB11B'};
-    &:not(:last-child) {
-      margin-right: 51px;
-    }
-  `;
 
   return (
     <Main>
@@ -350,7 +367,7 @@ const Audio: React.FC = () => {
         </Slider>
       </PlayListArea>
       <SongsArea>
-        <ul>{objCategoryAudios.friendsAudios ? ListFriends : songsItems}</ul>
+        <ul>{(objCategoryAudios.friendsAudios && FriendsAudios) || AllAudios || MyAudios || 'Аудиозаписи не найдены'}</ul>
       </SongsArea>
     </Main>
   );

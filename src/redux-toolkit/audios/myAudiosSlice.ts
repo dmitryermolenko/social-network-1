@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAudiosAll } from '../../services/allFetch';
+import { fetchAudiosAll } from '../../services/audios-controller/audio-controller';
 
 export const myAudiosAction = createAsyncThunk(
   'fetch/myAudiosAction',
