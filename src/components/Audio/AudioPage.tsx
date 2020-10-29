@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import __ from 'lodash';
+import { uniqueId } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import album from '../../common/img/png/album5.png';
@@ -20,8 +20,8 @@ import {
   friendsAudioAction,
   myAudiosAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
-import { rejected } from '../../constants/fetchState';
-import IAudios from '../../typesInterfaces/IAllAudios';
+import { rejected, pending } from '../../constants/fetchState';
+import IAudios from '../../typesInterfaces/IAudios';
 
 const Main = styled.div`
   //width: 1300px;
@@ -135,6 +135,7 @@ const Next = styled.button`
   margin-left: 70px;
   margin-top: 40px;
   cursor: pointer;
+  outline: none;
 `;
 const Prev = styled.button`
   background: none;
@@ -147,6 +148,7 @@ const Prev = styled.button`
   margin-left: -64px;
   margin-top: 40px;
   cursor: pointer;
+  outline: none;
 `;
 
 const LeftSide = styled.div`
@@ -207,6 +209,7 @@ const Audio: React.FC = () => {
   const dispatch: TypeDispatch = useDispatch();
   const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) =>
     allAudiosReducer);
+  const loaded = objAudiosState.loading.endsWith(pending);
 
   useEffect(() => {
     console.log(objAudiosState);
@@ -303,6 +306,8 @@ const Audio: React.FC = () => {
         </li>
       ));
 
+  const audiosList = (objCategoryAudios.friendsAudios && FriendsAudios) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
+
   const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
     async (): Promise<any> => {
     // this.setState((prev: any): any => ({ [argCategoryAudio]: !prev[argCategoryAudio] }));
@@ -359,7 +364,7 @@ const Audio: React.FC = () => {
         <Slider {...settings}>
           {arr.map((el) =>
             (
-              <div key={__.uniqueId()}>
+              <div key={uniqueId()}>
                 <img src={album} alt="" />
                 <p>{el}</p>
               </div>
@@ -367,7 +372,7 @@ const Audio: React.FC = () => {
         </Slider>
       </PlayListArea>
       <SongsArea>
-        <ul>{(objCategoryAudios.friendsAudios && FriendsAudios) || AllAudios || MyAudios || 'Аудиозаписи не найдены'}</ul>
+        <ul>{audiosList}</ul>
       </SongsArea>
     </Main>
   );

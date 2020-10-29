@@ -63,7 +63,8 @@ const allAudiosSlice = createSlice({
         console.log(state, action, 'plug');
       });
     builder.addCase(allAudiosAction.fulfilled,
-      (state: Draft<{ allAudios: Array<any>; loading: string }>, action: PayloadAction<any>) => {
+      (state: Draft<any>, action: PayloadAction<any>) => {
+        state.friends = [];
         state.allAudios = action.payload;
         state.loading = action.type;
       });
@@ -78,6 +79,8 @@ const allAudiosSlice = createSlice({
       state.msgFetchState = action.payload;
     });
     builder.addCase(myAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.allAudios = [];
+      state.friends = [];
       state.myAudios = action.payload;
     });
     builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action: PayloadAction<any>) => {
@@ -91,6 +94,7 @@ const allAudiosSlice = createSlice({
     });
     builder.addCase(friendsAudioAction.fulfilled,
       (state: Draft<any>, action: PayloadAction<any>) => {
+        state.allAudios = [];
         state.friends = action.payload;
       });
     builder.addCase(friendsAudioAction.rejected,
