@@ -19,13 +19,14 @@ import {
   allAudiosAction,
   friendsAudioAction,
   myAudiosAction,
+  myPlaylistsAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected, pending } from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
 
 const Main = styled.div`
   //width: 1300px;
-  //height:1000vh;
+  //height: 1000vh;
 `;
 
 const SliderContainer = styled.div`
@@ -71,6 +72,8 @@ const PlayListArea = styled.div`
   }
   div {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
     div {
       div {
         div {
@@ -79,6 +82,7 @@ const PlayListArea = styled.div`
             height: 113px;
             object-fit: cover;
             border-radius: 20px;
+            margin-right: 10px;
           }
           p {
             color: black;
@@ -200,16 +204,25 @@ const settings = {
   slidesToScroll: 1,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
+  variableWidth: true,
 };
 
 // end
 
 const Audio: React.FC = () => {
-  const arr = [1, 2, 3, 4, 5, 6];
   const dispatch: TypeDispatch = useDispatch();
   const objAudiosState = useSelector(({ allAudiosReducer }: TypeRootReducer) =>
     allAudiosReducer);
   const loaded = objAudiosState.loading.endsWith(pending);
+  const playlistsData: Array<Record<string, any>> = objAudiosState.myPlaylists;
+
+  const playlists = playlistsData.map((list) =>
+    (
+      <div key={uniqueId()}>
+        <img src={album || list.image} alt="" />
+        <p>{list.id}</p>
+      </div>
+    ));
 
   useEffect(() => {
     console.log(objAudiosState);
@@ -233,6 +246,7 @@ const Audio: React.FC = () => {
   // При переходе на страницу вывод списка audio
   useEffect(() => {
     dispatch(myAudiosAction());
+    dispatch(myPlaylistsAction());
   }, [dispatch]);
 
   const timeAudio = (sec: number): string|number => {
@@ -310,7 +324,6 @@ const Audio: React.FC = () => {
 
   const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
     async (): Promise<any> => {
-    // this.setState((prev: any): any => ({ [argCategoryAudio]: !prev[argCategoryAudio] }));
       setChosenCategoryAudios({
         [argCategoryAudio]: true,
       });
@@ -362,13 +375,7 @@ const Audio: React.FC = () => {
       <PlayListArea>
         <h3>Плейлисты</h3>
         <Slider {...settings}>
-          {arr.map((el) =>
-            (
-              <div key={uniqueId()}>
-                <img src={album} alt="" />
-                <p>{el}</p>
-              </div>
-            ))}
+          {playlists}
         </Slider>
       </PlayListArea>
       <SongsArea>

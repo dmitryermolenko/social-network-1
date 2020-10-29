@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const funcsRoutes = {
   urlApi: (host: string, api: string): string =>
     [host, api].join('/'),
@@ -11,6 +12,8 @@ const funcsRoutes = {
     [hostApi, user, getFriends].join('/'),
   mainWithId: (id: number): string =>
     `${id}`,
+  urlGetMyPlaylists: (hostApi: string, audios: string, user: string, id: string, playlists: string): string =>
+    [hostApi, audios, user, id, playlists].join('/'),
 };
 
 export default funcsRoutes;

@@ -3,3 +3,5 @@ export const pathApi = 'api/v2';
 export const pathAudios = 'audio';
 export const pathUser = 'user';
 export const pathGetFriends = 'getFriends';
+export const pathId = '60';
+export const pathPlaylists = 'playlists';
