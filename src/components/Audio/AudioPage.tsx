@@ -1,18 +1,19 @@
-// eslint-disable-next-line
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import { uniqueId } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import album from '../../common/img/png/album5.png';
 import pic from '../../common/img/png/pic.png';
 import Deck from './AudioSlider/Deck';
+import PlayListArea from './PlayListArea';
+import SearchArea from './SearchArea';
+import SongsArea from './SongsArea';
+import AddPlayList from './AddPlayList';
+import { Next, Prev } from './NavigationButtons';
 import search from '../../common/img/icons/musicSearch.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import backArrow from '../../common/img/icons/playlistarrowback.svg';
-import nextArrow from '../../common/img/icons/playlistarrownext.svg';
 import { TypeDispatch } from '../../redux-toolkit/store';
 import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
 import {
@@ -35,125 +36,16 @@ const SliderContainer = styled.div`
   z-index: 2;
 `;
 
+const TitleWrapper = styled.div`
+  margin: 0 60px;
+`;
+
 const ButtonsArea = styled.div`
   display: flex;
-  margin-top: 250px;
+  margin: 250px 60px 0 60px;
 `;
 
 // Для кнопок Моя музыка и т.д.
-
-const SearchArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 130px;
-  max-width: 1000px;
-  margin: 60px auto 80px auto;
-  border-top: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-  align-items: center;
-  input {
-    border: none;
-    outline: none;
-    &:focus {
-      outline: none;
-    }
-    &:hover {
-      cursor: text;
-    }
-  }
-`;
-
-const PlayListArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  h3 {
-    color: black;
-    padding-bottom: 50px;
-  }
-  div {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    div {
-      div {
-        div {
-          img {
-            width: 113px;
-            height: 113px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-right: 10px;
-          }
-          p {
-            color: black;
-            text-align: left;
-            padding-left: 50px;
-          }
-        }
-      }
-    }
-  }
-`;
-const SongsArea = styled.div`
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  p {
-    font-size: 15px;
-    color: black;
-    padding: 0;
-    margin: 0;
-  }
-  h4,
-  h3 {
-    color: black;
-    padding: 0;
-    margin: 0;
-  }
-  ul {
-    width: 900px;
-    max-height: 900px;
-    overflow: scroll;
-    ::-webkit-scrollbar {
-      /* chrome based */
-      width: 0; /* ширина scrollbar */
-      background: transparent; /* опционально */
-    }
-    li {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-top: 50px;
-    }
-  }
-`;
-const Next = styled.button`
-  background: none;
-  border: none;
-  background-image: url(${nextArrow});
-  position: absolute;
-  left: 95%;
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-  margin-left: 70px;
-  margin-top: 40px;
-  cursor: pointer;
-  outline: none;
-`;
-const Prev = styled.button`
-  background: none;
-  border: none;
-  background-image: url(${backArrow});
-  position: absolute;
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-  margin-left: -64px;
-  margin-top: 40px;
-  cursor: pointer;
-  outline: none;
-`;
 
 const LeftSide = styled.div`
   display: flex;
@@ -170,7 +62,7 @@ const RightSide = styled.div`
   align-items: center;
 `;
 
-const BtnCategAudio = styled.button<IBtnCategAudio>`
+const BtnFilterAudio = styled.button<IBtnFilterAudio>`
   border: none;
   background: none;
   padding: 0;
@@ -183,7 +75,7 @@ const BtnCategAudio = styled.button<IBtnCategAudio>`
   }
 `;
 
-interface IBtnCategAudio {
+interface IBtnFilterAudio {
   type?: string;
   onClick?: (arg?: string) => void;
   selected?: boolean;
@@ -199,12 +91,12 @@ const SampleNextArrow = ({ onClick }: ISlickOnClick) =>
 const SamplePrevArrow = ({ onClick }: ISlickOnClick) =>
   <Prev onClick={onClick} />;
 const settings = {
-  loop: true,
+  infinite: false,
   slidesToShow: 5,
   slidesToScroll: 1,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
-  variableWidth: true,
+  // variableWidth: true, // отрабатывает криво с параметром slidesToShow
 };
 
 // end
@@ -218,9 +110,9 @@ const Audio: React.FC = () => {
 
   const playlists = playlistsData.map((list) =>
     (
-      <div key={uniqueId()}>
+      <div key={list.id}>
         <img src={album || list.image} alt="" />
-        <p>{list.id}</p>
+        <p>{list.name}</p>
       </div>
     ));
 
@@ -346,36 +238,39 @@ const Audio: React.FC = () => {
         <Deck />
       </SliderContainer>
       <ButtonsArea>
-        <BtnCategAudio
+        <BtnFilterAudio
           type="button"
           onClick={chooseCategoryAudiosOnClick('myAudios')}
           selected={objCategoryAudios.myAudios}
         >
           Моя музыка
-        </BtnCategAudio>
-        <BtnCategAudio
+        </BtnFilterAudio>
+        <BtnFilterAudio
           type="button"
           onClick={chooseCategoryAudiosOnClick('allAudios')}
           selected={objCategoryAudios.allAudios}
         >
           Вся музыка
-        </BtnCategAudio>
-        <BtnCategAudio
+        </BtnFilterAudio>
+        <BtnFilterAudio
           type="button"
           onClick={chooseCategoryAudiosOnClick('friendsAudios')}
           selected={objCategoryAudios.friendsAudios}
         >
           Музыка друзей
-        </BtnCategAudio>
+        </BtnFilterAudio>
       </ButtonsArea>
       <SearchArea>
         <input type="text" placeholder="Начните поиск музыки..." />
         <img src={search} alt="" />
       </SearchArea>
       <PlayListArea>
-        <h3>Плейлисты</h3>
+        <TitleWrapper><h3>Плейлисты</h3></TitleWrapper>
         <Slider {...settings}>
           {playlists}
+          <AddPlayList>
+            <p>Добавить плейлист</p>
+          </AddPlayList>
         </Slider>
       </PlayListArea>
       <SongsArea>
