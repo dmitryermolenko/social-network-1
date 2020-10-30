@@ -14,7 +14,7 @@ import funcRoutes from './routes/funcsRoutes';
 import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo/Photo';
 import Group from './components/Group';
-// import Groups from './components/Groups';
+import Groups from './components/Groups';
 import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
 import './App.css';
@@ -48,6 +48,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUser }
       <Route path={routes.bookmarks} component={Bookmarks} />
       <Route path={routes.photo} component={Photo} />
       <Route path={routes.group} exact component={Group} />
+      <Route path={routes.groups} exact component={Groups} />
       <Route
         path={routes.main}
         render={() => {

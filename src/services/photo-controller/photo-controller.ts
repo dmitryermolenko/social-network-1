@@ -1,11 +1,11 @@
 import axiosLib, { AxiosResponse } from 'axios';
 import { ImageCreateDto } from '../../types/image';
-import baseUrl from '../config';
+import { baseUrlv2 } from '../config';
 
 const axios = axiosLib.create();
 axios.interceptors.response.use((response: AxiosResponse) =>
   response.data);
-axios.defaults.baseURL = `${baseUrl}images`;
+axios.defaults.baseURL = `${baseUrlv2}images`;
 
 export async function getAllImagesByUserId({
   limit,
@@ -15,7 +15,7 @@ export async function getAllImagesByUserId({
   limit: number;
   offset: number;
   userId: number;
-}) {
+}): Promise<object> {
   return axios.get('', {
     params: {
       limit,
@@ -25,7 +25,7 @@ export async function getAllImagesByUserId({
   });
 }
 
-export async function createImage(imageCreateBundle: ImageCreateDto) {
+export async function createImage(imageCreateBundle: ImageCreateDto): Promise<void> {
   return axios.post('', imageCreateBundle);
 }
 

@@ -19,25 +19,25 @@ export default class {
   }
 
   static async apiGroups(page = 1, size = 15): Promise<Group[]> {
-    return this.fetching(`api/groups/all?page=${page}&size=${size}`);
+    return this.fetching(`api/v2/groups?page=${page}&size=${size}`);
   }
 
   static async apiGroupInfo(id: string, page = 1, size = 15): Promise<GroupPosts[]> {
-    return this.fetching(`api/groups/${id}/posts?page=${page}&size=${size}`);
+    return this.fetching(`api/v2/groups/${id}/posts?page=${page}&size=${size}`);
   }
 
   static async apiSingleGroup(id: string): Promise<FullGroupInfo> {
-    return this.fetching(`api/groups/${id}`);
+    return this.fetching(`api/v2/groups/${id}`);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static async apiLoadUsers({ userId, groupId }: GroupRequestProps): Promise<GroupUser[]> {
-    return this.fetching(`api/groups/${groupId}/users`);
+    return this.fetching(`api/v2/groups/${groupId}/users`);
   }
 
   static async apiJoinGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/groupsHasUsers/add?groupId=${groupId}&userId=${userId}`, {
-      method: 'POST',
+    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${userId}`, {
+      method: 'PUT',
     });
     if (!res.ok) {
       throw new Error(`Fetching user-controller is status error ${res.status}`);
@@ -46,7 +46,7 @@ export default class {
   }
 
   static async apiLeaveGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/groupsHasUsers/delete?groupId=${groupId}&userId=${userId}`, {
+    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${userId}`, {
       method: 'DELETE',
     });
     if (!res.ok) {
