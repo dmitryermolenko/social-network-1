@@ -10,6 +10,8 @@ const SearchArea = styled.div`
   border-bottom: 1px solid #000000;
   align-items: center;
   input {
+    width: 100%;
+    padding: 53px 0;
     border: none;
     outline: none;
     &:focus {
