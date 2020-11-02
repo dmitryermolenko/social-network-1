@@ -93,9 +93,9 @@ const groupsSlice = createSlice({
     [leaveGroup.pending.type]: (state): Groups =>
       ({ ...state, loading: true }),
     [leaveGroup.fulfilled.type]: (state, action): Groups => {
-      const tempArr = [...state.memberOf];
-      tempArr.splice(tempArr.indexOf(action.payload[1]), 1);
-      return { ...state, memberOf: tempArr, loading: false };
+      const newArr = state.memberOf.filter((item) =>
+        (item === action.payload[1] ? null : item));
+      return { ...state, memberOf: newArr, loading: false };
     },
     [leaveGroup.rejected.type]: (state, action): Groups =>
       ({ ...state,
