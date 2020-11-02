@@ -1,12 +1,12 @@
 import axiosLib, { AxiosResponse } from 'axios';
 import { ImageCreateDto, ImageDto, AlbumCreateDto, AlbumDto } from '../../types/image';
-import { GetImages, IGetImagesInAlbum, GetAlbums } from './images-interfaces.ts';
-import baseUrl from '../config';
+import { GetImages, IGetImagesInAlbum, GetAlbums } from './images-interfaces';
+import { baseUrlv2 } from '../config';
 
 const axios = axiosLib.create();
 axios.interceptors.response.use((response: AxiosResponse) =>
   response.data);
-axios.defaults.baseURL = `${baseUrl}images`;
+axios.defaults.baseURL = `${baseUrlv2}images`;
 
 export async function getAllImagesByUserId({
   limit,
