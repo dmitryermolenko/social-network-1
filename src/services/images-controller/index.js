@@ -1,3 +1,27 @@
-import { getAllImagesByUserId, createImage } from './images-controller';
+import {
+  getAllImagesByUserId,
+  createImage,
+  deleteImage,
+  getImageById,
+  getAllAlbumsOfUser,
+  createAlbum,
+  deleteAlbum,
+  getAlbumById,
+  getImagesInAlbum,
+  addImageToAlbum,
+  deleteImageFromAlbum,
+} from './images-controller';
 
-export { getAllImagesByUserId, createImage };
+export {
+  getAllImagesByUserId,
+  createImage,
+  deleteImage,
+  getImageById,
+  getAllAlbumsOfUser,
+  createAlbum,
+  deleteAlbum,
+  getAlbumById,
+  getImagesInAlbum,
+  addImageToAlbum,
+  deleteImageFromAlbum,
+};

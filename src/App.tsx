@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from './components/LoginPage/loginPage';
@@ -12,7 +12,7 @@ import News from './components/News';
 import routes from './routes';
 import funcRoutes from './routes/funcsRoutes';
 import Bookmarks from './components/Bookmarks';
-import Photo from './components/Photo/Photo';
+import Photo from './components/Photo';
 import Group from './components/Group';
 // import Groups from './components/Groups';
 import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
@@ -37,6 +37,16 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
   useEffect(() => {
     _loadCurrentUser();
   }, [_loadCurrentUser]);
+  const checkUserIsLoggedIn = useCallback(() => {
+    if (currentUserModel?.error) {
+      alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
+      return <Redirect to={routes.login} />;
+    }
+    if (!currentUserModel?.loading) {
+      _loadCurrentUser();
+    }
+    return null;
+  }, [currentUserModel, _loadCurrentUser]);
   return (
     <Switch>
       <Route path={routes.login} component={Login} />
@@ -46,7 +56,32 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
       <Route path={routes.video} component={VideoPage} />
       <Route path={routes.messages} component={Messages} />
       <Route path={routes.bookmarks} component={Bookmarks} />
-      <Route path={routes.photo} component={Photo} />
+      <Route
+        path={routes.photo}
+        render={() => {
+          if (currentUserModel?.data) {
+            return <Redirect to={funcRoutes.photosWithId(currentUserModel.data.userId)} />;
+          }
+          return checkUserIsLoggedIn();
+        }}
+        exact
+      />
+      <Route
+        path={routes.photoWithId}
+        render={({ match }) => {
+          const { userId } = match.params;
+          return <Photo userId={userId} />;
+        }}
+        exact
+      />
+      <Route
+        path={routes.albumWithId}
+        render={({ match }) => {
+          const { userId, albumId } = match.params;
+          return <Photo userId={userId} albumId={albumId} />;
+        }}
+        exact
+      />
       <Route path={routes.group} exact component={Group} />
       <Route
         path={routes.main}
@@ -61,11 +96,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
           if (currentUserModel?.data) {
             return <Redirect to={funcRoutes.mainWithId(currentUserModel?.data.userId)} />;
           }
-          if (currentUserModel?.error) {
-            alert('Ошибка при загрузке текущего пользователя. Возврат на страницу с логином');
-            return <Redirect to={routes.login} />;
-          }
-          return null;
+          return checkUserIsLoggedIn();
         }}
         exact
       />

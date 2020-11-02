@@ -7,12 +7,7 @@ interface IErrorBlock {
 }
 const ErrorBlock: React.FC<IErrorBlock> = ({ errorMessage }) =>
   (
-    <StyledError>
-      Error occured with
-      {' '}
-      {errorMessage }
-      !
-    </StyledError>
+    <StyledError>{errorMessage}</StyledError>
   );
 
 export default ErrorBlock;
