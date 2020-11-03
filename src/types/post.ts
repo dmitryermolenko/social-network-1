@@ -3,20 +3,21 @@ import IMedia from './media';
 import IComment from './comment';
 
 export interface IPost {
-  id: number;
-  userId: number;
   avatar: string;
-  firstName: string;
-  lastName: string;
   bookmarkAmount: number | null;
   commentAmount: number | null;
+  firstName: string;
+  id: number;
+  lastName: string;
+  lastRedactionDate: string;
   likeAmount: number | null;
-  shareAmount: number | null;
-  persistDate: string;
-  title: string;
-  text: string;
-  tags?: ITag[];
   media?: IMedia[];
+  persistDate: string;
+  shareAmount: number | null;
+  tags?: ITag[];
+  text: string;
+  title: string;
+  userId: number;
 }
 
 export interface ICreatePost {
@@ -37,6 +38,6 @@ export interface ICreatePost {
 export interface IDataPost {
   post: IPost;
   loading: boolean;
-  error: Error;
+  error: Error | null;
   comments?: IComment[];
 }
