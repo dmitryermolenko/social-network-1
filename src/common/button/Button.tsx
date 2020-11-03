@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const Button = styled.button<{ small?: boolean; wide?: boolean }>`
   display: block;
   background: #ffb11b;
   border: none;
@@ -36,15 +34,4 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ children, ...props }) =>
-  <StyledButton {...props}>{children}</StyledButton>;
-
 export default Button;
-
-Button.defaultProps = {
-  children: {},
-};
-
-Button.propTypes = {
-  children: PropTypes.string,
-};

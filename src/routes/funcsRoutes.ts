@@ -14,6 +14,10 @@ const funcsRoutes = {
     `${id}`,
   urlGetMyPlaylists: (hostApi: string, audios: string, user: string, id: string, playlists: string): string =>
     [hostApi, audios, user, id, playlists].join('/'),
+  photosWithId: (id: number): string =>
+    `/${id}/photo/`,
+  photosAlbumWithId: (userId: number, albumId: number): string =>
+    `/${userId}/photo/album/${albumId}`,
 };
 
 export default funcsRoutes;

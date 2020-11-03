@@ -110,10 +110,12 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
         </SmoothCollapse>
         <BtnOpenNote $isOpen={isOpen} onClick={revertOpen} />
         <TagsList>
-          {tags?.map((item) =>
-            (
-              <TagItem key={item.id}>{item.text}</TagItem>
-            ))}
+          {tags?.map((item) => {
+            if (!item?.id || !item?.text) {
+              return null;
+            }
+            return <TagItem key={item.id}>{item.text}</TagItem>;
+          })}
         </TagsList>
 
         <SmoothCollapse expanded={isCommentsOpen} heightTransition=".5s">

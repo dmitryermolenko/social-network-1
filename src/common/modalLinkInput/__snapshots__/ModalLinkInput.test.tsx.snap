@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalLinkInput test renders propely 1`] = `ShallowWrapper {}`;
+
+exports[`ModalLinkInput test renders propely 2`] = `ReactWrapper {}`;
