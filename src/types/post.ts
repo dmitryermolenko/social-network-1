@@ -38,6 +38,6 @@ export interface ICreatePost {
 export interface IDataPost {
   post: IPost;
   loading: boolean;
-  error: Error | undefined;
+  error: Error | null;
   comments?: IComment[];
 }

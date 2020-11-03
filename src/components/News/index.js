@@ -1,6 +1,6 @@
 import React from 'react';
 
-import News from './News';
+import News from './blockNews/News';
 import PageWrapper from '../../common/pageWrapper';
 
 function WrapperNews() {

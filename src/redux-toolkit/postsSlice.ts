@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getAllPosts, getPostsByTag, getPostsByUser, getAllCommentsByPost, addNewCommentToPost } from '../services/post-controller';
 import { IDataPost, IPost } from '../types/post';
-import { ICreateComment } from '../types/comment';
 
 const formatToIPostData = (posts: any) => {
   const newData = posts.map((post: IPost): IDataPost =>
@@ -9,7 +8,7 @@ const formatToIPostData = (posts: any) => {
       post,
       comments: undefined,
       loading: false,
-      error: undefined,
+      error: null,
     }));
   return newData;
 };
@@ -60,13 +59,13 @@ const createNewCommentToPost = createAsyncThunk('posts/createNewCommentToPost', 
 export interface PostsState {
   data: null | IDataPost[];
   loading: boolean;
-  error: undefined | Error;
+  error: null | Error;
 }
 
 const initialState: PostsState = {
   data: null,
   loading: false,
-  error: undefined,
+  error: null,
 };
 
 const postsSlice = createSlice({

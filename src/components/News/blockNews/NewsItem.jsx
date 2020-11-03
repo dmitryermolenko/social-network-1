@@ -2,44 +2,19 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import avatar from '../../img/icons/mock-avatar.svg';
-import favorite from '../../img/icons/favorite.svg';
-import like from '../../img/icons/like.svg';
-import comment from '../../img/icons/comment.svg';
-import repost from '../../img/icons/repost.svg';
-import more from '../../img/icons/more.svg';
-import moreUp from '../../img/icons/moreUp.svg';
+import avatar from '../../../img/icons/mock-avatar.svg';
+import favorite from '../../../img/icons/favorite.svg';
+import like from '../../../img/icons/like.svg';
+import comment from '../../../img/icons/comment.svg';
+import repost from '../../../img/icons/repost.svg';
+import more from '../../../img/icons/more.svg';
+import moreUp from '../../../img/icons/moreUp.svg';
 
 export default function NewsItem(props) {
-  const { item } = props;
-  const {
-    title,
-    img,
-    text,
-    tags,
-    author,
-    time,
-    favoritesCount,
-    likesCount,
-    commentsCount,
-    repostsCount,
-  } = item;
-
-  const [isFullContent, setFullContent] = useState(false);
-  const height = isFullContent ? '' : '100px';
-
-  const listTags = tags.map((tag) =>
-    (
-      <LiItem>
-        <TagLink key={tag} href="http://localhost:3000/social-network">
-          #
-          {tag}
-        </TagLink>
-      </LiItem>
-    ));
   return (
     <Container>
-      <NewsHeader>
+      <h1>!!!!!!!!</h1>
+      {/* <NewsHeader>
         <AvatarContainer>
           <AvatarImg src={avatar} alt="Aватар" />
         </AvatarContainer>
@@ -75,13 +50,12 @@ export default function NewsItem(props) {
         <ButtonMore>
           <MoreIcon
             src={isFullContent ? moreUp : more}
-            onClick={() =>
-              setFullContent(!isFullContent)}
+            onClick={() => setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </div>
 
-      <NewsTags>{listTags}</NewsTags>
+      <NewsTags>{listTags}</NewsTags> */}
     </Container>
   );
 }
@@ -121,7 +95,7 @@ const AuthorContainer = styled.div`
 
 const Author = styled.span`
   display: block;
-  
+
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -133,7 +107,7 @@ const Author = styled.span`
 
 const Time = styled.span`
   display: block;
-  
+
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -153,7 +127,7 @@ const ActionsContainer = styled.div`
 const ButtonAction = styled.button`
   margin-left: 65px;
   display: flex;
-  
+
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
