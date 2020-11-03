@@ -8,9 +8,10 @@ import comment from '../../img/icons/comment.svg';
 import repost from '../../img/icons/repost.svg';
 import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
-import { mockMediaImages } from './mockData';
+import { mockMediaImages, mockData } from './mockData';
 import 'swiper/swiper-bundle.css';
-import { NewsProps } from '../../types/group';
+import { NewsProps, GroupCommentsData } from '../../types/group';
+import Comments from './Comments';
 
 const NewsItem: React.FC<NewsProps> = ({
   item: {
@@ -68,9 +69,12 @@ const NewsItem: React.FC<NewsProps> = ({
       </LiItem>
     ));
 
+  const { comments }: GroupCommentsData = mockData;
+
   let keyCount = 0;
   const testMedia = mockMediaImages;
   const listMedia = testMedia.map((el) => {
+    // поправить ключ
     keyCount += 1;
     if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
       return <NewsImage key={keyCount} src={el.url} alt="" />;
@@ -174,6 +178,7 @@ const NewsItem: React.FC<NewsProps> = ({
         </ButtonMore>
       </WrapperContent>
       <NewsTags>{listTags}</NewsTags>
+      <Comments data={comments} />
     </Container>
   );
 };
@@ -184,8 +189,8 @@ const MaxImg = styled.img`
 `;
 const Container = styled.div`
   padding-top: 50px;
-  padding-bottom: 50px;
-  border-bottom: 1px solid #515151;
+  border-bottom: 1px solid grey;
+  margin: 20px 0;
 `;
 
 const NewsHeader = styled.div`

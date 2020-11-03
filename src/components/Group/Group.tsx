@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import { withRouter, useParams, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { GroupPosts, GroupInt, GroupCommentsData } from '../../types/group';
+import { GroupPosts, GroupInt } from '../../types/group';
 import LoadingBlock from '../../common/loadingBlock';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
-import Comments from './Comments';
-import InputComment from './InputComment';
-import { mockData } from './mockData';
 import { RootState } from '../../redux-toolkit/store';
 import photogroup from '../../img/icons/photogroup.svg';
 
@@ -54,7 +51,7 @@ const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
     _loadGroupPosts(slug);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { comments }: GroupCommentsData = mockData;
+  // const { comments }: GroupCommentsData = mockData;
   if (posts && groupInfo) {
     let { addressImageGroup } = groupInfo;
     const {
@@ -88,8 +85,6 @@ const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
             </Label>
             <GroupHeader data={groupInfo} />
             <NewsList news={postsUpg} />
-            <Comments data={comments} />
-            <InputComment />
           </Container>
         )}
 

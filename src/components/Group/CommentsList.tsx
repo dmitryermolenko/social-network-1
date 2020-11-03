@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { CommentData, Comment } from '../../types/group';
 import CommentsListItem from './CommentsListItem';
+import InputComment from './InputComment';
 
 const CommentsList: React.FC<CommentData> = ({ data }) =>
   (
@@ -15,10 +16,12 @@ const CommentsList: React.FC<CommentData> = ({ data }) =>
             data={item}
           />
         ))}
+      <InputComment />
     </Container>
   );
 
 const Container = styled.div`
-  height: 210px;
+  display: flex;
+  flex-direction: column;
 `;
 export default CommentsList;
