@@ -111,7 +111,7 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
     const newArr = filterNews([...data!], actualFilter, searchRequest);
     if (newArr.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
     return newArr.map((postData) =>
-      <NewsItem key={postData.post.id} postData={postData} />);
+      <NewsItem key={postData.post.id} postData={postData} getPostsByTag={getPostsByTag} />);
   };
 
   const showComments = (id: number): void => {
