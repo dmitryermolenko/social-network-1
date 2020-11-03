@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllPosts, getPostsByTag, getPostsByUser, getAllCommentsByPost, addNewCommentToPost } from '../services/post-controller';
+import { getAllPosts, getPostsByTag, getPostsByUser, getAllCommentsByPost } from '../services/post-controller';
 import { IDataPost, IPost } from '../types/post';
 
 const formatToIPostData = (posts: any) => {
