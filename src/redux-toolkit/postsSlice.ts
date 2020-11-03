@@ -1,6 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getPostsByUser, getAllCommentsByPost } from '../services/post-controller';
+import { getAllPosts, getPostsByTag, getPostsByUser, getAllCommentsByPost, addNewCommentToPost } from '../services/post-controller';
 import { IDataPost, IPost } from '../types/post';
+import { ICreateComment } from '../types/comment';
+
+const formatToIPostData = (posts: any) => {
+  const newData = posts.map((post: IPost): IDataPost =>
+    ({
+      post,
+      comments: undefined,
+      loading: false,
+      error: undefined,
+    }));
+  return newData;
+};
+
+const loadAllPosts = createAsyncThunk('posts/loadAllPosts',
+  async () => {
+    const response = await getAllPosts();
+    return response;
+  });
+
+const loadPostsByTag = createAsyncThunk('posts/loadPostsByTag',
+  async (tagName: string) => {
+    const response = await getPostsByTag(tagName);
+    return response;
+  });
 
 const loadPostsByUser = createAsyncThunk('posts/loadPostsByUser', async (id: number) => {
   const response = await getPostsByUser(id);
@@ -9,6 +33,11 @@ const loadPostsByUser = createAsyncThunk('posts/loadPostsByUser', async (id: num
 
 const loadCommentsByPost = createAsyncThunk('posts/loadCommentsByPost', async (id: number) => {
   const response = await getAllCommentsByPost(id);
+  return response;
+});
+
+const createNewCommentToPost = createAsyncThunk('posts/createNewCommentToPost', async (postId: number, comment: any) => {
+  const response = await addNewCommentToPost(postId, comment);
   return response;
 });
 
@@ -31,13 +60,13 @@ const loadCommentsByPost = createAsyncThunk('posts/loadCommentsByPost', async (i
 export interface PostsState {
   data: null | IDataPost[];
   loading: boolean;
-  error: null | Error;
+  error: undefined | Error;
 }
 
 const initialState: PostsState = {
   data: null,
   loading: false,
-  error: null,
+  error: undefined,
 };
 
 const postsSlice = createSlice({
@@ -52,21 +81,40 @@ const postsSlice = createSlice({
       ({ ...state, loading: true }),
   },
   extraReducers: {
-    /* POST */
-    [loadPostsByUser.pending.type]: (state) =>
+    /* ALL POSTS */
+    [loadAllPosts.pending.type]: (state): PostsState =>
       ({ ...state, loading: true }),
-    [loadPostsByUser.fulfilled.type]: (state, action) => {
-      if (!Array.isArray(action.payload)) {
+    [loadAllPosts.fulfilled.type]: (state, { payload }): PostsState => {
+      if (!Array.isArray(payload)) {
         return state;
       }
-      const newData = action.payload.map((post: IPost) =>
-        ({
-          post,
-          comments: null,
-          loading: false,
-          error: null,
-        }));
-      return { ...state, data: newData, loading: false };
+      return { ...state, data: formatToIPostData(payload), loading: false };
+    },
+    [loadAllPosts.rejected.type]: (state, action): PostsState =>
+      ({
+        ...state, error: action.error, loading: false,
+      }),
+    /* POSTS BY TAG */
+    [loadPostsByTag.pending.type]: (state): PostsState =>
+      ({
+        ...state, loading: true,
+      }),
+    [loadPostsByTag.fulfilled.type]: (state, { payload }): PostsState => {
+      if (!Array.isArray(payload)) {
+        return state;
+      }
+      return { ...state, data: formatToIPostData(payload), loading: false };
+    },
+    [loadPostsByTag.rejected.type]: (state, action): PostsState =>
+      ({ ...state, error: action.error, loading: false }),
+    /* POSTS BY USER */
+    [loadPostsByUser.pending.type]: (state) =>
+      ({ ...state, loading: true }),
+    [loadPostsByUser.fulfilled.type]: (state, { payload }) => {
+      if (!Array.isArray(payload)) {
+        return state;
+      }
+      return { ...state, data: formatToIPostData(payload), loading: false };
     },
     [loadPostsByUser.rejected.type]: (state, action) =>
       ({
@@ -93,7 +141,7 @@ const postsSlice = createSlice({
       });
       return { ...state, data: newPosts };
     },
-    [loadPostsByUser.rejected.type]: (state, action) => {
+    [loadCommentsByPost.rejected.type]: (state, action) => {
       const newPosts = (state.data as (IDataPost[] | null))?.map((dataPost: IDataPost) => {
         if (dataPost.post.id === action.meta.arg) {
           return { ...dataPost, loading: false, error: action.error };
@@ -106,5 +154,5 @@ const postsSlice = createSlice({
 });
 
 export const { setData, setError, setLoading } = postsSlice.actions;
-export { loadPostsByUser, loadCommentsByPost };
+export { loadAllPosts, loadPostsByTag, loadPostsByUser, loadCommentsByPost };
 export const postsReducer = postsSlice.reducer;
