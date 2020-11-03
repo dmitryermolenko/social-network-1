@@ -215,7 +215,8 @@ const Audio: React.FC = () => {
   // const songsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   // const songsItems = objAudiosState.length > 0 &&
   // objAudiosState.map(({ id, icon, author, name }) => (
-  const songsItems = objAudiosState && objAudiosState.allAudios.length > 0
+  const songsItems = objAudiosState
+    && objAudiosState.allAudios.length > 0
     && objAudiosState.allAudios.map(({ icon, author, name, id, length }: IAllAudios) => {
       const timeAudio = (sec: number): string => {
         if (sec === null) {
@@ -246,26 +247,25 @@ const Audio: React.FC = () => {
 
   const ListFriends = objAudiosState
     && objAudiosState.friends.length > 0
-    && objAudiosState.friends
-      .map(({ firstName, lastName, userId, status, avatar, aboutMe }: any) =>
-        (
-          <li key={userId}>
-            <LeftSide onClick={() =>
-              console.log('Открыть список аудио')}
-            >
-              <div>
-                <img src={pic || avatar} alt="icon" title="icon" />
-              </div>
-              <div>
-                <h3>{`${firstName} ${lastName}`}</h3>
-                <p>{aboutMe}</p>
-              </div>
-            </LeftSide>
-            <RightSide>
-              <h4>{status}</h4>
-            </RightSide>
-          </li>
-        ));
+    && objAudiosState.friends.map(({ firstName, lastName, userId, status, avatar, aboutMe }: any) =>
+      (
+        <li key={userId}>
+          <LeftSide onClick={() =>
+            console.log('Открыть список аудио')}
+          >
+            <div>
+              <img src={pic || avatar} alt="icon" title="icon" />
+            </div>
+            <div>
+              <h3>{`${firstName} ${lastName}`}</h3>
+              <p>{aboutMe}</p>
+            </div>
+          </LeftSide>
+          <RightSide>
+            <h4>{status}</h4>
+          </RightSide>
+        </li>
+      ));
 
   const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
     async (): Promise<any> => {

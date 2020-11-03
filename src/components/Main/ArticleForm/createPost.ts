@@ -1,6 +1,7 @@
 import { createNewPost } from '../../../services/post-controller';
 import IMedia from '../../../types/media';
 import { ICreatePost } from '../../../types/post';
+import { ICreateTag } from '../../../types/tag';
 import { IUser } from '../../../types/user';
 
 interface IFuncCreatePost {
@@ -15,8 +16,8 @@ export default async function createPost({ title, text, user, tags, media }: IFu
   if (!user?.userId) {
     throw new Error('unlogged');
   }
-  const mappedTags = tags?.map((tag) =>
-    ({ id: 1, text: tag }));
+  const mappedTags: ICreateTag[] = (tags || []).map((tag) =>
+    ({ text: tag }));
   const post: ICreatePost = {
     userId: user.userId,
     avatar: user.avatar,

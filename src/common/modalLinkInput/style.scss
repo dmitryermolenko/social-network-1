@@ -1,5 +1,9 @@
 // MODAL ANTD HEADER MODIFICATION
 
-.custom-antd-modal > div > .ant-modal-header{
-    background-color: #FFB11B !important;
+.custom-antd-modal > div > .ant-modal-header {
+  background-color: #ffb11b !important;
+}
+
+.custom-antd-modal {
+  z-index: 99999;
 }

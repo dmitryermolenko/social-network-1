@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import routes from '../../routes';
@@ -6,6 +7,7 @@ import routes from '../../routes';
 import { Wrapper, List } from '../styledComponents';
 
 import Player from './Player';
+import { RootState } from '../../redux-toolkit/store';
 
 const ItemLink = styled(Link)`
   font-family: Montserrat, serif;
@@ -23,7 +25,15 @@ const ItemLink = styled(Link)`
   }
 `;
 
-const Sidebar = () =>
+const mapStateToProps = (state: RootState) =>
+  ({
+    userId: state.currentUser.data?.userId,
+  });
+
+const connector = connect(mapStateToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+
+const Sidebar: React.FC<ReduxProps> = ({ userId }) =>
   (
     <Wrapper>
       <List>
@@ -42,4 +52,4 @@ const Sidebar = () =>
     </Wrapper>
   );
 
-export default Sidebar;
+export default connector(Sidebar);

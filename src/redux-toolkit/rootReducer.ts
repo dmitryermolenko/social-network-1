@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { groupsReducer } from './groups/groupsSlice';
 import { userReducer } from './userSlice';
 import allAudiosReducer from './audios/allAudiosSlice';
-// import myAudiosReducer from './audios/myAudiosSlice';
+import { imagesReducer } from './imagesSlice';
 import { singleGroupsReducer } from './groups/singleGroupSlice';
 import { friendsReducer } from './friendsListSlice';
 import { postsReducer } from './postsSlice';
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   allAudiosReducer,
   chat: chatReducer,
   friends: friendsReducer,
+  image: imagesReducer,
 });
 
 export type TypeRootReducer = ReturnType<typeof rootReducer>;

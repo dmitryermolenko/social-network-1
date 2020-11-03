@@ -26,5 +26,5 @@ export function getCurrentUser(): IUser {
 }
 
 export async function getAsyncCurrentUser() {
-  return originalGetUserById(13);
+  return originalGetUserById(10);
 }
