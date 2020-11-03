@@ -266,6 +266,7 @@ export const InfoUserPhoto = styled(ModalImage)`
   width: 256px;
   height: 162px;
   margin-right: 22px;
+  margin-bottom: 22px;
   border-radius: 15px;
 `;
 
