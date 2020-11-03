@@ -30,8 +30,15 @@ type IBlockComments = PropsFromRedux & {
   setIsCommentsOpen?: (state: boolean) => void;
 };
 
+const renderComments = (comments: IComment[] | undefined) => {
+  if (!comments || !comments.length) {
+    return <CommentsEmpty>Комментариев нет. Будьте первым!</CommentsEmpty>;
+  }
+  return comments.map((item) =>
+    <Comment key={item.id} comment={item} />);
+};
+
 const BlockComments: React.FC<IBlockComments> = ({
-  user,
   currentUser,
   comments,
   id: postId,
@@ -44,18 +51,11 @@ const BlockComments: React.FC<IBlockComments> = ({
       _loadCommentsByPost(postId);
     }
   }, [_loadCommentsByPost, comments, postId]);
-  const renderComments = () => {
-    if (!comments) {
-      return <CommentsEmpty>Комментариев нет. Будьте первым!</CommentsEmpty>;
-    }
-    return comments.map((item) =>
-      <Comment key={item.id} comment={item} />);
-  };
 
   return (
     <Wrapper>
       <Title>Комментарии</Title>
-      {renderComments()}
+      {renderComments(comments)}
       <ComponentInput setIsOpen={setIsOpen} isOpen={isOpen} postId={postId} user={currentUser} />
     </Wrapper>
   );

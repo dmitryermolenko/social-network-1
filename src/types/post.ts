@@ -23,7 +23,7 @@ export interface ICreatePost {
   userId: number;
   title: string;
   text: string;
-  tags?: ITag[];
+  tags?: ICreateTag[];
   media?: IMedia[];
   avatar?: string;
   firstName?: string;

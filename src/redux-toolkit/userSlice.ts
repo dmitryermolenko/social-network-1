@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getUserById } from '../services/user-controller';
 import { IUser } from '../types/user';
 import { ImageDto } from '../types/image';
-import { getAllImagesByUserId } from '../services/photo-controller';
+import { getAllImagesByUserId } from '../services/images-controller';
 
 const loadUser = createAsyncThunk('user/loadUser', async (id: number) =>
   getUserById(id));

@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -48,3 +49,4 @@ Slider.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.array.isRequired,
 };
+*/

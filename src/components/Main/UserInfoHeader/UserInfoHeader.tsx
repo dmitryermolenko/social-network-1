@@ -44,7 +44,7 @@ const UserInfoHeader: React.FC<Props> = ({ user, updateAvatar: _updateAvatar, is
   const [isOpen, setIsOpen] = React.useState(false);
   const onLinkSend = useCallback(
     (link: string) => {
-      _updateAvatar(link);
+      _updateAvatar(Array.isArray(link) ? link[0] : link);
     },
     [_updateAvatar],
   );
