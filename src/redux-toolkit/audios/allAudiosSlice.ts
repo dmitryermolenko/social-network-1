@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchAudiosAll, fetchMyPartAudios } from '../../services/allFetch';
+import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists } from '../../services/audios-controller/audio-controller';
 import IfriendData from '../../typesInterfaces/IfriendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
 import { TypeRootReducer } from '../rootReducer';
@@ -35,11 +36,11 @@ export const friendsAudioAction = createAsyncThunk(
   async (data, argThunkAPI) => {
     try {
       // Тестовый url
-      const arrFriendsIds = await axios.get('http://91.241.64.178:5561/api/user/getFriends/1');
+      const arrFriendsIds = await axios.get('http://91.241.64.178:5561/api/v2/users/60/friends');
       const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data
         .map(async ({ friendId }: { friendId: number }) => {
           try {
-            const friendData = await axios.get(`http://91.241.64.178:5561/api/user/${friendId}`);
+            const friendData = await axios.get(`http://91.241.64.178:5561/api/v2/users/${friendId}`);
             return friendData.data;
           } catch (e) {
             return e.response;
@@ -53,9 +54,21 @@ export const friendsAudioAction = createAsyncThunk(
   },
 );
 
+export const myPlaylistsAction = createAsyncThunk(
+  'audios/myPlaylistsAction',
+  async (data, argThunkAPI) => {
+    try {
+      const response = await fetchMyPlaylists();
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err, argThunkAPI);
+    }
+  },
+);
+
 const allAudiosSlice = createSlice({
   name: 'allAudiosSlice',
-  initialState: { allAudios: [], friends: [], loading: '', msgFetchState: '' },
+  initialState: { myAudios: [], allAudios: [], friends: [], myPlaylists: [], loading: '', msgFetchState: '' },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(allAudiosAction.pending,
@@ -63,12 +76,14 @@ const allAudiosSlice = createSlice({
         console.log(state, action, 'plug');
       });
     builder.addCase(allAudiosAction.fulfilled,
-      (state: Draft<{ allAudios: Array<any>; loading: string }>, action: PayloadAction<any>) => {
+      (state: Draft<any>, action: PayloadAction<any>) => {
+        state.friends = [];
         state.allAudios = action.payload;
         state.loading = action.type;
       });
     builder.addCase(allAudiosAction.rejected,
       (state: Draft<any>, action: PayloadAction<any>) => {
+        state.friends = [];
         state.loading = action.type;
         state.msgFetchState = action.payload;
       });
@@ -77,9 +92,13 @@ const allAudiosSlice = createSlice({
       state.msgFetchState = action.payload;
     });
     builder.addCase(myAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
-      state.allAudios = action.payload;
+      state.allAudios = [];
+      state.friends = [];
+      state.myAudios = action.payload;
     });
     builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.allAudios = [];
+      state.friends = [];
       state.loading = action.type;
       state.msgFetchState = action.payload;
     });
@@ -88,13 +107,26 @@ const allAudiosSlice = createSlice({
     });
     builder.addCase(friendsAudioAction.fulfilled,
       (state: Draft<any>, action: PayloadAction<any>) => {
+        state.allAudios = [];
         state.friends = action.payload;
       });
     builder.addCase(friendsAudioAction.rejected,
       (state: Draft<any>, action: PayloadAction<any>) => {
+        state.allAudios = [];
         state.loading = action.type;
         state.msgFetchState = action.payload;
       });
+    builder.addCase(myPlaylistsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.loading = action.type;
+      state.msgFetchState = action.payload;
+    });
+    builder.addCase(myPlaylistsAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.myPlaylists = action.payload;
+    });
+    builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.loading = action.type;
+      state.msgFetchState = action.payload;
+    });
   },
 });
 

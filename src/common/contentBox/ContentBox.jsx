@@ -40,5 +40,5 @@ ContentBox.defaultProps = {
 ContentBox.propTypes = {
   headline: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
-  children: PropTypes.array,
+  children: PropTypes.object,
 };

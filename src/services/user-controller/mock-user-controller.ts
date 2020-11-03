@@ -22,7 +22,7 @@ export function getUserById(id: number): IUser {
 }
 
 export function getCurrentUser(): IUser {
-  return getUserById(1);
+  return getUserById(11);
 }
 
 export async function getAsyncCurrentUser() {
