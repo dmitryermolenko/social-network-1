@@ -16,6 +16,7 @@ export const Next = styled.button`
   cursor: pointer;
   outline: none;
 `;
+
 export const Prev = styled.button`
   background: none;
   border: none;
