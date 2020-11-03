@@ -31,29 +31,4 @@ const Icon = styled.svg.attrs(() =>
     fill: #ffb11b;
   }
 `;
-
-const Button = styled.button`
-  min-width: 30px;
-  height: 30px;  
-  padding: 0;
-  display: flex;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 160.9%;
-  color: #000000;
-  transition: 0.1s;
-  &:hover, &:active, &:focus {
-    transform: scale(1.05);
-    color: #ffb11b;  
-  }
-  &: focus {
-    outline: none;
-    
-  }
-`;
-
 export default ActionIcon;

@@ -7,7 +7,6 @@ import { RootState } from '../../../redux-toolkit/store';
 import {
   loadAllPosts,
   loadPostsByTag,
-  loadCommentsByPost,
 } from '../../../redux-toolkit/postsSlice';
 import { IDataPost } from '../../../types/post';
 import filterNews from './helpers';
@@ -27,7 +26,6 @@ interface StateProps {
 interface DispatchProps {
   getAllPosts: () => void;
   getPostsByTag: (tagName: string) => void;
-  getCommentsByPost: (id: number) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -42,10 +40,9 @@ const mapStateToProps = (state: RootState): StateProps =>
 const mapDispatchToProps = {
   getAllPosts: loadAllPosts,
   getPostsByTag: loadPostsByTag,
-  getCommentsByPost: loadCommentsByPost,
 };
 
-const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTag, getCommentsByPost }) => {
+const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTag }) => {
   const searchField = useRef<HTMLInputElement>(null);
   const [showSearchField, setShowSearchField] = useState(false);
   const [actualFilter, setActualFilter] = useState<string>('all');
@@ -54,23 +51,6 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
   useEffect(() => {
     getAllPosts();
   }, [actualFilter, getAllPosts]);
-
-  /* const filterNews = (posts: IDataPost[], filter: string): IDataPost[] => {
-    if (filter === 'all') return posts;
-    if (filter === 'news') {
-      return posts.sort((prev, next) =>
-        Date.parse(next.post.lastRedactionDate!) - Date.parse(prev.post.lastRedactionDate!)).splice(0, 5);
-    }
-    if (filter === 'popular') {
-      return posts.sort((prev, next) =>
-        next.post.likeAmount! - prev.post.likeAmount!).splice(0, 5);
-    }
-    if (filter === 'request') {
-      posts.filter((item) =>
-        item.post.title === searchRequest).splice(0, 5);
-    }
-    return posts.splice(0, 5);
-  }; */
 
   const submitSearchNews = (key: string): void => {
     if (key === 'Enter') {
@@ -112,10 +92,6 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
     if (newArr.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
     return newArr.map((postData) =>
       <NewsItem key={postData.post.id} postData={postData} getPostsByTag={getPostsByTag} />);
-  };
-
-  const showComments = (id: number): void => {
-    getCommentsByPost(id);
   };
 
   return (

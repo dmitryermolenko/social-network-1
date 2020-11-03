@@ -13,6 +13,7 @@ import foto from '../../../img/userFoto.png';
 import UserInfo from '../common/UserInfo';
 import ActionIcon from '../common/ActionIcon';
 import ShowMoreBtn from '../common/ShowMoreBtn';
+import Comments from '../blockComments/Comments';
 
 type Props = {
   postData: IDataPost;
@@ -23,6 +24,8 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
   const { post, comments, loading, error } = postData;
   const { id, firstName, lastName, avatar, persistDate, commentAmount, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
   const [showContent, setShowContent] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+
   const renderTags = (): JSX.Element =>
     (
       <TagsList>
@@ -52,7 +55,12 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
             <ActionIcon name="like" />
             {likeAmount || 0}
           </ActionButton>
-          <ActionButton>
+          <ActionButton
+            onClick={(): void => {
+              setShowComments((prev) =>
+                !prev);
+            }}
+          >
             <ActionIcon name="comments" />
             {commentAmount || 0}
           </ActionButton>
@@ -81,6 +89,10 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
         />
       </NewsContent>
       {renderTags()}
+      <SmoothCollapse expanded={showComments}>
+        <Comments id={id} comments={comments} loading={loading} error={error} />
+      </SmoothCollapse>
+
     </Container>
   );
 };

@@ -35,27 +35,6 @@ const loadCommentsByPost = createAsyncThunk('posts/loadCommentsByPost', async (i
   return response;
 });
 
-const createNewCommentToPost = createAsyncThunk('posts/createNewCommentToPost', async (postId: number, comment: any) => {
-  const response = await addNewCommentToPost(postId, comment);
-  return response;
-});
-
-/*
-По итогу у нас образуется примерно следующая модель хранения постов:
-{
-  loading: boolean - показатель загрузки вообще всех постов,
-  error: Error - показатель ошибки всех постов,
-  data:[ - массив постов с сопутствующей информацией к ним
-        {
-          post: post, - объект с содержимым поста
-          loading: boolean, - показатель загрузки поста
-          error: Error, - показатель ошибки загрузки поста
-          comments: comment[] - комментарии, изначально null
-        },
-        ...
-      ]
-}
- */
 export interface PostsState {
   data: null | IDataPost[];
   loading: boolean;
