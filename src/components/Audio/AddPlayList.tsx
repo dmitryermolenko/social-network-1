@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const AddPlayList = styled.button`
- background: #FFB11B;
+ background-color: #FFB11B !important;
  border-radius: 20px;
  width: 113px !important;
  height: 113px;

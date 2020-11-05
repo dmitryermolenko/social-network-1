@@ -16,7 +16,9 @@ div {
   // margin-right: 13px;
   div {
     div {
-      div {
+      button {
+        background: transparent;
+        border: none;
         img {
           margin: 13px auto;
           width: 113px;

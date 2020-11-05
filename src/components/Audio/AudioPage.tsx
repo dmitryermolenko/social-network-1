@@ -23,6 +23,7 @@ import {
   myAudiosAction,
   myPlaylistsAction,
   searchSongsAction,
+  openPlayListAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected, pending } from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
@@ -92,14 +93,6 @@ const SampleNextArrow = ({ onClick }: ISlickOnClick) =>
   <Next onClick={onClick} />;
 const SamplePrevArrow = ({ onClick }: ISlickOnClick) =>
   <Prev onClick={onClick} />;
-const settings = {
-  infinite: false,
-  slidesToShow: 5,
-  slidesToScroll: 1,
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
-  // variableWidth: true, // отрабатывает криво с параметром slidesToShow
-};
 
 // end
 
@@ -110,20 +103,26 @@ const Audio: React.FC = () => {
   const loaded = objAudiosState.loading.endsWith(pending);
   const playlistsData: Array<Record<string, any>> = objAudiosState.myPlaylists;
 
-  const playlists = playlistsData.map((list) =>
-    (
-      <div key={list.id}>
-        <img src={album || list.image} alt="" />
-        <p>{list.name}</p>
-      </div>
-    ));
-
   useEffect(() => {
     console.log(objAudiosState);
     if (objAudiosState.loading.endsWith(rejected)) {
       message.error(objAudiosState.msgFetchState);
     }
   }, [objAudiosState, objAudiosState.loading, objAudiosState.msgFetchState]);
+
+  const [dragging, setDragging] = useState(false); // предотвращает регистрацию кликов при скролле
+  const settings = {
+    infinite: false,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    beforeChange: (): void =>
+      setDragging(true),
+    afterChange: (): void =>
+      setDragging(false),
+    // variableWidth: true, // отрабатывает криво с параметром slidesToShow
+  };
 
   // Вариант типизации для initialStateActiveBtn
   // type TypeInitialStateActiveBtn<T extends string> = { [key in T]: boolean };
@@ -213,6 +212,20 @@ const Audio: React.FC = () => {
           </RightSide>
         </li>
       ));
+
+  const playlists = playlistsData.map((list) =>
+    (
+      <button
+        key={list.id}
+        type="button"
+        onClickCapture={() => {
+          if (!dragging) dispatch(openPlayListAction(list.id));
+        }}
+      >
+        <img src={album || list.image} alt="" />
+        <p>{list.name}</p>
+      </button>
+    ));
 
   const audiosList = (objCategoryAudios.friendsAudios && FriendsAudios) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
 

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs } from '../../services/audios-controller/audio-controller';
+import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs, fetchPlaylist } from '../../services/audios-controller/audio-controller';
 import IfriendData from '../../typesInterfaces/IfriendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
 import { TypeRootReducer } from '../rootReducer';
@@ -10,6 +10,9 @@ import { TypeRootReducer } from '../rootReducer';
 
 export const searchSongsAction = createAsyncThunk('audios/searchSongsAction', async (name: string) =>
   fetchSearchedSongs(name));
+
+export const openPlayListAction = createAsyncThunk('audios/openPlayListAction', async (id: number) =>
+  fetchPlaylist(id));
 
 export const allAudiosAction = createAsyncThunk(
   'audios/allAudiosAction',

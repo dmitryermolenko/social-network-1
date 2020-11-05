@@ -13,3 +13,5 @@ export const fetchMyFriends = async (id = 60): Promise<AxiosResponse> =>
   axios.get(`${baseUrlv2}users/${id}/friends`);
 export const fetchSearchedSongs = async (name = ''): Promise<AxiosResponse> =>
   axios.get(`name/${name}`);
+export const fetchPlaylist = async (id = 0, limit = 100, offset = 0): Promise<AxiosResponse> =>
+  axios.get(`/playlists/${id}/audio?limit=${limit}&offset=${offset}`);
