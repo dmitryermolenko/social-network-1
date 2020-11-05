@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
+import { debounce } from 'lodash';
 import album from '../../common/img/png/album5.png';
 import pic from '../../common/img/png/pic.png';
 import Deck from './AudioSlider/Deck';
@@ -21,6 +22,7 @@ import {
   friendsAudioAction,
   myAudiosAction,
   myPlaylistsAction,
+  searchSongsAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected, pending } from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
@@ -232,6 +234,15 @@ const Audio: React.FC = () => {
       return undefined;
     };
 
+  const startSearch = debounce((name) => {
+    if (name) dispatch(searchSongsAction(name));
+  }, 1000);
+
+  const searchSongs = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    startSearch(value);
+  };
+
   return (
     <Main>
       <SliderContainer>
@@ -261,7 +272,7 @@ const Audio: React.FC = () => {
         </BtnFilterAudio>
       </ButtonsArea>
       <SearchArea>
-        <input type="text" placeholder="Начните поиск музыки..." />
+        <input type="text" placeholder="Начните поиск музыки..." onChange={searchSongs} />
         <img src={search} alt="" />
       </SearchArea>
       <PlayListArea>
@@ -281,11 +292,3 @@ const Audio: React.FC = () => {
 };
 
 export default Audio;
-
-// SampleNextArrow.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-// };
-//
-// SamplePrevArrow.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-// };

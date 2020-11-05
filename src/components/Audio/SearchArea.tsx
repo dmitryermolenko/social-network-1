@@ -5,7 +5,7 @@ const SearchArea = styled.div`
   justify-content: space-between;
   height: 130px;
   max-width: 1000px;
-  margin: 60px auto 80px auto;
+  margin: 60px auto 40px auto;
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
   align-items: center;

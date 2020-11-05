@@ -3,11 +3,11 @@ import styled from 'styled-components';
 const PlayListArea = styled.div`
 display: flex;
 flex-direction: column;
-margin: 60px auto 0px auto;
+margin: 40px auto 0px auto;
 max-width: 1000px;
 h3 {
   color: black;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 div {
   display: flex;

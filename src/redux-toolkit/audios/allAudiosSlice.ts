@@ -1,12 +1,16 @@
 /* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists } from '../../services/audios-controller/audio-controller';
+import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs } from '../../services/audios-controller/audio-controller';
 import IfriendData from '../../typesInterfaces/IfriendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
 import { TypeRootReducer } from '../rootReducer';
 
 // Типа action, который потом диспатчится
+
+export const searchSongsAction = createAsyncThunk('audios/searchSongsAction', async (name: string) =>
+  fetchSearchedSongs(name));
+
 export const allAudiosAction = createAsyncThunk(
   'audios/allAudiosAction',
   async (data, argThunkAPI) => {
@@ -36,7 +40,7 @@ export const friendsAudioAction = createAsyncThunk(
   async (data, argThunkAPI) => {
     try {
       // Тестовый url
-      const arrFriendsIds = await axios.get('http://91.241.64.178:5561/api/v2/users/60/friends');
+      const arrFriendsIds = await fetchMyFriends();
       const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data
         .map(async ({ friendId }: { friendId: number }) => {
           try {
