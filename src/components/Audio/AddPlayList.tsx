@@ -8,10 +8,6 @@ const AddPlayList = styled.button`
  margin: 13px;
  position: relative;
  outline: none;
- border-color: transparent;
- :hover {
-   border-color: #ff4e00;
- }
  ::after {
    position: absolute;
    content: '+';

@@ -48,8 +48,6 @@ const ButtonsArea = styled.div`
   margin: 250px 60px 0 60px;
 `;
 
-// Для кнопок Моя музыка и т.д.
-
 const LeftSide = styled.div`
   display: flex;
   flex-direction: row;
@@ -136,7 +134,6 @@ const Audio: React.FC = () => {
 
   const [objCategoryAudios, setChosenCategoryAudios] = useState(initialStateActiveBtn);
 
-  // При переходе на страницу вывод списка audio
   useEffect(() => {
     dispatch(myAudiosAction());
     dispatch(myPlaylistsAction());

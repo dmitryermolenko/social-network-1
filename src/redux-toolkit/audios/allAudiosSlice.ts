@@ -21,7 +21,7 @@ export const allAudiosAction = createAsyncThunk(
       const response = await fetchAudiosAll();
       return response.data;
     } catch (err) {
-      return errFetchHandler(err, argThunkAPI);
+      return errFetchHandler(err.response.data, argThunkAPI);
     }
   },
 );
@@ -33,7 +33,7 @@ export const myAudiosAction = createAsyncThunk(
       const response: any = await fetchMyPartAudios();
       return response.data;
     } catch (err) {
-      return errFetchHandler(err, argThunkAPI);
+      return errFetchHandler(err.response.data, argThunkAPI);
     }
   },
 );
@@ -50,13 +50,13 @@ export const friendsAudioAction = createAsyncThunk(
             const friendData = await axios.get(`http://91.241.64.178:5561/api/v2/users/${friendId}`);
             return friendData.data;
           } catch (e) {
-            return e.response;
+            return e.response.data;
           }
         });
       const arrFriendsData: Array<IfriendData> = await Promise.all(arrPromiseFriendsData);
       return arrFriendsData;
     } catch (err) {
-      return errFetchHandler(err, argThunkAPI);
+      return errFetchHandler(err.response.data, argThunkAPI);
     }
   },
 );
@@ -68,14 +68,14 @@ export const myPlaylistsAction = createAsyncThunk(
       const response = await fetchMyPlaylists();
       return response.data;
     } catch (err) {
-      return errFetchHandler(err, argThunkAPI);
+      return errFetchHandler(err.response.data, argThunkAPI);
     }
   },
 );
 
 const allAudiosSlice = createSlice({
   name: 'allAudiosSlice',
-  initialState: { myAudios: [], allAudios: [], friends: [], myPlaylists: [], loading: '', msgFetchState: '' },
+  initialState: { myAudios: [], allAudios: [], friends: [], myPlaylists: [], currentSearch: [], loading: '', msgFetchState: '' },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(allAudiosAction.pending,
@@ -89,10 +89,10 @@ const allAudiosSlice = createSlice({
         state.loading = action.type;
       });
     builder.addCase(allAudiosAction.rejected,
-      (state: Draft<any>, action: PayloadAction<any>) => {
+      (state: Draft<any>, action) => {
         state.friends = [];
         state.loading = action.type;
-        state.msgFetchState = action.payload;
+        state.msgFetchState = action.error.message;
       });
     builder.addCase(myAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
       state.loading = action.type;
@@ -103,11 +103,11 @@ const allAudiosSlice = createSlice({
       state.friends = [];
       state.myAudios = action.payload;
     });
-    builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action: PayloadAction<any>) => {
+    builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action) => {
       state.allAudios = [];
       state.friends = [];
       state.loading = action.type;
-      state.msgFetchState = action.payload;
+      state.msgFetchState = action.error.message;
     });
     builder.addCase(friendsAudioAction.pending, (state, action) => {
       console.log(state, action, 'plug');
@@ -118,10 +118,10 @@ const allAudiosSlice = createSlice({
         state.friends = action.payload;
       });
     builder.addCase(friendsAudioAction.rejected,
-      (state: Draft<any>, action: PayloadAction<any>) => {
+      (state: Draft<any>, action) => {
         state.allAudios = [];
         state.loading = action.type;
-        state.msgFetchState = action.payload;
+        state.msgFetchState = action.error.message;
       });
     builder.addCase(myPlaylistsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
       state.loading = action.type;
@@ -130,9 +130,9 @@ const allAudiosSlice = createSlice({
     builder.addCase(myPlaylistsAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
       state.myPlaylists = action.payload;
     });
-    builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action: PayloadAction<any>) => {
+    builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action) => {
       state.loading = action.type;
-      state.msgFetchState = action.payload;
+      state.msgFetchState = action.error.message;
     });
   },
 });

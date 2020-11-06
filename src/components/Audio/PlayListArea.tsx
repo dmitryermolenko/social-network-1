@@ -18,7 +18,10 @@ div {
     div {
       button {
         background: transparent;
-        border: none;
+        border: transparent;
+        &:hover {
+          border: #ff4e00;
+        }
         img {
           margin: 13px auto;
           width: 113px;
