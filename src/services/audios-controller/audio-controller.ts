@@ -7,6 +7,8 @@ export const fetchAudiosAll = async (): Promise<AxiosResponse> =>
   axios.get('?currentPage=1&itemsOnPage=15');
 export const fetchMyPartAudios = async (id = 10, itemsAmount = 15): Promise<AxiosResponse> =>
   axios.get(`/user/${id}?currentPage=1&itemsOnPage=${itemsAmount}`);
+export const fetchFriendAudios = async (id = 60, itemsAmount = 15): Promise<AxiosResponse> =>
+  axios.get(`/user/${id}?currentPage=1&itemsOnPage=${itemsAmount}`);
 export const fetchMyPlaylists = async (id = 60): Promise<AxiosResponse> =>
   axios.get(`/user/${id}/playlists`);
 export const fetchMyFriends = async (id = 10): Promise<AxiosResponse> =>

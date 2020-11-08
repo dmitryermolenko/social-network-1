@@ -24,6 +24,7 @@ import {
   myPlaylistsAction,
   searchSongsAction,
   openPlayListAction,
+  friendAudiosAction,
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected, pending } from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
@@ -82,7 +83,6 @@ interface IBtnFilterAudio {
   selected?: boolean;
 }
 
-// slick arrows and settings area
 interface ISlickOnClick {
   onClick?: () => void;
 }
@@ -91,8 +91,6 @@ const SampleNextArrow = ({ onClick }: ISlickOnClick) =>
   <Next onClick={onClick} />;
 const SamplePrevArrow = ({ onClick }: ISlickOnClick) =>
   <Prev onClick={onClick} />;
-
-// end
 
 const Audio: React.FC = () => {
   const dispatch: TypeDispatch = useDispatch();
@@ -139,12 +137,32 @@ const Audio: React.FC = () => {
     dispatch(myPlaylistsAction());
   }, [dispatch]);
 
+  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
+    async (): Promise<any> => {
+      setChosenCategoryAudios({
+        [argCategoryAudio]: true,
+      });
+
+      if (argCategoryAudio === 'myAudios') {
+        return dispatch(myAudiosAction());
+      }
+      if (argCategoryAudio === 'allAudios') {
+        return dispatch(allAudiosAction());
+      }
+      if (argCategoryAudio === 'friendsAudios') {
+        return dispatch(friendsAudioAction());
+      }
+      return undefined;
+    };
+
   const timeAudio = (sec: number): string|number => {
     if (sec === null) {
       return sec;
     }
-    const minutes = Math.floor(sec / 60);
-    const seconds = sec % 60;
+    let minutes: number|string = Math.floor(sec / 60);
+    let seconds: number|string = sec % 60;
+    if (minutes < 10) minutes = `0${minutes}`;
+    if (seconds < 10) seconds = `0${seconds}`;
     return `${minutes}:${seconds}`;
   };
 
@@ -167,32 +185,45 @@ const Audio: React.FC = () => {
         </li>
       ));
 
-  const FriendsAudios = objAudiosState
+  const Friends = objAudiosState
     && objAudiosState.friends.length > 0
     && objAudiosState.friends
-      .map(({ firstName, lastName, userId, avatar, aboutMe, status }: any) =>
+      .map(({ firstName, lastName, id, userId, avatar }: any) =>
         (
-          <li key={userId}>
-            <LeftSide onClick={() => {
-              console.log('Открыть список аудио');
+          <button
+            key={id}
+            type="button"
+            onClick={() => {
+              if (!dragging) dispatch(friendAudiosAction(userId));
             }}
-            >
-              <div>
-                <img src={pic || `https://${avatar}`} alt="avatar" title="avatar" />
-              </div>
-              <div>
-                <h3>{`${firstName} ${lastName}`}</h3>
-                <p>{aboutMe}</p>
-              </div>
-            </LeftSide>
-            <RightSide>
-              <h4>{status}</h4>
-            </RightSide>
-          </li>
+          >
+            <img src={pic || avatar} alt="" />
+            <p>{firstName}</p>
+            <p>{lastName}</p>
+          </button>
         ));
 
   const MyAudios = objAudiosState && objAudiosState.myAudios.length > 0
     && objAudiosState.myAudios.map(({ icon, author, name, id, length }: IAudios) =>
+      (
+        <li key={id}>
+          <LeftSide>
+            <div>
+              <img src={pic || `https://${icon}`} alt="icon" title="icon" />
+            </div>
+            <div>
+              <h3>{author}</h3>
+              <p>{name}</p>
+            </div>
+          </LeftSide>
+          <RightSide>
+            <h4>{timeAudio(length)}</h4>
+          </RightSide>
+        </li>
+      ));
+
+  const PlayList = objAudiosState && objAudiosState.currentSearch.length > 0
+    && objAudiosState.currentSearch.map(({ icon, author, name, id, length }: IAudios) =>
       (
         <li key={id}>
           <LeftSide>
@@ -215,7 +246,7 @@ const Audio: React.FC = () => {
       <button
         key={list.id}
         type="button"
-        onClickCapture={() => {
+        onClick={() => {
           if (!dragging) dispatch(openPlayListAction(list.id));
         }}
       >
@@ -224,31 +255,13 @@ const Audio: React.FC = () => {
       </button>
     ));
 
-  const audiosList = (objCategoryAudios.friendsAudios && FriendsAudios) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
-
-  const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
-    async (): Promise<any> => {
-      setChosenCategoryAudios({
-        [argCategoryAudio]: true,
-      });
-
-      if (argCategoryAudio === 'myAudios') {
-        return dispatch(myAudiosAction());
-      }
-      if (argCategoryAudio === 'allAudios') {
-        return dispatch(allAudiosAction());
-      }
-      if (argCategoryAudio === 'friendsAudios') {
-        return dispatch(friendsAudioAction());
-      }
-      return undefined;
-    };
+  const audiosList = (objAudiosState.currentSearch.length > 0 && PlayList) || (objCategoryAudios.friendsAudios && PlayList) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
 
   const startSearch = debounce((name) => {
     if (name) dispatch(searchSongsAction(name));
   }, 1000);
 
-  const searchSongs = (event: ChangeEvent<HTMLInputElement>) => {
+  const searchSongs = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     startSearch(value);
   };
@@ -285,15 +298,17 @@ const Audio: React.FC = () => {
         <input type="text" placeholder="Начните поиск музыки..." onChange={searchSongs} />
         <img src={search} alt="" />
       </SearchArea>
+      {(objCategoryAudios.myAudios || objCategoryAudios.friendsAudios) && (
       <PlayListArea>
-        <TitleWrapper><h3>Плейлисты</h3></TitleWrapper>
+        <TitleWrapper><h3>{(objCategoryAudios.myAudios && 'Плейлисты') || (objCategoryAudios.friendsAudios && 'Выберите друга')}</h3></TitleWrapper>
         <Slider {...settings}>
-          {playlists}
+          {(objCategoryAudios.myAudios && playlists) || Friends}
           <AddPlayList>
             <p>Добавить плейлист</p>
           </AddPlayList>
         </Slider>
       </PlayListArea>
+      )}
       <SongsArea>
         <ul>{audiosList}</ul>
       </SongsArea>

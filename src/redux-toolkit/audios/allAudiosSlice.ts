@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs, fetchPlaylist } from '../../services/audios-controller/audio-controller';
+import {
+  fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs, fetchPlaylist, fetchFriendAudios,
+} from '../../services/audios-controller/audio-controller';
 import IfriendData from '../../typesInterfaces/IfriendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
 import { TypeRootReducer } from '../rootReducer';
@@ -11,8 +13,17 @@ import { TypeRootReducer } from '../rootReducer';
 export const searchSongsAction = createAsyncThunk('audios/searchSongsAction', async (name: string) =>
   fetchSearchedSongs(name));
 
-export const openPlayListAction = createAsyncThunk('audios/openPlayListAction', async (id: number) =>
-  fetchPlaylist(id));
+export const openPlayListAction = createAsyncThunk(
+  'audios/openPlayListAction',
+  async (id: number, argThunkAPI) => {
+    try {
+      const response = await fetchPlaylist(id);
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  },
+);
 
 export const allAudiosAction = createAsyncThunk(
   'audios/allAudiosAction',
@@ -30,7 +41,19 @@ export const myAudiosAction = createAsyncThunk(
   'fetch/myAudiosAction',
   async (data, argThunkAPI) => {
     try {
-      const response: any = await fetchMyPartAudios();
+      const response = await fetchMyPartAudios();
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  },
+);
+
+export const friendAudiosAction = createAsyncThunk(
+  'fetch/friendAudiosAction',
+  async (id: number, argThunkAPI) => {
+    try {
+      const response = await fetchFriendAudios(id);
       return response.data;
     } catch (err) {
       return errFetchHandler(err.response.data, argThunkAPI);
@@ -45,9 +68,10 @@ export const friendsAudioAction = createAsyncThunk(
       // Тестовый url
       const arrFriendsIds = await fetchMyFriends();
       const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data
-        .map(async ({ friendId }: { friendId: number }) => {
+        .map(async ({ friendId, id }: { friendId: number; id: number }) => {
           try {
             const friendData = await axios.get(`http://91.241.64.178:5561/api/v2/users/${friendId}`);
+            friendData.data.id = id;
             return friendData.data;
           } catch (e) {
             return e.response.data;
@@ -85,12 +109,14 @@ const allAudiosSlice = createSlice({
     builder.addCase(allAudiosAction.fulfilled,
       (state: Draft<any>, action: PayloadAction<any>) => {
         state.friends = [];
+        state.currentSearch = [];
         state.allAudios = action.payload;
         state.loading = action.type;
       });
     builder.addCase(allAudiosAction.rejected,
       (state: Draft<any>, action) => {
         state.friends = [];
+        state.currentSearch = [];
         state.loading = action.type;
         state.msgFetchState = action.error.message;
       });
@@ -101,11 +127,13 @@ const allAudiosSlice = createSlice({
     builder.addCase(myAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
       state.allAudios = [];
       state.friends = [];
+      state.currentSearch = [];
       state.myAudios = action.payload;
     });
     builder.addCase(myAudiosAction.rejected, (state: Draft<any>, action) => {
       state.allAudios = [];
       state.friends = [];
+      state.currentSearch = [];
       state.loading = action.type;
       state.msgFetchState = action.error.message;
     });
@@ -115,11 +143,13 @@ const allAudiosSlice = createSlice({
     builder.addCase(friendsAudioAction.fulfilled,
       (state: Draft<any>, action: PayloadAction<any>) => {
         state.allAudios = [];
+        state.currentSearch = [];
         state.friends = action.payload;
       });
     builder.addCase(friendsAudioAction.rejected,
       (state: Draft<any>, action) => {
         state.allAudios = [];
+        state.currentSearch = [];
         state.loading = action.type;
         state.msgFetchState = action.error.message;
       });
@@ -131,6 +161,30 @@ const allAudiosSlice = createSlice({
       state.myPlaylists = action.payload;
     });
     builder.addCase(myPlaylistsAction.rejected, (state: Draft<any>, action) => {
+      state.loading = action.type;
+      state.msgFetchState = action.error.message;
+    });
+    builder.addCase(openPlayListAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.loading = action.type;
+      state.msgFetchState = action.payload;
+    });
+    builder.addCase(openPlayListAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.allAudios = [];
+      state.myAudios = [];
+      state.currentSearch = action.payload;
+    });
+    builder.addCase(openPlayListAction.rejected, (state: Draft<any>, action) => {
+      state.loading = action.type;
+      state.msgFetchState = action.error.message;
+    });
+    builder.addCase(friendAudiosAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.loading = action.type;
+      state.msgFetchState = action.payload;
+    });
+    builder.addCase(friendAudiosAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.currentSearch = action.payload;
+    });
+    builder.addCase(friendAudiosAction.rejected, (state: Draft<any>, action) => {
       state.loading = action.type;
       state.msgFetchState = action.error.message;
     });
