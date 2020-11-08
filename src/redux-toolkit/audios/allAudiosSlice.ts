@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
 import {
-  fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs, fetchPlaylist, fetchFriendAudios,
+  fetchAudiosAll, fetchMyPartAudios, fetchMyPlaylists, fetchMyFriends, fetchSearchedSongs, fetchPlaylist, fetchFriendAudios, fetchFriends,
 } from '../../services/audios-controller/audio-controller';
 import IfriendData from '../../typesInterfaces/IfriendData';
 import errFetchHandler from '../../helperFunctions/errFetchHandler';
@@ -65,13 +64,12 @@ export const friendsAudioAction = createAsyncThunk(
   'fetch/friendsAudioAction',
   async (data, argThunkAPI) => {
     try {
-      // Тестовый url
       const arrFriendsIds = await fetchMyFriends();
       const arrPromiseFriendsData: Array<Promise<IfriendData>> = arrFriendsIds.data
         .map(async ({ friendId, id }: { friendId: number; id: number }) => {
           try {
-            const friendData = await axios.get(`http://91.241.64.178:5561/api/v2/users/${friendId}`);
-            friendData.data.id = id;
+            const friendData = await fetchFriends(friendId);
+            friendData.data.id = id; // на беке проблема с уникальностью friendId - это временный обход
             return friendData.data;
           } catch (e) {
             return e.response.data;

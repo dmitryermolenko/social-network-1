@@ -5,6 +5,7 @@ display: flex;
 flex-direction: column;
 margin: 40px auto 0px auto;
 max-width: 1000px;
+border-bottom: 1px solid #000000;
 h3 {
   color: black;
   padding-bottom: 30px;

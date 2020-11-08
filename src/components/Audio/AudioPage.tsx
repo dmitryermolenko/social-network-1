@@ -4,14 +4,14 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
-import album from '../../common/img/png/album5.png';
-import pic from '../../common/img/png/pic.png';
 import Deck from './AudioSlider/Deck';
 import PlayListArea from './PlayListArea';
 import SearchArea from './SearchArea';
 import SongsArea from './SongsArea';
 import AddPlayList from './AddPlayList';
 import { Next, Prev } from './NavigationButtons';
+import album from '../../common/img/png/album5.png';
+import pic from '../../common/img/png/pic.png';
 import search from '../../common/img/icons/musicSearch.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -302,10 +302,13 @@ const Audio: React.FC = () => {
       <PlayListArea>
         <TitleWrapper><h3>{(objCategoryAudios.myAudios && 'Плейлисты') || (objCategoryAudios.friendsAudios && 'Выберите друга')}</h3></TitleWrapper>
         <Slider {...settings}>
-          {(objCategoryAudios.myAudios && playlists) || Friends}
+          {(objCategoryAudios.myAudios && playlists
+          && (
           <AddPlayList>
             <p>Добавить плейлист</p>
           </AddPlayList>
+          ))
+           || Friends}
         </Slider>
       </PlayListArea>
       )}

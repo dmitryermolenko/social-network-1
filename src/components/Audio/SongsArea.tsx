@@ -4,7 +4,7 @@ const SongsArea = styled.div`
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
   margin: 20px auto 0px auto;
   max-width: 1000px;
   p {
