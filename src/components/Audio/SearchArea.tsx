@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SearchArea = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 130px;
+  height: 70px;
   max-width: 1000px;
   margin: 60px auto 40px auto;
   border-top: 1px solid #000000;
@@ -11,7 +11,7 @@ const SearchArea = styled.div`
   align-items: center;
   input {
     width: 100%;
-    padding: 53px 0;
+    height: 100%;
     border: none;
     outline: none;
     &:focus {
