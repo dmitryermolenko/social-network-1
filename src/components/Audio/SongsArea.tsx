@@ -7,6 +7,7 @@ const SongsArea = styled.div`
   border-bottom: 1px solid #000000;
   margin: 20px auto 0px auto;
   max-width: 1000px;
+  height: 100%;
   p {
     font-size: 15px;
     color: black;
@@ -21,13 +22,7 @@ const SongsArea = styled.div`
   }
   ul {
     width: 1000px;
-    max-height: 900px;
-    overflow: scroll;
     padding-inline-start : 0;
-    ::-webkit-scrollbar {
-      /* chrome based */
-      width: 0; /* ширина scrollbar */
-      background: transparent; /* опционально */
     }
     li {
       display: flex;

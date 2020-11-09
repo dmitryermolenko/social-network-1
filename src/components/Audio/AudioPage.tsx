@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { debounce } from 'lodash';
+import { PayloadAction } from '@reduxjs/toolkit';
 import Deck from './AudioSlider/Deck';
 import PlayListArea from './PlayListArea';
 import SearchArea from './SearchArea';
@@ -28,6 +29,7 @@ import {
 } from '../../redux-toolkit/audios/allAudiosSlice';
 import { rejected, pending } from '../../constants/fetchState';
 import IAudios from '../../typesInterfaces/IAudios';
+import IfriendData from '../../typesInterfaces/IfriendData';
 
 const Main = styled.div`
   //width: 1300px;
@@ -138,7 +140,7 @@ const Audio: React.FC = () => {
   }, [dispatch]);
 
   const chooseCategoryAudiosOnClick = (argCategoryAudio: string) =>
-    async (): Promise<any> => {
+    async (): Promise<PayloadAction<any, any>|undefined> => {
       setChosenCategoryAudios({
         [argCategoryAudio]: true,
       });
@@ -188,7 +190,7 @@ const Audio: React.FC = () => {
   const Friends = objAudiosState
     && objAudiosState.friends.length > 0
     && objAudiosState.friends
-      .map(({ firstName, lastName, id, userId, avatar }: any) =>
+      .map(({ firstName, lastName, id, userId, avatar }: IfriendData) =>
         (
           <button
             key={id}
@@ -246,7 +248,7 @@ const Audio: React.FC = () => {
       <button
         key={list.id}
         type="button"
-        onClick={() => {
+        onClick={(): void => {
           if (!dragging) dispatch(openPlayListAction(list.id));
         }}
       >
