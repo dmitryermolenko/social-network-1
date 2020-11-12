@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { updateGroup } from '../../redux-toolkit/groups/singleGroupSlice';
-import { ModalData } from '../../types/group';
+import { ModalData, SubmitData } from '../../types/group';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -68,7 +68,7 @@ const ModalEdit: React.FC<ModalData> = ({ closeModal, updateGroup, groupData:
   { description, linkSite, addressImageGroup, groupCategory, name, id } }) => {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (formData): void => {
+  const onSubmit = (formData: SubmitData): void => {
     updateGroup({ ...formData, id });
   };
 

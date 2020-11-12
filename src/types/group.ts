@@ -210,7 +210,3 @@ export interface Store {
 export interface NewsProps {
   item: NewsData;
 }
-
-export interface Modal {
-  closeModal: boolean;
-}
