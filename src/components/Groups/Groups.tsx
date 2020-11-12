@@ -38,7 +38,7 @@ const Groups: React.FC<Props> = ({
   loadAllUsers: _loadAllUsers,
 }) => {
   // temp
-  const currentUserId = 4;
+  const currentUserId = 10;
 
   useEffect(() => {
     _loadGroups(1, 15);
@@ -48,7 +48,9 @@ const Groups: React.FC<Props> = ({
   useEffect(() => {
     groups.forEach((element: Group) =>
       _loadAllUsers({ userId: currentUserId,
-        groupId: element.id }));
+        groupId: element.id,
+        page: 1,
+        size: 15 }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
 

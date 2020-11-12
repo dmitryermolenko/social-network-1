@@ -6,6 +6,8 @@ export interface Group {
   groupCategory: string;
   subscribers: number;
   id: number;
+  page: number;
+  size: number;
 }
 
 export interface FullGroupInfo {
@@ -49,6 +51,8 @@ export interface GroupPosts {
 export interface GroupRequestProps {
   userId: number;
   groupId: number;
+  page: number;
+  size: number;
 }
 export interface GroupUser {
   userId: number;
@@ -125,7 +129,33 @@ export interface GroupHeaderData {
     linkSite: string;
     ownerFio: string;
     persistDate: string;
+    addressImageGroup: string;
+    groupCategory: string;
+    name: string;
+    id: number;
   };
+}
+
+export interface ModalData {
+  groupData: {
+    description: string;
+    linkSite: string;
+    addressImageGroup: string;
+    groupCategory: string;
+    name: string;
+    id: number;
+  };
+  closeModal: () => void;
+  updateGroup: (data: object) => void;
+}
+
+export interface SubmitData {
+    description: string;
+    linkSite: string;
+    addressImageGroup: string;
+    groupCategory: string;
+    name: string;
+    id: number;
 }
 
 export interface GroupInt {
@@ -179,4 +209,8 @@ export interface Store {
 
 export interface NewsProps {
   item: NewsData;
+}
+
+export interface Modal {
+  closeModal: boolean;
 }

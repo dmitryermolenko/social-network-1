@@ -18,11 +18,8 @@ const NewsItem: React.FC<NewsProps> = ({
     title,
     addressImageGroup,
     groupName,
-    // img,
     text,
     tags,
-    // media,
-    // author,
     persistDate,
     countBookmarks,
     countLikes,
@@ -57,7 +54,7 @@ const NewsItem: React.FC<NewsProps> = ({
   };
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   const [isFullContent, setFullContent] = useState(true);
-  const height = isFullContent ? '' : '100px';
+  const height = isFullContent ? '230px' : '100%';
 
   const listTags = tags.map((tag) =>
     (
@@ -74,16 +71,15 @@ const NewsItem: React.FC<NewsProps> = ({
   let keyCount = 0;
   const testMedia = mockMediaImages;
   const listMedia = testMedia.map((el) => {
-    // поправить ключ
     keyCount += 1;
     if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
       return <NewsImage key={keyCount} src={el.url} alt="" />;
     }
-
     switch (el.mediaType) {
       case 'IMAGE':
         return (
           <NewsImageMin
+          // поправить ключи
             key={keyCount}
             src={el.url}
             alt=""
@@ -154,7 +150,7 @@ const NewsItem: React.FC<NewsProps> = ({
         </ActionsContainer>
       </NewsHeader>
       <NewsTitle>{title}</NewsTitle>
-      <WrapperContent>
+      <WrapperContent style={{ height }}>
         <NewsContentContainer>
           <MediaContainer>
             {isOpen && (
@@ -167,11 +163,11 @@ const NewsItem: React.FC<NewsProps> = ({
             )}
             {listMedia}
           </MediaContainer>
-          <NewsContent style={{ height }}>{text}</NewsContent>
+          <NewsContent>{text}</NewsContent>
         </NewsContentContainer>
         <ButtonMore>
           <MoreIcon
-            src={isFullContent ? moreUp : more}
+            src={isFullContent ? more : moreUp}
             onClick={(): void =>
               setFullContent(!isFullContent)}
           />
@@ -208,6 +204,7 @@ const AvatarContainer = styled.div`
 `;
 
 const AvatarImg = styled.img`
+  border-radius: 50%;
   display: block;
   width: 85px;
   height: 85px;
@@ -325,6 +322,9 @@ const NewsVideo = styled.iframe`
 const WrapperContent = styled.div`
   display: flex;
   justify-content: space-between;
+  height: ${(props) =>
+    props.height};
+  overflow: hidden;
 `;
 
 const NewsContentContainer = styled.div`

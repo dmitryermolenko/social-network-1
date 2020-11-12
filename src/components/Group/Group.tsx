@@ -51,7 +51,7 @@ const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
     _loadGroupPosts(slug);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const { comments }: GroupCommentsData = mockData;
+
   if (posts && groupInfo) {
     let { addressImageGroup } = groupInfo;
     const {
@@ -125,7 +125,6 @@ const Container = styled.div`
 const Label = styled.div`
   position: absolute;
   top: -90px;
-
   font-style: normal;
   font-weight: 600;
   font-size: 32px;
@@ -145,6 +144,7 @@ const Img = styled.img`
   object-fit: cover;
   width: 155px;
   height: 155px;
+  border-radius: 50%;
 `;
 
 const DataContainer = styled.div`

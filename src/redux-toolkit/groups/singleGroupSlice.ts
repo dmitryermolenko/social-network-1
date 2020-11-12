@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import groupController from '../../services/groups-controller/groups-controller';
-import { GroupPosts, GroupInt } from '../../types/group';
+import { GroupPosts, GroupInt, SubmitData } from '../../types/group';
 
 const loadGroupInfo = createAsyncThunk('groups/loadGroupInfo', async (id: string) => {
   const response = await groupController.apiSingleGroup(id);
@@ -9,6 +9,11 @@ const loadGroupInfo = createAsyncThunk('groups/loadGroupInfo', async (id: string
 
 const loadGroupPosts = createAsyncThunk('groups/loadGroupPosts', async (id: string) => {
   const response = await groupController.apiGroupInfo(id);
+  return response;
+});
+
+const updateGroup = createAsyncThunk('group/updateGroup', async (data: SubmitData) => {
+  const response = await groupController.apiUpadteGroup(data);
   return response;
 });
 
@@ -69,10 +74,24 @@ const singleGroupSlice = createSlice({
         error: action.error,
         loading: false,
       }),
+    [updateGroup.pending.type]: (state): State =>
+      ({ ...state, loading: true }),
+    [updateGroup.fulfilled.type]: (state, action): State =>
+      ({
+        ...state,
+        groupInfo: action.payload,
+        loading: false,
+      }),
+    [updateGroup.rejected.type]: (state, action): State =>
+      ({
+        ...state,
+        error: action.error,
+        loading: false,
+      }),
   },
 });
 
 export const { getGroupInfo, getGroupPosts } = singleGroupSlice.actions;
-export { loadGroupInfo, loadGroupPosts };
+export { loadGroupInfo, loadGroupPosts, updateGroup };
 
 export const singleGroupsReducer = singleGroupSlice.reducer;
