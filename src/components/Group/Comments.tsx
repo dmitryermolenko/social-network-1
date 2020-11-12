@@ -12,7 +12,6 @@ const Comments: React.FC<CommentData> = ({ data }) =>
   );
 
 const Container = styled.div`
-  max-height: 400px;
   padding-left: 60px;
   margin-bottom: 5px;
   padding-right: 100px;

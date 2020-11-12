@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import { GroupHeaderData } from '../../types/group';
+import ModalEdit from './ModalEdit';
 
 const GroupHeader: React.FC<GroupHeaderData> = ({
   data: {
@@ -10,14 +11,35 @@ const GroupHeader: React.FC<GroupHeaderData> = ({
     ownerFio,
     persistDate,
   },
+  data,
 }) => {
-  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
+  const originDate = persistDate ? format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm") : null;
+
+  const [isModalOpen, setModal] = useState(false);
+
+  const closeModal = (): void =>
+    setModal(false);
+
   return (
-    <NavbarWrapper>
+    <NavbarWrapper className="hello">
+      <EditButton>
+        <button
+          type="button"
+          onClick={() =>
+            setModal(true)}
+        >
+          Edit group
+        </button>
+      </EditButton>
+      {isModalOpen && <ModalEdit closeModal={closeModal} groupData={data} />}
       <OriginDate>{originDate}</OriginDate>
       <GroupDescription>{description}</GroupDescription>
       <Link href={linkSite}>{linkSite}</Link>
-      <Owner>{ownerFio}</Owner>
+      <Owner>
+        Group owner:
+        {' '}
+        {ownerFio}
+      </Owner>
     </NavbarWrapper>
   );
 };
@@ -34,6 +56,18 @@ const NavbarWrapper = styled.nav`
   width: 100%;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const EditButton = styled.div`
+  align-self: flex-end;
+  button {
+    padding: 5px;
+    background-color: #FFB11B;
+    border-radius: 5px;
+    outline: none;
+    color: black;
+    border: 1px solid black;
+  }
 `;
 
 const OriginDate = styled.div`

@@ -1,5 +1,5 @@
 import { Group, FullGroupInfo, GroupPosts, GroupRequestProps, GroupUser } from '../../types/group';
-// const local = "http://localhost:3000/";
+
 const web = 'http://91.241.64.178:5561/';
 
 interface FetchData {
@@ -31,12 +31,12 @@ export default class {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static async apiLoadUsers({ userId, groupId }: GroupRequestProps): Promise<GroupUser[]> {
-    return this.fetching(`api/v2/groups/${groupId}/users`);
+  static async apiLoadUsers({ groupId, page, size }: GroupRequestProps): Promise<GroupUser[]> {
+    return this.fetching(`api/v2/groups/${groupId}/users?page=${page}&size=${size}`);
   }
 
   static async apiJoinGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${userId}`, {
+    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`, {
       method: 'PUT',
     });
     if (!res.ok) {
@@ -46,12 +46,35 @@ export default class {
   }
 
   static async apiLeaveGroup({ userId, groupId }: GroupRequestProps): Promise<string> {
-    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${userId}`, {
+    const res: Response = await fetch(`${this.urlBase}api/v2/groups/${groupId}/users?userId=${10}`, {
       method: 'DELETE',
     });
     if (!res.ok) {
       throw new Error(`Fetching user-controller is status error ${res.status}`);
     }
     return res.text();
+  }
+
+  /// //// update group
+  static async apiUpadteGroup({ description, groupCategory,
+    linkSite, addressImageGroup, name, id }): Promise<string> {
+    const res: Response = await fetch(`${this.urlBase}api/v2/groups/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        addressImageGroup,
+        description,
+        groupCategory,
+        id: Number(id),
+        linkSite,
+        name,
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`Fetching user-controller is status error ${res.status}`);
+    }
+    return res.json();
   }
 }
