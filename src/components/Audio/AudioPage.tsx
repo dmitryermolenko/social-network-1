@@ -10,7 +10,7 @@ import PlayListArea from './PlayListArea';
 import SearchArea from './SearchArea';
 import SongsArea from './SongsArea';
 import AddPlayList from './AddPlayList';
-import { Next, Prev } from './NavigationButtons';
+import { Next, Prev } from './NavButtons';
 import album from '../../common/img/png/album5.png';
 import pic from '../../common/img/png/pic.png';
 import search from '../../common/img/icons/musicSearch.svg';
@@ -256,6 +256,11 @@ const Audio: React.FC = () => {
         <p>{list.name}</p>
       </button>
     ));
+  playlists.push(
+    <AddPlayList>
+      <p>Добавить плейлист</p>
+    </AddPlayList>,
+  );
 
   const audiosList = (objAudiosState.currentSearch.length > 0 && PlayList) || (objCategoryAudios.friendsAudios && PlayList) || (objCategoryAudios.allAudios && AllAudios) || (objCategoryAudios.myAudios && MyAudios) || (loaded && 'Аудиозаписи не найдены');
 
@@ -304,13 +309,7 @@ const Audio: React.FC = () => {
       <PlayListArea>
         <TitleWrapper><h3>{(objCategoryAudios.myAudios && 'Плейлисты') || (objCategoryAudios.friendsAudios && 'Выберите друга')}</h3></TitleWrapper>
         <Slider {...settings}>
-          {(objCategoryAudios.myAudios && playlists
-          && (
-          <AddPlayList>
-            <p>Добавить плейлист</p>
-          </AddPlayList>
-          ))
-           || Friends}
+          {(objCategoryAudios.myAudios && playlists) || Friends}
         </Slider>
       </PlayListArea>
       )}

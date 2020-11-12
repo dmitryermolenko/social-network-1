@@ -9,8 +9,17 @@ import { TypeRootReducer } from '../rootReducer';
 
 // Типа action, который потом диспатчится
 
-export const searchSongsAction = createAsyncThunk('audios/searchSongsAction', async (name: string) =>
-  fetchSearchedSongs(name));
+export const searchSongsAction = createAsyncThunk(
+  'audios/searchSongsAction',
+  async (name: string, argThunkAPI) => {
+    try {
+      const response = await fetchSearchedSongs(name);
+      return response.data;
+    } catch (err) {
+      return errFetchHandler(err.response.data, argThunkAPI);
+    }
+  },
+);
 
 export const openPlayListAction = createAsyncThunk(
   'audios/openPlayListAction',
@@ -172,6 +181,19 @@ const allAudiosSlice = createSlice({
       state.currentSearch = action.payload;
     });
     builder.addCase(openPlayListAction.rejected, (state: Draft<any>, action) => {
+      state.loading = action.type;
+      state.msgFetchState = action.error.message;
+    });
+    builder.addCase(searchSongsAction.pending, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.loading = action.type;
+      state.msgFetchState = action.payload;
+    });
+    builder.addCase(searchSongsAction.fulfilled, (state: Draft<any>, action: PayloadAction<any>) => {
+      state.allAudios = [];
+      state.myAudios = [];
+      state.currentSearch = action.payload;
+    });
+    builder.addCase(searchSongsAction.rejected, (state: Draft<any>, action) => {
       state.loading = action.type;
       state.msgFetchState = action.error.message;
     });
