@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import avatar from '../../img/icons/mock-avatar.svg';
 import submit from '../../img/icons/submit.svg';
-import more from '../../img/icons/more.svg';
-// import moreUp from './moreUp.svg';
 
 const InputComment: React.FC = () =>
   (
@@ -15,10 +13,6 @@ const InputComment: React.FC = () =>
       <ButtonSubmit>
         <SubmitIcon src={submit} />
       </ButtonSubmit>
-
-      <ButtonMore>
-        <MoreIcon src={more} />
-      </ButtonMore>
     </Container>
   );
 
@@ -27,10 +21,8 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   max-height: 125px;
-  border-bottom: 1px solid #515151;
-  margin-bottom: 50px;
-  padding-left: 60px;
-  padding-bottom: 60px;
+  margin-bottom: 40px;
+  padding-top: 60px;
 `;
 
 const AvatarContainer = styled.div`
@@ -77,24 +69,6 @@ const ButtonSubmit = styled.button`
 `;
 
 const SubmitIcon = styled.img`
-  transition: 0.1s;
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-const ButtonMore = styled.button`
-  width: 35px;
-  height: 35px;
-  background: none;
-  border: 0;
-  color: inherit;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 15px;
-`;
-
-const MoreIcon = styled.img`
   transition: 0.1s;
   &:hover {
     transform: scale(1.05);

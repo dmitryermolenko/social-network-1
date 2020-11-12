@@ -8,20 +8,18 @@ import comment from '../../img/icons/comment.svg';
 import repost from '../../img/icons/repost.svg';
 import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
-import { mockMediaImages } from './mockData';
+import { mockMediaImages, mockData } from './mockData';
 import 'swiper/swiper-bundle.css';
-import { NewsProps } from '../../types/group';
+import { NewsProps, GroupCommentsData } from '../../types/group';
+import Comments from './Comments';
 
 const NewsItem: React.FC<NewsProps> = ({
   item: {
     title,
     addressImageGroup,
     groupName,
-    // img,
     text,
     tags,
-    // media,
-    // author,
     persistDate,
     countBookmarks,
     countLikes,
@@ -56,7 +54,7 @@ const NewsItem: React.FC<NewsProps> = ({
   };
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   const [isFullContent, setFullContent] = useState(true);
-  const height = isFullContent ? '' : '100px';
+  const height = isFullContent ? '230px' : '100%';
 
   const listTags = tags.map((tag) =>
     (
@@ -68,6 +66,8 @@ const NewsItem: React.FC<NewsProps> = ({
       </LiItem>
     ));
 
+  const { comments }: GroupCommentsData = mockData;
+
   let keyCount = 0;
   const testMedia = mockMediaImages;
   const listMedia = testMedia.map((el) => {
@@ -75,11 +75,11 @@ const NewsItem: React.FC<NewsProps> = ({
     if (testMedia.length === 1 && el.mediaType === 'IMAGE') {
       return <NewsImage key={keyCount} src={el.url} alt="" />;
     }
-
     switch (el.mediaType) {
       case 'IMAGE':
         return (
           <NewsImageMin
+          // поправить ключи
             key={keyCount}
             src={el.url}
             alt=""
@@ -150,7 +150,7 @@ const NewsItem: React.FC<NewsProps> = ({
         </ActionsContainer>
       </NewsHeader>
       <NewsTitle>{title}</NewsTitle>
-      <WrapperContent>
+      <WrapperContent style={{ height }}>
         <NewsContentContainer>
           <MediaContainer>
             {isOpen && (
@@ -163,17 +163,18 @@ const NewsItem: React.FC<NewsProps> = ({
             )}
             {listMedia}
           </MediaContainer>
-          <NewsContent style={{ height }}>{text}</NewsContent>
+          <NewsContent>{text}</NewsContent>
         </NewsContentContainer>
         <ButtonMore>
           <MoreIcon
-            src={isFullContent ? moreUp : more}
+            src={isFullContent ? more : moreUp}
             onClick={(): void =>
               setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </WrapperContent>
       <NewsTags>{listTags}</NewsTags>
+      <Comments data={comments} />
     </Container>
   );
 };
@@ -184,8 +185,8 @@ const MaxImg = styled.img`
 `;
 const Container = styled.div`
   padding-top: 50px;
-  padding-bottom: 50px;
-  border-bottom: 1px solid #515151;
+  border-bottom: 1px solid grey;
+  margin: 20px 0;
 `;
 
 const NewsHeader = styled.div`
@@ -203,6 +204,7 @@ const AvatarContainer = styled.div`
 `;
 
 const AvatarImg = styled.img`
+  border-radius: 50%;
   display: block;
   width: 85px;
   height: 85px;
@@ -320,6 +322,9 @@ const NewsVideo = styled.iframe`
 const WrapperContent = styled.div`
   display: flex;
   justify-content: space-between;
+  height: ${(props) =>
+    props.height};
+  overflow: hidden;
 `;
 
 const NewsContentContainer = styled.div`
