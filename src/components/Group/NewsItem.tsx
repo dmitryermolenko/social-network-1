@@ -54,7 +54,7 @@ const NewsItem: React.FC<NewsProps> = ({
   };
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   const [isFullContent, setFullContent] = useState(true);
-  const height = isFullContent ? '230px' : '100%';
+  const height: string = isFullContent ? '230px' : '100%';
 
   const listTags = tags.map((tag) =>
     (
