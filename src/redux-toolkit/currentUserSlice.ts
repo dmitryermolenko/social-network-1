@@ -102,7 +102,13 @@ const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, { state: Clo
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
-  reducers: {},
+  reducers: {
+    /* LOGOUT */
+    removeCurrentUser: (state: UserState) => {
+      state.data = null;
+      return state;
+    },
+  },
   extraReducers: {
     /*
     UPDATE STATUS
@@ -175,5 +181,6 @@ const currentUserSlice = createSlice({
   },
 });
 
+export const { removeCurrentUser } = currentUserSlice.actions;
 export { updateStatus, loadCurrentUser, updateAvatar };
 export const currentUserReducer = currentUserSlice.reducer;
