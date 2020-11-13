@@ -1,20 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { IUser } from '../types/user';
 import { PostsState } from './postsSlice';
 import { StateChat } from './chatSlice';
 import { setData } from './userSlice';
-import {
-  updateUserStatus,
-  updateUser,
-  //  getCurrentUser as _getCurrentUser,
-  getAsyncCurrentUser,
-} from '../services/user-controller';
+import { getAuthUser, updateUser, updateUserStatus } from '../services/user-controller';
 
-const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () => {
-  const response = await getAsyncCurrentUser();
-  return response;
-});
+// const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () => {
+//   const response = await getAsyncCurrentUser();
+//   return response;
+// });
+
+const loadCurrentUser = createAsyncThunk('user/getCurrUser', async () =>
+  getAuthUser());
 
 interface UserState {
   data: null | IUser; // Пользователь, от имени которого произведен логин
@@ -104,7 +102,13 @@ const updateAvatar = createAsyncThunk<AxiosResponse<IUser>, string, { state: Clo
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
-  reducers: {},
+  reducers: {
+    /* LOGOUT */
+    removeCurrentUser: (state: UserState) => {
+      state.data = null;
+      return state;
+    },
+  },
   extraReducers: {
     /*
     UPDATE STATUS
@@ -177,5 +181,6 @@ const currentUserSlice = createSlice({
   },
 });
 
+export const { removeCurrentUser } = currentUserSlice.actions;
 export { updateStatus, loadCurrentUser, updateAvatar };
 export const currentUserReducer = currentUserSlice.reducer;

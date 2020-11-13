@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input } from 'antd';
@@ -9,7 +11,8 @@ import jm from '../../common/JM.svg';
 import sn from '../../common/SN.svg';
 import logo from '../../common/logo.svg';
 import { createNewUser } from '../../services/user-controller/user-controller';
-import { ICreateUser, IUserWithTerms } from '../../types/user';
+import { ICreateUser, IUser, IUserWithTerms } from '../../types/user';
+import routes from '../../routes';
 
 const Wrapper = styled.div`
   display: flex;
@@ -164,13 +167,22 @@ const getInputErrorVisibilityStyle = (isVisible: boolean): React.CSSProperties =
     height: isVisible ? '1em' : 0,
   });
 
-const Login: React.FC = (): JSX.Element => {
+interface Props {
+  data: IUser | null;
+}
+
+const mapStateToProps = (state: any) => {
+  const { currentUser: { data } } = state;
+  return { data };
+};
+
+const Login: React.FC<Props> = ({ data }): JSX.Element => {
   const [value, setValue] = useState(true);
   const [border, setBorder] = useState({
     first: true,
     second: false,
   });
-
+  const history = useHistory();
   const passReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$');
 
   const initialValues: IUserWithTerms & { confirmPassword: string } = {
@@ -228,6 +240,9 @@ const Login: React.FC = (): JSX.Element => {
     });
     setValue(true);
   };
+
+  if (data) { history.push(routes.mainWithId); }
+
   return (
     <Wrapper>
       <img src={logo} alt="logo" />
@@ -385,4 +400,4 @@ const Login: React.FC = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default connect(mapStateToProps)(Login);
