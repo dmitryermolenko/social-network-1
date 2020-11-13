@@ -25,7 +25,7 @@ const GroupHeader: React.FC<GroupHeaderData> = ({
       <EditButton>
         <button
           type="button"
-          onClick={() =>
+          onClick={(): void =>
             setModal(true)}
         >
           Edit group
