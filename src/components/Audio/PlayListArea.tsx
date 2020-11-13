@@ -3,11 +3,12 @@ import styled from 'styled-components';
 const PlayListArea = styled.div`
 display: flex;
 flex-direction: column;
-margin: 60px auto 0px auto;
+margin: 40px auto 0px auto;
 max-width: 1000px;
+border-bottom: 1px solid #000000;
 h3 {
   color: black;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 div {
   display: flex;
@@ -16,7 +17,12 @@ div {
   // margin-right: 13px;
   div {
     div {
-      div {
+      button {
+        background: transparent;
+        border: transparent;
+        &:hover {
+          border: #ff4e00;
+        }
         img {
           margin: 13px auto;
           width: 113px;

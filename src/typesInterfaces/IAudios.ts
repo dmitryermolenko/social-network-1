@@ -6,6 +6,7 @@ interface IAudios {
   name: string;
   length: number;
   url: string;
+  persistDateTime: string;
 }
 
 export default IAudios;

@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 
 const AddPlayList = styled.button`
- background: #FFB11B;
+ background-color: #FFB11B !important;
  border-radius: 20px;
  width: 113px !important;
  height: 113px;
- margin: 13px;
+ margin: 13px 13px 50px 13px;
  position: relative;
  outline: none;
- border-color: transparent;
- :hover {
-   border-color: #ff4e00;
- }
  ::after {
    position: absolute;
    content: '+';

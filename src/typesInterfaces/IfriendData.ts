@@ -7,6 +7,7 @@ interface IfriendData {
   education: string;
   email: string;
   firstName: string;
+  id: number;
   lastName: string;
   linkSite: null;
   password: string;
