@@ -51,8 +51,8 @@ export interface GroupPosts {
 export interface GroupRequestProps {
   userId: number;
   groupId: number;
-  page: number;
-  size: number;
+  page?: number;
+  size?: number;
 }
 export interface GroupUser {
   userId: number;
@@ -146,7 +146,7 @@ export interface ModalData {
     id: number;
   };
   closeModal: () => void;
-  updateGroup: (data: object) => void;
+  updateGroup: (data: any) => void;
 }
 
 export interface SubmitData {

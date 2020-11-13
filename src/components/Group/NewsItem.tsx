@@ -322,7 +322,7 @@ const NewsVideo = styled.iframe`
 const WrapperContent = styled.div`
   display: flex;
   justify-content: space-between;
-  height: ${(props) =>
+  height: ${(props: any) =>
     props.height};
   overflow: hidden;
 `;
