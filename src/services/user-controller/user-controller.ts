@@ -18,6 +18,10 @@ export async function getUserById(id: number): Promise<AxiosResponse<IUser>> {
   return axios.get(`/${id}`);
 }
 
+export async function getAuthUser(): Promise<AxiosResponse<IUser>> {
+  return axios.get('/principal');
+}
+
 export async function getAllUsers(): Promise<AxiosResponse<IUser[]>> {
   return axios.get('');
 }
