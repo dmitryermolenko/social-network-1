@@ -57,7 +57,8 @@ export default class {
 
   /// //// update group
   static async apiUpadteGroup({ description, groupCategory,
-    linkSite, addressImageGroup, name, id }): Promise<string> {
+    linkSite, addressImageGroup, name, id }: {description: string; groupCategory: string;
+      linkSite: string; addressImageGroup: string; name: string; id: number;}): Promise<string> {
     const res: Response = await fetch(`${this.urlBase}api/v2/groups/update`, {
       method: 'PUT',
       headers: {
