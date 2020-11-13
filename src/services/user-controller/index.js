@@ -7,6 +7,7 @@ import {
   getFriendsByUserId,
   updateUser,
   updateUserStatus,
+  getAuthUser,
 } from './user-controller';
 
 export {
@@ -19,4 +20,5 @@ export {
   updateUser,
   updateUserStatus,
   getAsyncCurrentUser,
+  getAuthUser,
 };
