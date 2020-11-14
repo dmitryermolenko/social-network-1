@@ -71,6 +71,7 @@ const Main: React.FC<Props> = ({
     }
     return <ErrorBlock errorMessage={userModel?.error?.message} />;
   };
+
   return (
     <>
       <Header />

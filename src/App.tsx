@@ -49,7 +49,16 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
   }, [currentUserModel, _loadCurrentUser]);
   return (
     <Switch>
-      <Route path={routes.login} component={Login} />
+      {/* <Route path={routes.login} component={Login} /> */}
+      <Route
+        path={routes.login}
+        render={() => {
+          if (currentUserModel.data) {
+            return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
+          }
+          return <Login />;
+        }}
+      />
       <Route path={routes.audio} component={Audio} />
       <Route path={routes.friends} component={Friends} />
       <Route path={routes.news} component={News} />
@@ -95,7 +104,7 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser, currentUserMo
         (например, это будет сообщать сервер), то выкидывать его на страницу с авторизацией
         */
           if (currentUserModel?.data) {
-            return <Redirect to={funcRoutes.mainWithId(currentUserModel?.data.userId)} />;
+            return <Redirect to={funcRoutes.mainWithId(currentUserModel.data.userId)} />;
           }
           return checkUserIsLoggedIn();
         }}
