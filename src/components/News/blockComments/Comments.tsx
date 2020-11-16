@@ -28,6 +28,8 @@ type Props = StateProps & DispatchProps & {
     comments?: IComment[];
     loading: boolean;
     error: Error | null;
+    showComments: boolean;
+    setShowComments: () => void;
 };
 
 const mapStateToProps = (state: RootState): StateProps =>
@@ -39,8 +41,8 @@ const mapDispatchToProps = {
   getComments: loadCommentsByPost,
 };
 
-const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments }): JSX.Element => {
-  const [showComments, setShowComments] = useState(true);
+const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments, showComments, setShowComments }): JSX.Element => {
+  /* const [showComments, setShowComments] = useState(true); */
   useEffect(() => { getComments(id); }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
@@ -84,9 +86,7 @@ const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComm
       <CommentForm avatar={user?.avatar} submitNewComment={submitNewComment} />
       <ShowMoreBtn
         changeIcon={showComments}
-        heightHandler={(): void =>
-          setShowComments((prev) =>
-            !prev)}
+        heightHandler={setShowComments}
       />
     </Container>
   );
