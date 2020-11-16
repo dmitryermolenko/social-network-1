@@ -14,7 +14,6 @@ import ActionButton from '../common/ActionButton';
 import MediaContent from './MediaContent';
 import ShowMoreBtn from '../common/ShowMoreBtn';
 import Comments from '../blockComments/Comments';
-import MediaContainer from '../../../common/mediaContainer';
 
 const Scroll = require('react-scroll');
 

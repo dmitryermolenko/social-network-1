@@ -4,9 +4,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 
+import Slider from '../../../common/slider';
 import arrowLeft from '../../../img/icons/arr_left.svg';
 import arrowRigth from '../../../img/icons/arr_right.svg';
 import IMedia from '../../../types/media';
@@ -68,27 +67,33 @@ const MediaContent: React.FC<Props> = ({ media }) => {
   const settings = {
     loop: true,
     infinite: true,
-    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    slidesPerView: 1,
+    centerPadding: 0,
+    speed: 500,
     centerMode: true,
     swipeToSlide: true,
-    nextArrow: <ArrowNext />,
-    prevArrow: <ArrowPrev />,
+    nextArrow: <Arrow next />,
+    prevArrow: <Arrow />,
   };
 
   const renderImages = (): JSX.Element | null => {
     if (imageData?.length === 0) return null;
     return (
-      <SliderWrapper {...settings}>
+      <Slider {...settings}>
         {imageData?.map((image) =>
-          <SliderItem key={image.url}><Image src={image.url} alt={image.mediaType} /></SliderItem>
+          (
+            <SliderItem key={image.url}>
+              <Image src={image.url} alt={image.mediaType} />
+            </SliderItem>
+          )
           )}
-      </SliderWrapper>
+      </Slider>
     );
   };
 
-  const renderVideos = (): JSX.Element | null => {
+  /*  const renderVideos = (): JSX.Element | null => {
     if (videoData?.length === 0) return null;
     return (
       <SliderWrapper {...settings}>
@@ -113,8 +118,8 @@ const MediaContent: React.FC<Props> = ({ media }) => {
       </SliderWrapper>
     );
   };
-
-  const renderAudio = (): JSX.Element | null => {
+ */
+  /*   const renderAudio = (): JSX.Element | null => {
     if (audioData?.length === 0) return null;
     return (
       <SliderWrapper {...settings}>
@@ -127,13 +132,13 @@ const MediaContent: React.FC<Props> = ({ media }) => {
           )}
       </SliderWrapper>
     );
-  };
+  }; */
 
   return (
     <Container>
       {renderImages()}
-      {renderVideos()}
-      {renderAudio()}
+      {/* {renderVideos()}
+      {renderAudio()} */}
     </Container>
 
   );
@@ -153,55 +158,30 @@ const Container = styled.div`
       }
 `;
 
-const SliderWrapper = styled(Slider)`
-width: 100%;
-height: 480px;
-overflow: hidden;
-margin-bottom: 20px;
-@media (max-width: 1900px) {
-  height: 400px;
-}
-@media (max-width: 1650px) {
-  height: 350px;
-}
-`;
-
 const SliderItem = styled.div`
-    width: 100%;    
-    padding: 0 55px;    
-`;
+    width: 100%;  
+    padding: 0 10px;   
+    border-radius: 5px; 
+    `;
 
-const ArrowNext = styled.button`
-&::before {
-    content:'';
-}
-position: absolute;
-top: 50%;
-left: 95%;
-z-index: 5;
-width: 50px;
-height: 50px;
-background-color: #515151;
-background: url(${arrowRigth}) no-repeat;
-`;
-
-const ArrowPrev = styled.button`
-&::before {
-    content:'';
-}
-position: absolute;
-top: 50%;
-left: 5%;
-z-index: 5;
-width: 50px;
-height: 50px;
-background-color: #515151;
-background: url(${arrowLeft}) no-repeat;
+const Arrow = styled.button<{next?: boolean}>`
+  &::before {
+    content: "";
+  }
+  position: absolute;
+  top: 50%;
+  left: ${({ next }) =>
+    (next ? '93%' : '5%')};
+  z-index: 5;
+  width: 50px;
+  height: 50px;
+  background-color: #515151;
+  background: url(${({ next }) =>
+    (next ? arrowRigth : arrowLeft)}) no-repeat;
 `;
 
 const Image = styled.img`
     width: 100%;
-    border-radius: 5px;  
     object-fit: contain;  
 `;
 

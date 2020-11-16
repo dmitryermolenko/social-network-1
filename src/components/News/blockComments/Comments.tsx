@@ -42,7 +42,6 @@ const mapDispatchToProps = {
 };
 
 const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComments, showComments, setShowComments }): JSX.Element => {
-  /* const [showComments, setShowComments] = useState(true); */
   useEffect(() => { getComments(id); }, [id, getComments]);
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
