@@ -10,7 +10,6 @@ import 'swiper/swiper.scss';
 const Container = styled.div`
   position: relative;
   padding-bottom: 46px;
-  border-bottom: 1px solid #000000;
 `;
 
 const Arrow = styled.div<{ left?: boolean }>`

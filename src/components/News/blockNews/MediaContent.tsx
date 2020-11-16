@@ -2,12 +2,14 @@
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Slider from '../../../common/slider';
 import arrowLeft from '../../../img/icons/arr_left.svg';
 import arrowRigth from '../../../img/icons/arr_right.svg';
+import arrowFilled from '../../../common/img/icons/arrow_filled.svg';
+import almostCircleIcon from '../../../common/img/icons/almost_circle.svg';
 import IMedia from '../../../types/media';
 
 type Props = {
@@ -15,6 +17,8 @@ type Props = {
 };
 
 const MediaContent: React.FC<Props> = ({ media }) => {
+  const [showVideo, setShowVideo] = useState<string | null>(null);
+  console.log(showVideo);
   /* const videoData = media?.filter((item) =>
     item.mediaType === 'VIDEO');
   const imageData = media?.filter((item) =>
@@ -93,32 +97,44 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     );
   };
 
-  /*  const renderVideos = (): JSX.Element | null => {
+  const renderVideos = (): JSX.Element | null => {
     if (videoData?.length === 0) return null;
+    if (showVideo) {
+      return (
+        <SliderItem onClick={() =>
+          setShowVideo(null)}
+        >
+          <CloseButton />
+          <Video
+            src={`https://www.youtube.com/embed/${showVideo}?autoplay=1`}
+            title={showVideo}
+            frameBorder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          />
+        </SliderItem>
+      );
+    }
     return (
-      <SliderWrapper {...settings}>
+      <Slider {...settings}>
         {videoData?.map((video) => {
-          const baseUrl = (): string | undefined => {
-            if (video.url.includes('vimeo')) return 'https://player.vimeo.com/video/';
-            return 'https://www.youtube.com/embed/';
-          };
           const videoId = video.url.split('/').pop();
-
           return (
             <SliderItem key={videoId}>
-              <Video
-                src={`${baseUrl()}${videoId}?controls=0"`}
-                title={video.url}
-                frameBorder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              <PlayButton
+                onClick={(): void =>
+                  setShowVideo(videoId!)}
+              />
+              <Image
+                src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                alt="wait for load"
               />
             </SliderItem>
           );
         })}
-      </SliderWrapper>
+      </Slider>
     );
   };
- */
+
   /*   const renderAudio = (): JSX.Element | null => {
     if (audioData?.length === 0) return null;
     return (
@@ -137,8 +153,9 @@ const MediaContent: React.FC<Props> = ({ media }) => {
   return (
     <Container>
       {renderImages()}
-      {/* {renderVideos()}
-      {renderAudio()} */}
+      {renderVideos()}
+      {/* {renderAudio()} */}
+
     </Container>
 
   );
@@ -159,26 +176,11 @@ const Container = styled.div`
 `;
 
 const SliderItem = styled.div`
-    width: 100%;  
-    padding: 0 10px;   
-    border-radius: 5px; 
-    `;
-
-const Arrow = styled.button<{next?: boolean}>`
-  &::before {
-    content: "";
-  }
-  position: absolute;
-  top: 50%;
-  left: ${({ next }) =>
-    (next ? '93%' : '5%')};
-  z-index: 5;
-  width: 50px;
-  height: 50px;
-  background-color: #515151;
-  background: url(${({ next }) =>
-    (next ? arrowRigth : arrowLeft)}) no-repeat;
-`;
+  position: relative;
+  width: 100%;  
+  padding: 0 10px;   
+  border-radius: 5px; 
+  `;
 
 const Image = styled.img`
     width: 100%;
@@ -197,6 +199,51 @@ border-radius: 5px;
       height: 350px;
     }
 
+`;
+
+const Arrow = styled.button<{next?: boolean}>`
+  &::before {
+    content: "";
+  }
+  position: absolute;
+  top: 50%;
+  left: ${({ next }) =>
+    (next ? '93%' : '5%')};
+  z-index: 5;
+  width: 50px;
+  height: 50px;
+  background-color: #515151;
+  background: url(${({ next }) =>
+    (next ? arrowRigth : arrowLeft)}) no-repeat;
+`;
+
+const PlayButton = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+  width: 100px;
+  height: 100px;  
+  background: url(${almostCircleIcon}) center no-repeat, url(${arrowFilled}) center no-repeat;
+  border: none;
+  outline: none;
+`;
+
+const CloseButton = styled.button`
+  &::before {
+    content: "x";    
+    font-size: 30px;
+    color: #fff;
+  }
+  position: absolute;
+  top: 5%;
+  left: 95%;
+  transform: translate(-50%, -50%);  
+  width: 50px;
+  height: 50px; 
+  background: none;    
+  border: none;
+  outline: none;
 `;
 
 export default MediaContent;
