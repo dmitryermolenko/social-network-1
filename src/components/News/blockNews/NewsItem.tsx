@@ -30,6 +30,11 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
   const { id, firstName, lastName, avatar, persistDate, commentAmount, isLiked, isBookmarked, isShared, shareAmount, likeAmount, bookmarkAmount, title, text, media, tags } = post;
   const [showContent, setShowContent] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const SmoothCollapseSettings = {
+    expanded: showContent,
+    heightTransition: '.70s ease',
+    collapsedHeight: '200px',
+  };
 
   const renderTags = (): JSX.Element =>
     (
@@ -112,7 +117,7 @@ const NewsItem: React.FC<Props> = ({ postData, getPostsByTag }) => {
       <NewsContent>
         <NewsTitle>{title}</NewsTitle>
 
-        <SmoothCollapse expanded={showContent} collapsedHeight="300px">
+        <SmoothCollapse {...SmoothCollapseSettings}>
           <Article>
             {text}
           </Article>

@@ -94,11 +94,11 @@ const News: React.FC<Props> = ({ data, loading, error, getAllPosts, getPostsByTa
 
   const renderNews = (): JSX.Element | JSX.Element[] => {
     if (loading) return (<LoadingBlock />);
-    if (error) return (<ErrorBlock errorMessage="Error occured with loading posts." />);
-    if (!data) return (<ErrorBlock errorMessage="Ничего не найдено!" />);
+    if (error) return (<ErrorBlock>Error occured with loading posts.</ErrorBlock>);
+    if (!data) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
 
     const filteredNews = filterNews([...data!], actualFilter, searchRequest);
-    if (filteredNews.length === 0) return (<ErrorBlock errorMessage="Ничего не найдено!" />);
+    if (filteredNews.length === 0) return (<ErrorBlock>Ничего не найдено!</ErrorBlock>);
     return filteredNews.splice(0, 10).map((postData) =>
       <NewsItem key={postData.post.id} postData={postData} getPostsByTag={getPostsByTag} />);
   };/* УБРАТЬ СПЛАЙС ПОСЛЕ НАСТРОЙКИ СЕРВЕРНОЙ ПАГИНАЦИИ */

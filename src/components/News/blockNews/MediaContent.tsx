@@ -18,7 +18,7 @@ type Props = {
 
 const MediaContent: React.FC<Props> = ({ media }) => {
   const [showVideo, setShowVideo] = useState<string | null>(null);
-  console.log(showVideo);
+
   /* const videoData = media?.filter((item) =>
     item.mediaType === 'VIDEO');
   const imageData = media?.filter((item) =>
@@ -86,13 +86,12 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     if (imageData?.length === 0) return null;
     return (
       <Slider {...settings}>
-        {imageData?.map((image) =>
+        {imageData!.map((image) =>
           (
             <SliderItem key={image.url}>
               <Image src={image.url} alt={image.mediaType} />
             </SliderItem>
-          )
-          )}
+          ))}
       </Slider>
     );
   };
@@ -116,7 +115,7 @@ const MediaContent: React.FC<Props> = ({ media }) => {
     }
     return (
       <Slider {...settings}>
-        {videoData?.map((video) => {
+        {videoData!.map((video) => {
           const videoId = video.url.split('/').pop();
           return (
             <SliderItem key={videoId}>
@@ -155,7 +154,6 @@ const MediaContent: React.FC<Props> = ({ media }) => {
       {renderImages()}
       {renderVideos()}
       {/* {renderAudio()} */}
-
     </Container>
 
   );
@@ -178,6 +176,7 @@ const Container = styled.div`
 const SliderItem = styled.div`
   position: relative;
   width: 100%;  
+  height: 480px;
   padding: 0 10px;   
   border-radius: 5px; 
   `;
@@ -185,6 +184,7 @@ const SliderItem = styled.div`
 const Image = styled.img`
     width: 100%;
     object-fit: contain;  
+    border-radius: 5px; 
 `;
 
 const Video = styled.iframe`
@@ -222,9 +222,9 @@ const PlayButton = styled.button`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);  
-  width: 100px;
-  height: 100px;  
-  background: url(${almostCircleIcon}) center no-repeat, url(${arrowFilled}) center no-repeat;
+  width: 200px;
+  height: 200px;  
+  background: url(${almostCircleIcon}) center/contain no-repeat, url(${arrowFilled}) center no-repeat;
   border: none;
   outline: none;
 `;

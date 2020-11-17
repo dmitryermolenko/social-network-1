@@ -46,8 +46,7 @@ const Comments: React.FC<Props> = ({ id, user, comments, loading, error, getComm
 
   const renderComments = (): JSX.Element | JSX.Element[] => {
     if (loading) return (<LoadingBlock />);
-    if (error) return (<ErrorBlock errorMessage="Error occured with loading comments." />);
-    if (comments?.length === 0) return (<h1>Комментарии отсутствуют</h1>);
+    if (error) return (<ErrorBlock>Error occured with loading comments.</ErrorBlock>);
     return (
       <CommentsList>
         {
