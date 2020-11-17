@@ -17,7 +17,7 @@ const allPhotoItems = (
           <ModalImage
             small={image.url}
             large={image.url}
-            alt={`${image.description} at ${image.persistDateTime}. image#${image.id}`}
+            alt={`${image.description}`}
           />
         </Item>
       ));
