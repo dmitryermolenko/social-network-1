@@ -8,7 +8,7 @@ import { RootState } from '../../redux-toolkit/store';
 import { loadImages, resetImages } from '../../redux-toolkit/imagesSlice';
 import ModalLinkInput from '../../common/modalLinkInput';
 import SectionHeader from '../../common/sectionHeader';
-import Button from '../../common/button';
+import LoadPhotoInput from './LoadPhotoInput';
 import { GridContainer, LinkArrow } from './styles';
 
 const mapStateToProps = (state: RootState) =>
@@ -56,11 +56,21 @@ const AllUserPhotos: React.FC<Props> = ({
       <SectionHeader headline="Все фотографии">
         <Element name="all" />
         {isCurrentUser ? (
-          <Button onClick={() =>
-            setCreateImageModalOpen(true)}
-          >
-            Добавить
-          </Button>
+          <LoadPhotoInput onChange={(evt): void => {
+            const file = evt.target.files;
+            if (file) {
+              const reader = new FileReader();
+
+              reader.onload = function () {
+                if (typeof reader.result === 'string') {
+                  const { result } = reader;
+                  createImage({ url: result, desc: 'Test' });
+                }
+              };
+              reader.readAsDataURL(file[0]);
+            }
+            /* setCreateImageModalOpen(true) */ }}
+          />
         ) : undefined}
         <ModalLinkInput
           title={['Ссылка на изображение:', 'Описание:']}
