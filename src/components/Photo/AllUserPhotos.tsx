@@ -11,6 +11,8 @@ import SectionHeader from '../../common/sectionHeader';
 import UploadForm from './UploadForm';
 import { GridContainer, LinkArrow } from './styles';
 import ModalPhoto from './ModalPhoto';
+import FullScreen from './FullScreen';
+import ImageGrid from './ImageGrid';
 
 const mapStateToProps = (state: RootState) =>
   ({
@@ -42,6 +44,7 @@ const AllUserPhotos: React.FC<Props> = ({
   const [file, setFile] = useState<null | File>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
+  const [selectedImage, setSelectedImage] = useState<undefined | string>(undefined);
 
   const types = ['image/png', 'image/jpg', 'image/jpeg'];
   useEffect(() => {
@@ -98,10 +101,19 @@ const AllUserPhotos: React.FC<Props> = ({
           {file && <ModalPhoto file={file} setImageUrl={setImageUrl} />}
         </ModalLinkInput>
       </SectionHeader>
-      <GridContainer>
-        <LinkArrow to="all" duration={500} smooth spy />
-        {allPhotoItems(images, loading, error)}
-      </GridContainer>
+      <ImageGrid
+        images={images}
+        loading={loading}
+        error={error}
+        setSelectedImage={setSelectedImage}
+      />
+      { /* <LinkArrow to="all" duration={500} smooth spy /> */ }
+      { selectedImage && (
+      <FullScreen
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+      />
+      )}
     </>
   );
 };

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://Ruslan-I7.github.io/social-network",
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@csstools/normalize.css": "^11.0.1",
     "@firebase/app": "^0.6.13",
     "@firebase/storage": "^0.4.2",
